@@ -1,21 +1,23 @@
 # moby-dick-lorem-ipsum-frontend
 
-## Project setup
-```
-npm install
+> The Nuxt/Vue front-end for a Moby Dick themed Lorem Ipsum generator
+
+## Build Setup
+
+``` bash
+# install dependencies
+$ npm install # Or yarn install
+
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm start
+
+# generate static project
+$ npm run generate
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```

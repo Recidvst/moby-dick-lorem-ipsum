@@ -1,0 +1,21 @@
+
+// Import the initial variables
+@import "~bulma/sass/utilities/initial-variables";
+
+// Set own variables
+$blue: #72d0eb;
+
+// Set derived variables
+$primary: orange;
+$link: $blue;
+$info: #eee;
+$danger: $orange;
+
+// cards
+$card-shadow: 1px 2px 3px 1px rgba($black, 0.1), 0 0 2px 2px rgba($black, 0.1);
+
+// get the rest of bulma
+@import "~bulma/bulma";
+
+// import other personal styles
+@import "./moby-util";

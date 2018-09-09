@@ -1,0 +1,36 @@
+// user defined util styles and overrides
+
+// blockquotes
+blockquote {
+    font-style: italic;
+    .border {
+        border-left: 6px solid $primary;
+        padding-left: 18px;
+    }
+    // version with icon
+    .quote {
+
+    }
+}
+
+// buttons 
+button.button {
+    height: auto;
+}
+
+// cards
+.card-footer-item {
+    &.field {
+        padding: 0;        
+        background-color: $info;
+        border-color: #dbdbdb;
+        border-width: 1px;
+        color: #363636;
+        justify-content: center;
+        padding-bottom: calc(0.375em - 1px);
+        padding-left: 0.75em;
+        padding-right: 0.75em;
+        padding-top: calc(0.375em - 1px);
+        text-align: center;
+    }
+}

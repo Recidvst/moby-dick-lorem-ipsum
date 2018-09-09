@@ -1,50 +1,29 @@
 {
   "name": "moby-dick-lorem-ipsum-frontend",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "The Nuxt/Vue front-end for a Moby Dick themed Lorem Ipsum generator",
+  "author": "recidvst <cdsnowden@gmail.com>",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
   },
   "dependencies": {
-    "register-service-worker": "^1.0.0",
-    "vue": "^2.5.17",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "bulma": "^0.7.1",
+    "font-awesome": "^4.7.0",
+    "nuxt": "^1.0.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.0",
-    "@vue/cli-plugin-eslint": "^3.0.0",
-    "@vue/cli-plugin-pwa": "^3.0.0",
-    "@vue/cli-service": "^3.0.0",
-    "@vue/eslint-config-airbnb": "^3.0.0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1",
-    "vue-template-compiler": "^2.5.17"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "@vue/airbnb"
-    ],
-    "rules": {},
-    "parserOptions": {
-      "parser": "babel-eslint"
-    }
-  },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+    "babel-eslint": "^8.2.1",
+    "eslint": "^4.15.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0"
+  }
 }
