@@ -17,6 +17,23 @@ const createStore = () => {
         randomiseQuoteParagraph (state, newPara) {
             state.quoteParagraph = newPara;
         }
+    },
+    actions: {        
+        // fetch the client list from the external source
+        getOneRandomAction ({ commit, state }) {
+            fetch('http://localhost:3000', {
+                method: 'GET',
+                type: 'cors',
+                // headers: setFetchHeaders(state.stateToken)
+                headers: setFetchHeaders(state.stateToken)
+            }).then(function(response) {
+                return response.json();
+            }).then( (data) => {
+                commit('randomiseQuoteParagraph', data); // trigger the mutation once data fetched
+            }).catch(function(err) {
+                console.warn(err);
+            });
+        },
     }
   })
 }

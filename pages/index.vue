@@ -60,11 +60,9 @@
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
 
 export default {
   components: {
-    AppLogo
   },
   data () {
     return {
@@ -87,10 +85,12 @@ export default {
     }
   },
   methods: {
-    getOneRandom() {
-
-    }
-  }
+  },  
+  mounted() {
+    console.log('mounted');
+    console.log(process.env.APIURL);
+    this.$store.dispatch('getOneRandomAction'); 
+  },
 }
 </script>
 
