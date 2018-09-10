@@ -14,6 +14,15 @@ export function matchSomeHeights(array) {
     }, 250);
 }
 
+// truncate text
+export function truncateText(element, maxLength) {
+    let truncated = String(element);
+    if (truncated.length > maxLength) {
+        truncated = truncated.substr(0,maxLength) + ' ...';
+    }
+    return truncated;
+}
+
 // object checks
 export function isObject(o) {
     return (!!o) && (o.constructor === Object) && Object.keys(o).length !== 0 && typeof o !== 'undefined';
@@ -30,8 +39,8 @@ export function setFetchHeaders(token) {
     token = token || '';
     return new Headers({
         'Content-Type':'application/json', 
-        'Access-Control-Origin': '*'//,
-        // 'x-access-token': token
+        'Access-Control-Origin': '*',
+        'x-access-token': token
     })
 }
   

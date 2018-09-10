@@ -1,8 +1,8 @@
 <template>
   <div>
-
     <section class="moby-dick-hero hero is-small is-primary is-bold">
       <div class="hero-body">
+        <WhaleLogo/>
         <div class="container">
           <h1 class="title is-size-1">
             Moby Dick Lorem Ipsum
@@ -24,32 +24,36 @@
       </div>
     </section>
 
-    <section class="moby-dick-controls">
+    <section class="moby-dick-quotes-main">
       <div class="container">
         <div class="card">
 
           <ul class="card-content">
-            <li class="box columns is-multiline" v-for="(paragraphContent, index) in paragraphsArray" :key="index">
-              <div class="quote column is-11 is-gapless">
-                <blockquote>
-                  {{ paragraphContent }}
-                </blockquote>
-              </div>
-              <span class="icon column">
-                <i class="fas fa-home"></i>
-              </span>
-            </li>              
+            <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in paragraphsArray" :key="index">
+              <blockquote class="column is-11">
+                {{ paragraphContent }}
+              </blockquote>         
+              <span class="icon bordered has-text-info">
+                <i class="fas fa-paste"></i>
+              </span>   
+            </li>          
           </ul>
 
           <footer class="card-footer">
-            <button class="button card-footer-item is-size-5"> Clear </button>
-            <div class="card-footer-item field">
-              <div class="control has-text-centered is-size-5">
-                <span>Number Of Paragraphs</span>
-                <input class="input is-primary" type="number" v-model.number="parasAmount" />
+            <a class="button card-footer-item is-size-5"> Clear </a>
+
+            <a class="card-footer-item">
+              <div class="slider-control has-text-centered is-size-5">
+                <span class="slider-title subtitle has-text-dark">Show <strong class="has-text-success is-size-4">{{ parasAmount }}</strong> paragraphs</span>
+                <div class="level">
+                  <span class="slider-labels level-left">1</span>
+                  <input class="input slider level-item" type="range" min=1 max=10 v-model.number="parasAmount" />
+                  <span class="slider-labels level-right">10</span>
+                </div>
               </div>
-            </div>
-            <button class="button card-footer-item is-size-5"> Search </button>
+            </a>
+            
+            <a class="button card-footer-item is-size-5"> Search </a>
           </footer>
           
         </div>
@@ -61,8 +65,10 @@
 
 <script>
 
+import WhaleLogo from '~/components/WhaleLogo.vue'
 export default {
   components: {
+    WhaleLogo
   },
   data () {
     return {
@@ -97,7 +103,7 @@ export default {
 <style>
 body {
   min-height: 100vh;
-  background-color: #eee;
+  background-color: #f4f4f4;
 }
 </style>
 

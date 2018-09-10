@@ -44,8 +44,7 @@ module.exports = {
     { src: '~assets/css/main.scss', lang: 'sass' },
     { src: 'font-awesome/scss/font-awesome.scss', lang: 'scss' },
   ],  
-  plugins: [
-    // '~/plugins/ga.js',  
-    '~/plugins/utils.js'    
+  vendor: [
+    '~/assets/js/utils.js'    
   ]
 }

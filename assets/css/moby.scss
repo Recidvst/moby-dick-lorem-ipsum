@@ -1,0 +1,114 @@
+// user defined util styles and overrides
+
+// blockquotes
+blockquote {
+    font-style: italic;
+    .border {
+        border-left: 6px solid $primary;
+        padding-left: 18px;
+    }
+    // version with icon
+    .quote {
+
+    }
+}
+
+// buttons 
+.button {
+    height: auto;
+}
+
+// cards
+.card-footer-item {
+    border-radius: 0;
+    border: none;
+}
+
+// icons
+.fas, .fa {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-size: 1.5rem;
+    * {
+        font-family: FontAwesome;
+        font-style: normal;
+    }
+}
+.icon {
+    margin: 5px 10px;
+    &.bordered {        
+      margin: 5px 10px;
+      padding: 20px;
+      border: 1px solid $info;
+      background: $background2;
+      border-radius: 3px;
+    }
+}
+
+// logo
+.whale-logo {
+    fill: $bloodRed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(25px, 25px);
+}
+
+// columns
+.columns:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
+// range slider
+.slider-control {
+    width: 100%;
+    span {
+        &.slider-title {
+            margin-bottom: 10px;
+            strong {
+                text-decoration: underline;
+            }
+        }
+        &.slider-labels {
+            padding: 0 10px;
+            @media ( max-width: 767px ) {
+                display: none;
+            }
+        }
+    }
+}
+// the actual slider
+.level {
+    margin: 10px auto;
+    @media ( max-width: 767px ) {
+        margin: 30px auto;
+    }
+    .slider {
+        -webkit-appearance: none;
+        width: auto;
+        max-width: 100%;
+        height: 15px;
+        margin: 10px auto;
+        border-radius: 5px;   
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity .2s;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%; 
+        background: $green;
+        cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: $green;
+        cursor: pointer;
+    }
+}

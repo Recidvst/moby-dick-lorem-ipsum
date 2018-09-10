@@ -7,8 +7,14 @@ $blue: #72d0eb;
 
 // Set derived variables
 $primary: orange;
+$green: #4CAF50;
+$success: $green;
+$blue: #004b61;
+$bloodRed: #8e0000;
+$background: #f4f4f4;
+$background2: #eee;
 $link: $blue;
-$info: #eee;
+$info: $blue;
 $danger: $orange;
 
 // cards
@@ -18,4 +24,4 @@ $card-shadow: 1px 2px 3px 1px rgba($black, 0.1), 0 0 2px 2px rgba($black, 0.1);
 @import "~bulma/bulma";
 
 // import other personal styles
-@import "./moby-util";
+@import "./moby";
