@@ -9,7 +9,7 @@ const createStore = () => {
     state: {
         quoteParagraph : "...",
         paragraphsArray : ['...'],
-        parasAmount : 3,
+        parasAmount : 5,
         token: APITOKEN()
     },
     mutations: {
@@ -34,7 +34,7 @@ const createStore = () => {
                 return response.json();
             }).then( (data) => {
                 let printData = data[0].content;
-                printData = truncateText(printData, 1500);
+                printData = truncateText(printData, 500);
                 commit('randomiseQuoteParagraph', printData); // trigger the mutation once data fetched
             }).catch(function(err) {
                 console.warn(err);
@@ -53,7 +53,8 @@ const createStore = () => {
             }).then( (data) => {
                 let newParas = [];
                 for (let para in data ) {
-                    newParas.push(data[para].content);
+                    let trimmedPara = truncateText(data[para].content, 1250).trim();
+                    newParas.push(trimmedPara);
                 }
                 commit('updateParagraphs', [newParas]); // trigger the mutation once data fetched
             }).catch(function(err) {

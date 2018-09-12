@@ -3,9 +3,13 @@
 // titles
 .title {
     font-weight: normal;
+    color: $primary;
 }
 .subtitle {
     font-style: italic;
+    strong {
+        color: $primary;
+    }
 }
 
 // blockquotes
@@ -15,10 +19,6 @@ blockquote {
     .border {
         border-left: 6px solid $primary;
         padding-left: 18px;
-    }
-    // version with icon
-    .quote {
-
     }
 }
 
@@ -30,6 +30,50 @@ blockquote {
 // buttons 
 .button {
     height: auto;
+}
+
+// quotes display card
+.moby-dick-quotes-main {
+    margin: 30px auto;
+    .card-footer {
+        border-bottom: 1px solid $pale-grey;
+        .card-footer-item {
+            border-radius: 0;
+            border: none;
+            &:nth-child(odd){
+                border-right: .5px solid $pale-grey;
+            }
+            &:nth-child(even){
+                border-left: .5px solid $pale-grey;                
+            }
+            &.button, &.btn {
+                color: $secondary;
+            }
+        }
+    }
+    .card-content {
+        > .box {
+            @media (max-width: 767px) {
+                align-items: flex-start;
+            }   
+        }
+    }
+}
+
+// logo
+.whale-logo {
+    fill: rgba(255, 255, 255, 0.1);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 150px;
+    width: 300px;
+    transform: translate(-75%,0);
+    @media (max-width: 997px) {
+        transform: rotateY(180deg);
+        right: 0;
+        left: unset;
+    }   
 }
 
 // icons
@@ -52,6 +96,7 @@ blockquote {
       border-radius: 3px;
     }
     &.copy-to-clipboard {
+        position: relative;
         transition: all .1s ease-out;
         &:hover {
             cursor: pointer;
@@ -61,30 +106,7 @@ blockquote {
             }
         }
     }
-}
-
-// logo
-.whale-logo {
-    fill: $bloodRed;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(25px, 25px);
-    height: 120px;
-    width: 240px;
-}
-
-// quotes display card
-.moby-dick-quotes-main {
-    margin: 30px auto;
-    .card-footer {
-        border-bottom: 1px solid #dbdbdb;
-        .card-footer-item {
-            border-radius: 0;
-            border: none;
-        }
-    }
-}
+} 
 
 // range slider
 .slider-control {
@@ -94,10 +116,13 @@ blockquote {
             margin-bottom: 10px;
             strong {
                 text-decoration: underline;
+                padding: 0 5px;
+                font-size: 1.75rem;
             }
         }
         &.slider-labels {
             padding: 0 10px;
+            color: $secondary;
             @media ( max-width: 767px ) {
                 display: none;
             }
@@ -128,14 +153,14 @@ blockquote {
         width: 30px;
         height: 30px;
         border-radius: 50%; 
-        background: $green;
+        background: $secondary;
         cursor: pointer;
     }
     .slider::-moz-range-thumb {
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background: $green;
+        background: $secondary;
         cursor: pointer;
     }
 }
