@@ -20,6 +20,10 @@ $danger: $orange;
 // cards
 $card-shadow: 1px 2px 3px 1px rgba($black, 0.1), 0 0 2px 2px rgba($black, 0.1);
 
+// font
+$family-primary: 'EB Garamond', serif;
+$family-secondary: 'Old Standard TT', serif;
+
 // get the rest of bulma
 @import "~bulma/bulma";
 

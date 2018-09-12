@@ -1,8 +1,17 @@
 // user defined util styles and overrides
 
+// titles
+.title {
+    font-weight: normal;
+}
+.subtitle {
+    font-style: italic;
+}
+
 // blockquotes
 blockquote {
-    font-style: italic;
+    font-family: $family-secondary;
+    font-size: 1.5rem;
     .border {
         border-left: 6px solid $primary;
         padding-left: 18px;
@@ -13,22 +22,21 @@ blockquote {
     }
 }
 
+// columns
+.columns:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+
 // buttons 
 .button {
     height: auto;
-}
-
-// cards
-.card-footer-item {
-    border-radius: 0;
-    border: none;
 }
 
 // icons
 .fas, .fa {
     font-family: FontAwesome;
     font-style: normal;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     * {
         font-family: FontAwesome;
         font-style: normal;
@@ -38,10 +46,20 @@ blockquote {
     margin: 5px 10px;
     &.bordered {        
       margin: 5px 10px;
-      padding: 20px;
+      padding: 16px 15px 15px 16px;
       border: 1px solid $info;
       background: $background2;
       border-radius: 3px;
+    }
+    &.copy-to-clipboard {
+        transition: all .1s ease-out;
+        &:hover {
+            cursor: pointer;
+            background: $info;
+            .fa, .fas {
+                color: $white;
+            }
+        }
     }
 }
 
@@ -52,11 +70,20 @@ blockquote {
     top: 0;
     left: 0;
     transform: translate(25px, 25px);
+    height: 120px;
+    width: 240px;
 }
 
-// columns
-.columns:not(:last-child) {
-    margin-bottom: 1.5rem;
+// quotes display card
+.moby-dick-quotes-main {
+    margin: 30px auto;
+    .card-footer {
+        border-bottom: 1px solid #dbdbdb;
+        .card-footer-item {
+            border-radius: 0;
+            border: none;
+        }
+    }
 }
 
 // range slider

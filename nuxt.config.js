@@ -7,10 +7,12 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'The Nuxt/Vue front-end for a Moby Dick themed Lorem Ipsum generator' }
+      { hid: 'description', name: 'description', content: 'A Moby Dick themed Lorem Ipsum generator' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=EB+Garamond:400,400i,500,500i' }, 
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Old+Standard+TT:400,400i' }
     ]
   },
   /*

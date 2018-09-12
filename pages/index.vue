@@ -28,19 +28,8 @@
       <div class="container">
         <div class="card">
 
-          <ul class="card-content">
-            <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in paragraphsArray" :key="index">
-              <blockquote class="column is-11">
-                {{ paragraphContent }}
-              </blockquote>         
-              <span class="icon bordered has-text-info">
-                <i class="fas fa-paste"></i>
-              </span>   
-            </li>          
-          </ul>
-
           <footer class="card-footer">
-            <a class="button card-footer-item is-size-5"> Clear </a>
+            <a class="button card-footer-item is-size-5"> Refresh </a>
 
             <a class="card-footer-item">
               <div class="slider-control has-text-centered is-size-5">
@@ -53,8 +42,19 @@
               </div>
             </a>
             
-            <a class="button card-footer-item is-size-5"> Search </a>
+            <a class="button card-footer-item is-size-5" @click="getParagraphs($event)"> Search </a>
           </footer>
+
+          <ul class="card-content">
+            <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in paragraphsArray" :key="index">
+              <blockquote class="column is-11 quote" v-bind:data-quote="index">
+                {{ paragraphContent }}
+              </blockquote>         
+              <span class="icon bordered copy-to-clipboard has-text-info" v-bind:data-clipboard="index" @click="copyText($event)">
+                <i class="fas fa-paste"></i>
+              </span>   
+            </li>          
+          </ul>
           
         </div>
       </div>
@@ -65,7 +65,9 @@
 
 <script>
 
-import WhaleLogo from '~/components/WhaleLogo.vue'
+import WhaleLogo from '~/components/WhaleLogo.vue';
+import { copyToClipboard } from '@/assets/js/utils';
+
 export default {
   components: {
     WhaleLogo
@@ -91,11 +93,25 @@ export default {
     }
   },
   methods: {
+    // copy text to clipboard
+    copyText(e) {
+      let quoteIndex = e.target.parentElement.dataset.clipboard;
+      if (quoteIndex) {
+        let quoteToCopy = document.querySelector(`[data-quote='${quoteIndex}'`).textContent;
+        console.log(quoteToCopy);
+        if (quoteToCopy) {
+          copyToClipboard(quoteToCopy.trim());
+        }
+      }
+    },
+    // fire action to retrieve random paragraphs
+    getParagraphs(e) {
+      this.$store.dispatch('getMultipleRandomAction'); 
+    }
   },  
   mounted() {
-    console.log('mounted');
-    console.log(process.env.APIURL);
     this.$store.dispatch('getOneRandomAction'); 
+    this.$store.dispatch('getMultipleRandomAction'); 
   },
 }
 </script>
@@ -106,4 +122,3 @@ body {
   background-color: #f4f4f4;
 }
 </style>
-
