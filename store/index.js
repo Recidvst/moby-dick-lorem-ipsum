@@ -8,16 +8,21 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
         quoteParagraph : "...",
-        paragraphsArray : ['...'],
-        parasAmount : 5,
+        snippetsArray : ['...'],
+        snippetsAmount : 8,
+        contentType : 'paragraphs',
         token: APITOKEN()
     },
     mutations: {
         updateParagraphs (state, [newParagraphs]) {
-            state.paragraphsArray = newParagraphs;
+            state.snippetsArray = newParagraphs;
         },
-        changeParasAmount (state, amount) {
-            state.parasAmount = amount;
+        changesnippetsAmount (state, amount) {
+            state.snippetsAmount = amount;
+        },
+        changeContentType (state, cType) {
+            state.contentType = cType;
+            this.dispatch('getMultipleRandomAction'); // get new items after change
         },
         randomiseQuoteParagraph (state, newPara) {
             state.quoteParagraph = newPara;
@@ -26,6 +31,7 @@ const createStore = () => {
     actions: {        
         // fetch one random paragraph
         getOneRandomAction ({ commit, state }) {
+            console.log(`${APIURL()}/paragraphs/random`);
             fetch(`${APIURL()}/paragraphs/random`, {
                 method: 'GET',
                 type: 'cors',
@@ -41,10 +47,11 @@ const createStore = () => {
                 commit('randomiseQuoteParagraph', "All that most maddens and torments; all that stirs up the lees of things; all truth with malice in it; all that cracks the sinews and cakes the brain; all the subtle demonisms of life and thought; all evil, to crazy Ahab, were visibly personified, and made practically assailable in Moby Dick. He piled upon the whale's white hump the sum of all the general rage and hate felt by his whole race from Adam down; and then, as if his chest had been a mortar, he burst his hot heart's shell upon it."); // reset to a default if failed
             });
         },
-        // fetch multiple paragraphs
+        // fetch multiple paragraphs/titles
         getMultipleRandomAction ({ commit, state }, count) {
-            let getCount = count || state.parasAmount;
-            fetch(`${APIURL()}/paragraphs/random/${getCount}`, {
+            let getCount = count || state.snippetsAmount;
+            console.log(`${APIURL()}/${state.contentType}/random/${getCount}`);
+            fetch(`${APIURL()}/${state.contentType}/random/${getCount}`, {
                 method: 'GET',
                 type: 'cors',
                 headers: setFetchHeaders(state.token)

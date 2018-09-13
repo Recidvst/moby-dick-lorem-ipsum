@@ -25,21 +25,33 @@
         <div class="card">
 
           <footer class="card-footer">
+            <a class="button card-footer-item is-size-4"> 
+              <div id="content-type-toggle">
+                  <span class="toggle-span subtitle " :class="{ disabled: true }"> Paragraphs </span>
+                  <label class="switch">
+                      <input id="encodeToggle" type="checkbox" @click="toggleContentType($event)">
+                      <span class="slider round"></span>
+                  </label>		
+                  <span class="toggle-span subtitle " :class="{ disabled: false }"> Chapter Titles </span>
+              </div>
+              </a>
+
             <a class="card-footer-item">
               <div class="slider-control has-text-centered is-size-5">
-                <span class="slider-title subtitle has-text-dark">Show <strong class="has-text-primary">{{ parasAmount }}</strong> paragraphs</span>
+                <span class="slider-title subtitle has-text-dark">Show <strong class="has-text-primary">{{ snippetsAmount }}</strong> items</span>
                 <div class="level">
                   <span class="slider-labels level-left">1</span>
-                  <input class="input slider level-item" type="range" min=1 max=10 v-model.number="parasAmount" />
-                  <span class="slider-labels level-right">10</span>
+                  <input class="input slider level-item" type="range" min=1 max=15 v-model.number="snippetsAmount" />
+                  <span class="slider-labels level-right">15</span>
                 </div>
               </div>
             </a>            
-            <a class="button card-footer-item is-size-3" @click="getParagraphs($event)"> Search </a>
+
+            <a class="button search-button card-footer-item is-size-4 " @click="getParagraphs($event)"> Fetch snippets </a>
           </footer>
 
           <ul class="card-content">
-            <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in paragraphsArray" :key="index">
+            <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in snippetsArray" :key="index">
               <blockquote class="column is-11 quote" v-bind:data-quote="index">
                 {{ paragraphContent }}
               </blockquote>         
@@ -70,18 +82,18 @@ export default {
     }
   },
   computed: {
-    paragraphsArray() { // requested quotes from api
-      return this.$store.state.paragraphsArray
+    snippetsArray() { // requested quotes from api
+      return this.$store.state.snippetsArray
     },
     quotePara() { // example quote 
       return this.$store.state.quoteParagraph
     },
-    parasAmount: { // update number of paras to fetch
+    snippetsAmount: { // update number of paras to fetch
       get: function() { 
-        return this.$store.state.parasAmount; 
+        return this.$store.state.snippetsAmount; 
       }, 
       set: function(newAmount){ 
-        this.$store.commit('changeParasAmount',newAmount); 
+        this.$store.commit('changesnippetsAmount',newAmount); 
       }
     }
   },
@@ -99,7 +111,16 @@ export default {
     // fire action to retrieve random paragraphs
     getParagraphs(e) {
       this.$store.dispatch('getMultipleRandomAction'); 
-    }
+    },
+    // switch between paras and titles
+    toggleContentType(e) {
+      if ( e.target.checked ) {
+        this.$store.commit('changeContentType', 'titles');
+      }
+      else {
+        this.$store.commit('changeContentType', 'paragraphs'); 
+      }
+    },
   },  
   mounted() {
     this.$store.dispatch('getOneRandomAction'); 

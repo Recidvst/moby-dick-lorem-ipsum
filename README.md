@@ -1,6 +1,12 @@
-# moby-dick-lorem-ipsum-frontend
+# Moby Dick Lorem Ipsum
 
-> The Nuxt/Vue front-end for a Moby Dick themed Lorem Ipsum generator
+> A Moby Dick themed Lorem Ipsum generator.
+> Nuxt/Vue frontend & Node/Express API.
+
+
+[Lorem Ipsum generator](https://moby-dick-lorem-ipsum.chris-snowden.me/)
+[API](https://moby-dick-lorem-ipsum-api.chris-snowden.me/)
+
 
 ## Build Setup
 
@@ -18,6 +24,5 @@ $ npm start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
+[Nuxt.js docs](https://github.com/nuxt/nuxt.js)
 
