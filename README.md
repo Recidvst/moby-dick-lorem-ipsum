@@ -4,11 +4,12 @@
 > Nuxt/Vue frontend & Node/Express API.
 
 
-[Lorem Ipsum generator](https://moby-dick-lorem-ipsum.chris-snowden.me/)
-[API](https://moby-dick-lorem-ipsum-api.chris-snowden.me/)
+## [Lorem Ipsum generator](https://moby-dick-lorem-ipsum.chris-snowden.me)
+## [API](https://moby-dick-lorem-ipsum-api.chris-snowden.me)
+## [Nuxt docs](https://github.com/nuxt/nuxt.js)
 
 
-## Build Setup
+### Build Setup
 
 ``` bash
 # install dependencies
@@ -24,5 +25,4 @@ $ npm start
 # generate static project
 $ npm run generate
 ```
-[Nuxt.js docs](https://github.com/nuxt/nuxt.js)
 

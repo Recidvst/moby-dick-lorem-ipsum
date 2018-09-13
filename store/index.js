@@ -31,7 +31,6 @@ const createStore = () => {
     actions: {        
         // fetch one random paragraph
         getOneRandomAction ({ commit, state }) {
-            console.log(`${APIURL()}/paragraphs/random`);
             fetch(`${APIURL()}/paragraphs/random`, {
                 method: 'GET',
                 type: 'cors',
@@ -50,7 +49,6 @@ const createStore = () => {
         // fetch multiple paragraphs/titles
         getMultipleRandomAction ({ commit, state }, count) {
             let getCount = count || state.snippetsAmount;
-            console.log(`${APIURL()}/${state.contentType}/random/${getCount}`);
             fetch(`${APIURL()}/${state.contentType}/random/${getCount}`, {
                 method: 'GET',
                 type: 'cors',
