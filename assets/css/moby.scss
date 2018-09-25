@@ -8,7 +8,7 @@
 .subtitle {
     font-style: italic;
     strong {
-        color: $primary;
+        color: $ocean-pale;
     }
 }
 
@@ -23,18 +23,20 @@ blockquote {
 }
 
 // columns
-.columns:not(:last-child) {
-    margin-bottom: 1.5rem;
-}
-
-// buttons 
-.button {
-    height: auto;
+.columns {
+    margin-bottom: 2.5rem !important;
+    border-radius: 0;
 }
 
 // quotes display card
 .moby-dick-quotes-main {
     margin: 30px auto;
+    @media (max-width: 1800px) {
+        padding-left: 225px;
+    }  
+    @media (max-width: 767px) {
+        padding-left: 0;
+    }  
     .card-footer {
         border-bottom: 1px solid $pale-grey;
         flex-wrap: wrap;
@@ -47,22 +49,6 @@ blockquote {
             &:nth-child(even){
                 border-left: .5px solid $pale-grey;                
             }
-            &.button, &.btn {
-                color: $secondary;
-                transition: all .25s ease;
-                &.search-button {
-                    flex: 1 0 100%;
-                    background: $black;
-                    border: .5px solid $tertiary;
-                    border-left: none;
-                    border-right: none;
-                    color: $white;
-                    font-family: $family-secondary;
-                    &:hover {
-                        background: $tertiary;                        
-                    }
-                }
-            }
             @media (max-width: 767px) {
                 border: 0.5px solid #dbdbdb;
             }  
@@ -74,22 +60,66 @@ blockquote {
                 align-items: flex-start;
             }   
         }
+        li.box.columns {
+            position: relative;
+            &:before {
+                content: '\f10d';
+                position: absolute;
+                display: block;
+                top: 3px;
+                left: 10px;
+                height: 0;
+                width: 0;
+                color: $ocean;
+                font-style: italic;
+                font-family: FontAwesome;
+                font-size: 1.3rem;
+            }
+            &:after {
+                content: '\f10e';
+                position: absolute;
+                display: block;
+                bottom: 35px;
+                right: 35px;
+                height: 0;
+                width: 0;
+                color: $ocean;
+                font-style: italic;
+                font-family: FontAwesome;
+                font-size: 1.3rem;
+            }
+        }
     }
+}
+
+// hero
+.moby-dick-hero {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    z-index: 999;
+    background: $ocean-dark;
 }
 
 // logo
 .whale-logo {
     fill: rgba(255, 255, 255, 0.1);
+    fill: $ocean;
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 150px;
+    height: 85px;
     width: 300px;
     transform: translate(-75%,0);
-    @media (max-width: 997px) {
+    z-index: -1;
+    @media (max-width: 1400px) {
         transform: rotateY(180deg);
         right: 0;
         left: unset;
+        height: 150px;
+        opacity: 0.6;
     }   
 }
 
@@ -115,6 +145,7 @@ blockquote {
     &.copy-to-clipboard {
         position: relative;
         transition: all .1s ease-out;
+        color: $info;
         &:hover {
             cursor: pointer;
             background: $info;
@@ -124,6 +155,63 @@ blockquote {
         }
     }
 } 
+
+// buttons 
+.button {
+    height: auto;
+    &#fetch-button {
+        display: block;
+        margin: 0 0 0 0;
+        background-color: $ocean;
+        border: none;
+        border-bottom: 1px solid $ocean;
+        border-radius: 0;
+        color: $white;     
+        font-family: $family-secondary;
+        z-index: 1;
+        overflow: hidden;
+        flex: 1 0 100%;
+        &:hover, &:active, &:focus {
+            background-color: $ocean-dark;
+            color: $white;                 
+        }
+    }       
+}
+
+// sidebar
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 225px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    .sidebar-controls {
+        max-width: 100%;
+        border-left: 8px solid $ocean-dark;
+        > * {
+            background: $white;
+            padding: 15px 0;
+            &:not(:last-child) {
+                border-bottom: 1px solid $ocean-dark;
+            }
+            &.button, &.btn {
+                padding: 60px 0;
+            }
+        }
+        @media (min-width: 1367px) {
+            // transform: translate(0,-50%);
+        }  
+        @media (max-width: 767px) {
+            display: none;
+        }  
+    }
+}
 
 // range slider
 .slider-control {
@@ -139,7 +227,7 @@ blockquote {
         }
         &.slider-labels {
             padding: 0 10px;
-            color: $secondary;
+            color: $ocean-dark;
             @media ( max-width: 767px ) {
                 display: none;
             }
@@ -159,7 +247,7 @@ blockquote {
         height: 15px;
         margin: 10px auto;
         border-radius: 5px;   
-        background: #d3d3d3;
+        background: $ocean-dark;
         outline: none;
         opacity: 0.7;
         transition: opacity .2s;
@@ -170,14 +258,14 @@ blockquote {
         width: 30px;
         height: 30px;
         border-radius: 50%; 
-        background: $secondary;
+        background: $ocean;
         cursor: pointer;
     }
     .slider::-moz-range-thumb {
         width: 30px;
         height: 30px;
         border-radius: 50%;
-        background: $secondary;
+        background: $ocean;
         cursor: pointer;
     }
 }
@@ -187,22 +275,23 @@ blockquote {
 #content-type-toggle {
     flex: 1 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    padding: 10px;
     max-width: 100%;
     .toggle-span {
-        padding: 2px 6px;
+        padding: 10px;
         margin: 0;
         color: $black;
     }
     label.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 32px;
-    margin: 0 10px;
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 32px;
+        margin: 10px 10px;
+        transform: rotate(90deg);
         input {
             &:checked {
                 + .slider {
@@ -227,11 +316,11 @@ blockquote {
             &:before {
                 position: absolute;
                 content: "";
-                height: 23px;
-                width: 24px;
-                left: 4px;
-                bottom: 3px;
-                background-color: $primary;
+                height: 26px;
+                width: 26px;
+                left: 2px;
+                bottom: 2px;
+                background-color: $ocean;
                 border-radius: 50%;
                 transition: .4s;					
             }				

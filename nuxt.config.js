@@ -3,11 +3,11 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Moby Dick Lorem Ipsum',
+    title: 'Moby Dick Lorem Ipsum generator',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'A Moby Dick themed Lorem Ipsum generator' },
+      { hid: 'description', name: 'description', content: 'A Moby Dick themed Lorem Ipsum generator. Request paragraph content or chapter titles.' },
       { hid: 'keywords', name: 'keywords', content: 'Moby Dick, Lorem Ipsum, generator, nuxt' }
     ],
     link: [

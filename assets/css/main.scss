@@ -4,14 +4,14 @@
 
 // Set own variables
 $blue: #72d0eb;
-
+$ocean: #556271;
+// $ocean-pale: #687789;
+$ocean-pale: #85a3c6;
+$ocean-dark: #0E1319;
 // Set derived variables
-$primary: #0589b5;
-$primary-fade: rgba(5, 137, 181, .8);
-$secondary: $primary;
-// $secondary: #4CAF50;
+$primary: $ocean-dark;
+$secondary: $ocean-pale;
 $tertiary: #004b61;
-$tertiary-fade: rgba(0, 75, 97, .75);
 $bloodRed: #8e0000;
 $background: #f4f4f4;
 $background2: #eee;

@@ -9,7 +9,7 @@ const createStore = () => {
     state: {
         quoteParagraph : "...",
         snippetsArray : ['...'],
-        snippetsAmount : 8,
+        snippetsAmount : 5,
         contentType : 'paragraphs',
         token: APITOKEN()
     },
@@ -19,6 +19,7 @@ const createStore = () => {
         },
         changesnippetsAmount (state, amount) {
             state.snippetsAmount = amount;
+            this.dispatch('getMultipleRandomAction');
         },
         changeContentType (state, cType) {
             state.contentType = cType;

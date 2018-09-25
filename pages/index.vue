@@ -1,70 +1,60 @@
 <template>
-  <div>
-    <section class="moby-dick-hero hero is-small is-bold has-background-black">
+  <div class="moby-dick-lp-container">
+    <section class="moby-dick-hero hero is-small is-bold">
       <div class="hero-body container">
         <WhaleLogo/>
-        <h1 class="title is-size-1">
-          Moby Dick Lorem Ipsum
-        </h1>
-        <h2 class="subtitle is-size-3 has-text-white">
+        <h1 class="subtitle is-size-3 has-text-white">
           A Lorem Ipsum generator based on Herman Melville's <strong>Moby Dick</strong>
-        </h2>
+        </h1>
       </div>
     </section>
 
-    <section class="moby-dick-quote box">
+    <!-- <section class="moby-dick-quote box">
       <div class="container">
         <blockquote> 
-          <h3 class="is-size-4">{{ quotePara }}</h3> 
+          <h2 class="is-size-4"> {{ quotePara }} </h2> 
         </blockquote>
       </div>
-    </section>
+    </section> -->
 
+    <aside class="sidebar">
+      <div class="sidebar-controls">
+        <a class="button search-button card-footer-item is-size-4 " id="fetch-button" @click="getParagraphs($event)"> 
+          <h2>Fetch snippets</h2> 
+        </a>
+        <div id="content-type-toggle">
+            <span class="toggle-span  is-size-5 " :class="{ disabled: true }"> Paragraphs </span>
+            <label class="switch">
+                <input id="encodeToggle " type="checkbox" @click="toggleContentType($event)">
+                <span class="slider round"></span>
+            </label>		
+            <span class="toggle-span  is-size-5 " :class="{ disabled: false }"> Chapter Titles </span>
+        </div>
+        <div class="slider-control has-text-centered is-size-5">
+          <span class="slider-title has-text-dark">Show <strong class="has-text-primary">{{ snippetsAmount }}</strong> items</span>
+          <div class="level">
+            <span class="slider-labels level-left">1</span>
+            <input class="input slider level-item" type="range" min=1 max=20 v-model.number="snippetsAmount" />
+            <span class="slider-labels level-right">20</span>
+          </div>
+        </div>  
+      </div>        
+    </aside>
+  
     <section class="moby-dick-quotes-main">
       <div class="container">
-        <div class="card">
-
-          <footer class="card-footer">
-            <a class="button card-footer-item is-size-4"> 
-              <div id="content-type-toggle">
-                  <span class="toggle-span subtitle " :class="{ disabled: true }"> Paragraphs </span>
-                  <label class="switch">
-                      <input id="encodeToggle" type="checkbox" @click="toggleContentType($event)">
-                      <span class="slider round"></span>
-                  </label>		
-                  <span class="toggle-span subtitle " :class="{ disabled: false }"> Chapter Titles </span>
-              </div>
-              </a>
-
-            <a class="card-footer-item">
-              <div class="slider-control has-text-centered is-size-5">
-                <span class="slider-title subtitle has-text-dark">Show <strong class="has-text-primary">{{ snippetsAmount }}</strong> items</span>
-                <div class="level">
-                  <span class="slider-labels level-left">1</span>
-                  <input class="input slider level-item" type="range" min=1 max=15 v-model.number="snippetsAmount" />
-                  <span class="slider-labels level-right">15</span>
-                </div>
-              </div>
-            </a>            
-
-            <a class="button search-button card-footer-item is-size-4 " @click="getParagraphs($event)"> Fetch snippets </a>
-          </footer>
-
-          <ul class="card-content">
-            <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in snippetsArray" :key="index">
-              <blockquote class="column is-11 quote" v-bind:data-quote="index">
-                {{ paragraphContent }}
-              </blockquote>         
-              <span class="icon bordered copy-to-clipboard has-text-info" v-bind:data-clipboard="index" @click="copyText($event)">
-                <i class="fas fa-paste"></i>
-              </span>   
-            </li>          
-          </ul>
-          
-        </div>
+        <ul class="card-content">
+          <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in snippetsArray" :key="index">
+            <blockquote class="column is-11 quote" v-bind:data-quote="index">
+              {{ paragraphContent }}
+            </blockquote>         
+            <span class="icon bordered copy-to-clipboard" v-bind:data-clipboard="index" @click="copyText($event)">
+              <i class="fas fa-paste"></i>
+            </span>   
+          </li>          
+        </ul>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -72,6 +62,7 @@
 
 import WhaleLogo from '~/components/WhaleLogo.vue';
 import { copyToClipboard } from '@/assets/js/utils';
+import { debounce } from '@/assets/js/utils';
 
 export default {
   components: {
@@ -93,7 +84,7 @@ export default {
         return this.$store.state.snippetsAmount; 
       }, 
       set: function(newAmount){ 
-        this.$store.commit('changesnippetsAmount',newAmount); 
+        this.debounceSnippetsAmountInput(newAmount);
       }
     }
   },
@@ -121,10 +112,25 @@ export default {
         this.$store.commit('changeContentType', 'paragraphs'); 
       }
     },
+    debounceSnippetsAmountInput: debounce(function (newAmount, e) {
+      this.$store.commit('changesnippetsAmount',newAmount); 
+    }, 250),
+    headerHeight() {
+      let body = document.querySelector('#__nuxt');
+      let headerHeight = document.querySelector('.moby-dick-hero').offsetHeight;
+      if ( headerHeight && headerHeight > 0 ) {
+        body.style.paddingTop = `${headerHeight}px`;
+      }      
+    }
   },  
   mounted() {
     this.$store.dispatch('getOneRandomAction'); 
     this.$store.dispatch('getMultipleRandomAction'); 
+    let headerHeightFn = debounce( () => {
+      this.headerHeight();
+    }, 50);
+    this.headerHeight();
+    window.addEventListener('resize', headerHeightFn);
   },
 }
 </script>
@@ -133,5 +139,7 @@ export default {
 body {
   min-height: 100vh;
   background-color: #f4f4f4;
+  /* background: rgb(0,212,255);
+  background: linear-gradient(121deg, rgba(0,212,255,1) 0%, rgba(255,255,255,1) 100%); */
 }
 </style>
