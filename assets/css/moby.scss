@@ -1,21 +1,20 @@
-// user defined util styles and overrides
-
 // titles
 .title {
     font-weight: normal;
     color: $primary;
 }
 .subtitle {
-    font-style: italic;
+    // font-style: italic;
     strong {
-        color: $ocean-pale;
+        color: $ocean-dark;
     }
 }
 
 // blockquotes
 blockquote {
-    font-family: $family-secondary;
+    font-family: $family-primary;
     font-size: 1.5rem;
+    font-style: italic;
     .border {
         border-left: 6px solid $primary;
         padding-left: 18px;
@@ -30,9 +29,11 @@ blockquote {
 
 // quotes display card
 .moby-dick-quotes-main {
+    position: relative;
+    z-index: 1;
     margin: 30px auto;
     @media (max-width: 1800px) {
-        padding-left: 225px;
+        padding-left: 200px;
     }  
     @media (max-width: 767px) {
         padding-left: 0;
@@ -70,7 +71,7 @@ blockquote {
                 left: 10px;
                 height: 0;
                 width: 0;
-                color: $ocean;
+                color: $ocean-back;
                 font-style: italic;
                 font-family: FontAwesome;
                 font-size: 1.3rem;
@@ -83,7 +84,7 @@ blockquote {
                 right: 35px;
                 height: 0;
                 width: 0;
-                color: $ocean;
+                color: $ocean-back;
                 font-style: italic;
                 font-family: FontAwesome;
                 font-size: 1.3rem;
@@ -99,14 +100,15 @@ blockquote {
     left: 0;
     width: 100vw;
     max-width: 100vw;
-    z-index: 999;
-    background: $ocean-dark;
+    z-index: 4;
+    // background: $ocean-dark;
+    background: $white;
+    border-bottom: 1px solid $ocean;
 }
 
 // logo
 .whale-logo {
-    fill: rgba(255, 255, 255, 0.1);
-    fill: $ocean;
+    fill: $ocean-dark;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -121,10 +123,11 @@ blockquote {
         height: 150px;
         opacity: 0.6;
     }   
+    display: none;
 }
 
 // icons
-.fas, .fa {
+.fas, .fab, .fa {
     font-family: FontAwesome;
     font-style: normal;
     font-size: 1.25rem;
@@ -139,13 +142,13 @@ blockquote {
       margin: 5px 10px;
       padding: 16px 15px 15px 16px;
       border: 1px solid $info;
-      background: $background2;
+      background: $ocean-back;
       border-radius: 3px;
     }
     &.copy-to-clipboard {
         position: relative;
         transition: all .1s ease-out;
-        color: $info;
+        color: $ocean-dark;
         &:hover {
             cursor: pointer;
             background: $info;
@@ -162,7 +165,7 @@ blockquote {
     &#fetch-button {
         display: block;
         margin: 0 0 0 0;
-        background-color: $ocean;
+        background-color: $ocean-dark;
         border: none;
         border-bottom: 1px solid $ocean;
         border-radius: 0;
@@ -171,9 +174,29 @@ blockquote {
         z-index: 1;
         overflow: hidden;
         flex: 1 0 100%;
+        transition: all .25s ease;
+        &:after {         
+            position: absolute;
+            content: "";
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: -1;
+            background: $white;
+            transform: scaleX(0);
+            transform-origin: 100% 50%;
+            transition: transform .3s ease-out;
+        }
         &:hover, &:active, &:focus {
-            background-color: $ocean-dark;
-            color: $white;                 
+            // background-color: $white;
+            color: $ocean-dark;      
+            &:after {
+                transform: scaleX(1);
+            }           
+        }
+        h2, h3 {
+            margin: 6px 0 2px;
         }
     }       
 }
@@ -184,29 +207,27 @@ blockquote {
     top: 0;
     left: 0;
     height: 100vh;
-    width: 225px;
+    width: 200px;
     border: none;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     overflow: hidden;
+    z-index: 3;
     .sidebar-controls {
         max-width: 100%;
-        border-left: 8px solid $ocean-dark;
+        border-left: 10px solid $ocean-dark;
         > * {
             background: $white;
-            padding: 15px 0;
+            padding: 10px 5px;
             &:not(:last-child) {
                 border-bottom: 1px solid $ocean-dark;
             }
             &.button, &.btn {
-                padding: 60px 0;
+                padding: 30px 0;
             }
         }
-        @media (min-width: 1367px) {
-            // transform: translate(0,-50%);
-        }  
         @media (max-width: 767px) {
             display: none;
         }  
@@ -226,6 +247,7 @@ blockquote {
             }
         }
         &.slider-labels {
+            display: none;
             padding: 0 10px;
             color: $ocean-dark;
             @media ( max-width: 767px ) {
@@ -245,9 +267,9 @@ blockquote {
         width: auto;
         max-width: 100%;
         height: 15px;
-        margin: 10px auto;
+        margin: 10px 5px;
         border-radius: 5px;   
-        background: $ocean-dark;
+        background: $ocean-back;
         outline: none;
         opacity: 0.7;
         transition: opacity .2s;
@@ -258,7 +280,7 @@ blockquote {
         width: 30px;
         height: 30px;
         border-radius: 50%; 
-        background: $ocean;
+        background: $ocean-dark;
         cursor: pointer;
     }
     .slider::-moz-range-thumb {
@@ -281,7 +303,6 @@ blockquote {
     flex-wrap: wrap;
     max-width: 100%;
     .toggle-span {
-        padding: 10px;
         margin: 0;
         color: $black;
     }
@@ -291,11 +312,11 @@ blockquote {
         width: 60px;
         height: 32px;
         margin: 10px 10px;
-        transform: rotate(90deg);
         input {
+            transform: translate(50%,50%);
             &:checked {
                 + .slider {
-                    border: 1px solid $primary;
+                    border: 1px solid $ocean-back;
                     &:before {
                         transform: translateX(26px);							
                     }						
@@ -320,9 +341,10 @@ blockquote {
                 width: 26px;
                 left: 2px;
                 bottom: 2px;
-                background-color: $ocean;
+                background-color: $ocean-dark;
                 border-radius: 50%;
-                transition: .4s;					
+                transition: .4s;		
+                opacity: 0.7;			
             }				
         }
     }
@@ -332,4 +354,36 @@ blockquote {
             margin: 5px 0;
         }
     }
+}
+
+// footer
+.footer-link {
+    display: block;
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    z-index: 2;
+    .fa, .fas, .fab {
+        color: $ocean-dark;
+        font-size: 2.5rem;
+    }
+    &:hover {
+        .fa, .fas, .fab {
+            color: $white;
+        }
+    }
+}
+
+// background image
+.full-background-image {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 0;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
 }

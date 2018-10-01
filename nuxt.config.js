@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Moby Dick Lorem Ipsum generator',
+    title: 'Moby Dipsum',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -49,5 +49,8 @@ module.exports = {
   ],  
   vendor: [
     '~/assets/js/utils.js'    
+  ],
+  plugins: [
+    { src: '~plugins/ga.js', ssr: false }
   ]
 }

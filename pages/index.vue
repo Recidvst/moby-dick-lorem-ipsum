@@ -1,41 +1,35 @@
 <template>
   <div class="moby-dick-lp-container">
+    <link rel="preload" href="`${bgImage}`" as="image">
+
     <section class="moby-dick-hero hero is-small is-bold">
-      <div class="hero-body container">
+      <div class="hero-body container-fluid">
         <WhaleLogo/>
-        <h1 class="subtitle is-size-3 has-text-white">
+        <h1 class="subtitle is-size-3">
           A Lorem Ipsum generator based on Herman Melville's <strong>Moby Dick</strong>
         </h1>
       </div>
     </section>
 
-    <!-- <section class="moby-dick-quote box">
-      <div class="container">
-        <blockquote> 
-          <h2 class="is-size-4"> {{ quotePara }} </h2> 
-        </blockquote>
-      </div>
-    </section> -->
-
     <aside class="sidebar">
       <div class="sidebar-controls">
         <a class="button search-button card-footer-item is-size-4 " id="fetch-button" @click="getParagraphs($event)"> 
-          <h2>Fetch snippets</h2> 
+          <h2>Fetch...</h2> 
         </a>
         <div id="content-type-toggle">
-            <span class="toggle-span  is-size-5 " :class="{ disabled: true }"> Paragraphs </span>
+            <span class="toggle-span  is-size-5 " :class="{ disabled: true }">Paragraphs</span>
             <label class="switch">
                 <input id="encodeToggle " type="checkbox" @click="toggleContentType($event)">
                 <span class="slider round"></span>
             </label>		
-            <span class="toggle-span  is-size-5 " :class="{ disabled: false }"> Chapter Titles </span>
+            <span class="toggle-span  is-size-5 " :class="{ disabled: false }">Titles</span>
         </div>
         <div class="slider-control has-text-centered is-size-5">
           <span class="slider-title has-text-dark">Show <strong class="has-text-primary">{{ snippetsAmount }}</strong> items</span>
           <div class="level">
             <span class="slider-labels level-left">1</span>
-            <input class="input slider level-item" type="range" min=1 max=20 v-model.number="snippetsAmount" />
-            <span class="slider-labels level-right">20</span>
+            <input class="input slider level-item" type="range" min=1 max=10 v-model.number="snippetsAmount" />
+            <span class="slider-labels level-right">10</span>
           </div>
         </div>  
       </div>        
@@ -55,21 +49,28 @@
         </ul>
       </div>
     </section>
+
+    <a href="https://github.com/Recidvst" title="Recidvst on Github" class="github-link footer-link" target="_blank" rel="noopener"><i class="fab fa-github-square"></i></a>
+
+    <BackgroundImage/>
   </div>
 </template>
 
 <script>
 
 import WhaleLogo from '~/components/WhaleLogo.vue';
+import BackgroundImage from '~/components/BackgroundImage.vue';
 import { copyToClipboard } from '@/assets/js/utils';
 import { debounce } from '@/assets/js/utils';
 
 export default {
   components: {
-    WhaleLogo
+    WhaleLogo,
+    BackgroundImage
   },
   data () {
     return {
+      bgImage: require('~/static/images/gloomy-ocean.jpg')
     }
   },
   computed: {
@@ -119,7 +120,7 @@ export default {
       let body = document.querySelector('#__nuxt');
       let headerHeight = document.querySelector('.moby-dick-hero').offsetHeight;
       if ( headerHeight && headerHeight > 0 ) {
-        body.style.paddingTop = `${headerHeight}px`;
+        body.style.paddingTop = `${headerHeight - 30}px`;
       }      
     }
   },  
@@ -134,12 +135,3 @@ export default {
   },
 }
 </script>
-
-<style>
-body {
-  min-height: 100vh;
-  background-color: #f4f4f4;
-  /* background: rgb(0,212,255);
-  background: linear-gradient(121deg, rgba(0,212,255,1) 0%, rgba(255,255,255,1) 100%); */
-}
-</style>

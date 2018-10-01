@@ -21,7 +21,7 @@ export default ({ app }) => {
       /*
       ** We tell Google Analytics to add a `pageview`
       */
-    //   ga('set', 'page', to.fullPath)
-    //   ga('send', 'pageview')
+      // ga('set', 'page', to.fullPath)
+      // ga('send', 'pageview')
     })
   }
