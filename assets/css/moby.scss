@@ -12,9 +12,9 @@
 
 // blockquotes
 blockquote {
-    font-family: $family-primary;
+    font-family: $family-secondary;
     font-size: 1.5rem;
-    font-style: italic;
+    // font-style: italic;
     .border {
         border-left: 6px solid $primary;
         padding-left: 18px;
@@ -24,7 +24,7 @@ blockquote {
 // columns
 .columns {
     margin-bottom: 2.5rem !important;
-    border-radius: 0;
+    border-radius: 3px;
 }
 
 // quotes display card
@@ -215,6 +215,7 @@ blockquote {
     align-items: flex-start;
     overflow: hidden;
     z-index: 3;
+    font-family: $family-secondary;
     .sidebar-controls {
         max-width: 100%;
         border-left: 10px solid $ocean-dark;

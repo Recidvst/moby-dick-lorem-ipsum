@@ -12,10 +12,10 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background-color: #DAE0E6;
+    background-color: #000;
   body {
     min-height: 100vh;
-    background-color: #DAE0E6;
+    background-color: #000;
   }
 }
 </style>
