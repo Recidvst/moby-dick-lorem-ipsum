@@ -110,6 +110,16 @@ export default {
     // watch for filter changes and update localstorage
     'filters.choice': function (val) {
       this.updateFilters('choice', val);
+      if ( this.filters.choice === 'paragraphs' ) {
+        this.$store.commit('changeContentType', 'paragraphs');
+      }
+      else if ( this.filters.choice === 'titles' ) {
+        this.$store.commit('changeContentType', 'titles'); 
+      }
+    },
+    'filters.amount': function (val) {
+      this.updateFilters('amount', val);
+      this.$store.commit('changesnippetsAmount', val); 
     }
   },
   methods: {
@@ -118,13 +128,6 @@ export default {
       this.$store.dispatch('getMultipleRandomAction'); 
     },
     updateFilters(type, val) {
-      // toggle choice
-      if ( this.filters.choice === 'paragraphs' ) {
-        this.$store.commit('changeContentType', 'paragraphs');
-      }
-      else {
-        this.$store.commit('changeContentType', 'titles'); 
-      }
       // save in localStorage
       if (process.browser) {
         let filterPrefs = localStorage.getItem('mobyDipsumFilters');
@@ -169,8 +172,8 @@ export default {
       }
     }
   },  
-  mounted() {
-    this.$store.dispatch('getOneRandomAction'); 
+  beforeMount() {
+    // get first items
     this.$store.dispatch('getMultipleRandomAction'); 
     // set filters from localstorage
     if (process.browser) {
@@ -186,16 +189,20 @@ export default {
             this.$store.commit('changeContentType', 'titles'); 
           }
         }
+        if ( filterPrefs.amount && filterPrefs.amount !== '' && this.filters.amount !== filterPrefs.amount) {
+          this.filters.amount = filterPrefs.amount;
+          this.$store.commit('changesnippetsAmount', filterPrefs.amount);
+        }
       }
     }
+  },
+  mounted() {
     // setting heeader height
     let headerHeightFn = debounce( () => {
       this.headerHeight();
     }, 50);
     this.headerHeight();
     window.addEventListener('resize', headerHeightFn);
-  },
-  created() {
   },
 }
 </script>

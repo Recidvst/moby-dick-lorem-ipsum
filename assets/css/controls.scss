@@ -54,16 +54,37 @@
     }    
 
     #fetch-button {
+        position: relative;
         display: block;
         background-color: $ocean-dark;
-        border: none;
+        border: 2px solid $ocean-dark;
         border-radius: 0;
+        color: $white;
         min-width: 200px;
         overflow: hidden;
         transition: all .25s ease;
-        color: $white;
+        z-index: 1;
+        transform: scale(0.9);
         h2, h3 {
             font-size: 1.25rem;
+            z-index: 2;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 0%;
+            height: 100%;
+            background: $ocean-back;
+            transition: all .25s ease;
+            z-index: -1;
+        }
+        &:hover, &:focus, &:active {
+            color: $ocean-dark;
+            &:after {
+                width: 101%;                
+            }
         }
         @media (max-width: 997px) {
             width: 100%;
