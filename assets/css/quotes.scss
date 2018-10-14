@@ -1,0 +1,118 @@
+// quotes display card
+.moby-dick-quotes-main {
+    position: relative;
+    z-index: 1;
+    margin: 30px auto;
+    @media (max-width: 1800px) {
+        padding-left: 200px;
+    }  
+    @media (max-width: 767px) {
+        padding-left: 0;
+    }  
+    .card-footer {
+        border-bottom: 1px solid $pale-grey;
+        flex-wrap: wrap;
+        .card-footer-item {
+            border-radius: 0;
+            border: none;
+            &:nth-child(odd){
+                border-right: .5px solid $pale-grey;
+            }
+            &:nth-child(even){
+                border-left: .5px solid $pale-grey;                
+            }
+            @media (max-width: 767px) {
+                border: 0.5px solid #dbdbdb;
+            }  
+        }
+    }
+    .card-content {
+        > .box {
+            @media (max-width: 767px) {
+                align-items: flex-start;
+            }   
+        }
+        li.box.columns {
+            position: relative;
+            justify-content: space-between;
+            &:before {
+                content: '\f10d';
+                position: absolute;
+                display: block;
+                top: 3px;
+                left: 10px;
+                height: 0;
+                width: 0;
+                color: $ocean-back;
+                font-style: italic;
+                font-family: FontAwesome;
+                font-size: 1.3rem;
+            }
+            &:after {
+                content: '\f10e';
+                position: absolute;
+                display: block;
+                bottom: 35px;
+                right: 35px;
+                height: 0;
+                width: 0;
+                color: $ocean-back;
+                font-style: italic;
+                font-family: FontAwesome;
+                font-size: 1.3rem;
+            }
+        }
+    }
+}
+
+// blockquote setion
+blockquote {
+    font-family: $family-secondary;
+    font-size: 1.5rem;
+    // font-style: italic;
+    .border {
+        border-left: 6px solid $primary;
+        padding-left: 18px;
+    }
+}
+.icon-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    max-height: 100%;
+    max-width: 35px;
+    padding: 4px 3px 4px 3px;
+    border: 1px solid transparent;
+    transition: all .25s ease;
+    .scissors-icon {
+        position: relative;
+        transform: rotate(45deg);
+        z-index: 998;
+        max-height: 100%;
+        height: 25px;
+        transition: all .25s ease;
+    }
+    &.clicked {
+        .scissors-icon {
+            transform: scale(1.2) rotate(0deg);
+        }
+        &:after {
+            content: 'copied!';
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            transform: translate(-50%, -50%);
+            color: $tertiary;
+            font-size: 15px;
+        }
+    }
+    &:hover {
+        cursor: pointer;
+        // border: 1px solid $pale-grey;
+        .scissors-icon {
+            fill: $ocean;
+        }
+    }
+}

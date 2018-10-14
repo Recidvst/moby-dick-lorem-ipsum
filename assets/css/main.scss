@@ -15,19 +15,6 @@ $bloodRed: #8e0000;
 $pale-grey: #dbdbdb;
 $info: $tertiary;
 
-// heros 
-.hero, .hero .container {
-    position: relative;    
-    @media (max-width: 997px) {
-        .hero-body {
-            padding: 1.5rem;
-        }
-    }   
-}
-
-// cards
-$card-shadow: 1px 2px 1px 1px rgba($black, 0.1), 0 0 1px 1px rgba($black, 0.1);
-
 // font
 $family-primary: 'EB Garamond', serif;
 $family-secondary: 'Hind Siliguri', sans-serif;
@@ -36,4 +23,7 @@ $family-secondary: 'Hind Siliguri', sans-serif;
 @import "~bulma/bulma";
 
 // import other personal styles
-@import "./moby";
+@import "./scaffold";
+@import "./header";
+@import "./controls";
+@import "./quotes";

@@ -4,36 +4,44 @@
 
     <section class="moby-dick-hero hero is-small is-bold">
       <div class="hero-body container-fluid">
-        <WhaleLogo/>
-        <h1 class="subtitle is-size-3">
-          A Lorem Ipsum generator based on Herman Melville's <strong>Moby Dick</strong>
-        </h1>
+        <div class="header-left">
+
+          <h1 class="subtitle is-size-3">
+            A Lorem Ipsum generator using snippets from Herman Melville's <strong>Moby Dick</strong>
+          </h1>
+
+          <span class="header-toggle" @click="toggleHeader($event)"> <small> controls X </small> </span>
+
+        </div>
+        <div class="header-right controls">
+      
+            <ul class="type-filter">   
+              <label for="checkbox-fetch-paras">
+                <input type="radio" name="checkbox-choice" id="checkbox-fetch-paras" value='paragraphs' v-model="filters.choice" checked> 
+                Paragraphs
+                <br/>
+              </label>
+              <label for="checkbox-fetch-titles">
+                <input type="radio" name="checkbox-choice" id="checkbox-fetch-titles" value='titles' v-model="filters.choice"> 
+                Titles
+                <br/>
+              </label>
+            </ul>
+
+            <div class="count-filter">
+              <label for="checkbox-amount">
+                <input type="number" name="checkbox-choice" id="checkbox-amount" min="1" max="10" value="5" v-model="filters.amount" onkeyup="if(this.value > 10) this.value = 10;"> 
+                {{ prettyPrintChoice }}
+              </label>
+            </div>
+     
+            <a class="button search-button card-footer-item is-size-4 " id="fetch-button" @click="getParagraphs($event)"> 
+              <h2>Fetch</h2> 
+            </a>   
+
+        </div>
       </div>
     </section>
-
-    <aside class="sidebar">
-      <div class="sidebar-controls">
-        <a class="button search-button card-footer-item is-size-4 " id="fetch-button" @click="getParagraphs($event)"> 
-          <h2>Fetch...</h2> 
-        </a>
-        <div id="content-type-toggle">
-            <span class="toggle-span  is-size-5 " :class="{ disabled: true }">Paragraphs</span>
-            <label class="switch">
-                <input id="encodeToggle " type="checkbox" @click="toggleContentType($event)">
-                <span class="slider round"></span>
-            </label>		
-            <span class="toggle-span  is-size-5 " :class="{ disabled: false }">Titles</span>
-        </div>
-        <div class="slider-control has-text-centered is-size-5">
-          <span class="slider-title has-text-dark">Show <strong class="has-text-primary">{{ snippetsAmount }}</strong> items</span>
-          <div class="level">
-            <span class="slider-labels level-left">1</span>
-            <input class="input slider level-item" type="range" min=1 max=10 v-model.number="snippetsAmount" />
-            <span class="slider-labels level-right">10</span>
-          </div>
-        </div>  
-      </div>        
-    </aside>
   
     <section class="moby-dick-quotes-main">
       <div class="container">
@@ -42,9 +50,9 @@
             <blockquote class="column is-11 quote" v-bind:data-quote="index">
               {{ paragraphContent }}
             </blockquote>         
-            <span class="icon bordered copy-to-clipboard" v-bind:data-clipboard="index" @click="copyText($event)">
-              <i class="fas fa-paste"></i>
-            </span>   
+            <span class="icon-box" v-bind:data-clipboard="index">
+                <scissorsIcon/>
+            </span>
           </li>          
         </ul>
       </div>
@@ -58,19 +66,25 @@
 
 <script>
 
-import WhaleLogo from '~/components/WhaleLogo.vue';
 import BackgroundImage from '~/components/BackgroundImage.vue';
+import WhaleLogo from '~/components/WhaleLogo.vue';
+import scissorsIcon from '~/components/scissorsIcon';
 import { copyToClipboard } from '@/assets/js/utils';
 import { debounce } from '@/assets/js/utils';
 
 export default {
   components: {
     WhaleLogo,
-    BackgroundImage
+    BackgroundImage,
+    scissorsIcon
   },
   data () {
     return {
-      bgImage: require('~/static/images/gloomy-ocean.jpg')
+      bgImage: require('~/static/images/gloomy-ocean.jpg'),
+      filters: {
+        choice: 'paragraphs',
+        amount : 5
+      }
     }
   },
   computed: {
@@ -79,6 +93,9 @@ export default {
     },
     quotePara() { // example quote 
       return this.$store.state.quoteParagraph
+    },
+    prettyPrintChoice() {
+      return this.filters.choice.charAt(0).toUpperCase() + this.filters.choice.slice(1);
     },
     snippetsAmount: { // update number of paras to fetch
       get: function() { 
@@ -89,28 +106,40 @@ export default {
       }
     }
   },
+  watch: {
+    // watch for filter changes and update localstorage
+    'filters.choice': function (val) {
+      this.updateFilters('choice', val);
+    }
+  },
   methods: {
-    // copy text to clipboard
-    copyText(e) {
-      let quoteIndex = e.target.parentElement.dataset.clipboard;
-      if (quoteIndex) {
-        let quoteToCopy = document.querySelector(`[data-quote='${quoteIndex}'`).textContent;
-        if (quoteToCopy) {
-          copyToClipboard(quoteToCopy.trim());
-        }
-      }
-    },
     // fire action to retrieve random paragraphs
     getParagraphs(e) {
       this.$store.dispatch('getMultipleRandomAction'); 
     },
-    // switch between paras and titles
-    toggleContentType(e) {
-      if ( e.target.checked ) {
-        this.$store.commit('changeContentType', 'titles');
+    updateFilters(type, val) {
+      // toggle choice
+      if ( this.filters.choice === 'paragraphs' ) {
+        this.$store.commit('changeContentType', 'paragraphs');
       }
       else {
-        this.$store.commit('changeContentType', 'paragraphs'); 
+        this.$store.commit('changeContentType', 'titles'); 
+      }
+      // save in localStorage
+      if (process.browser) {
+        let filterPrefs = localStorage.getItem('mobyDipsumFilters');
+        filterPrefs = JSON.parse(filterPrefs);
+        if (filterPrefs && filterPrefs !== '') {
+          filterPrefs[type] = val;        
+        }
+        else {
+          filterPrefs = {
+            'choice' : 'paragraphs',
+            'amount' : 5
+          }
+          filterPrefs[type] = val;
+        }
+        localStorage.setItem('mobyDipsumFilters', JSON.stringify(filterPrefs));
       }
     },
     debounceSnippetsAmountInput: debounce(function (newAmount, e) {
@@ -122,16 +151,39 @@ export default {
       if ( headerHeight && headerHeight > 0 ) {
         body.style.paddingTop = `${headerHeight - 30}px`;
       }      
+    },
+    toggleHeader() {
+      let headerControls = document.querySelector('.moby-dick-hero .hero-body .controls');
+      headerControls.classList.toggle('show-mobile');
     }
   },  
   mounted() {
     this.$store.dispatch('getOneRandomAction'); 
     this.$store.dispatch('getMultipleRandomAction'); 
+    // set filters from localstorage
+    if (process.browser) {
+      let filterPrefs = localStorage.getItem('mobyDipsumFilters');
+      if (filterPrefs && filterPrefs !== '') {
+        filterPrefs = JSON.parse(filterPrefs);
+        if ( filterPrefs.choice && filterPrefs.choice !== '' && this.filters.choice !== filterPrefs.choice) {
+          this.filters.choice = filterPrefs.choice;
+          if ( this.filters.choice === 'paras' ) {
+            this.$store.commit('changeContentType', 'paragraphs');
+          }
+          else {
+            this.$store.commit('changeContentType', 'titles'); 
+          }
+        }
+      }
+    }
+    // setting heeader height
     let headerHeightFn = debounce( () => {
       this.headerHeight();
     }, 50);
     this.headerHeight();
     window.addEventListener('resize', headerHeightFn);
+  },
+  created() {
   },
 }
 </script>
