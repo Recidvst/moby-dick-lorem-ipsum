@@ -25,7 +25,7 @@
             flex: 0 1 auto;
             display: flex;
             justify-content: center;
-            align-items: stretch;
+            align-items: center;
             transition: all .25s ease;
         }
 
@@ -54,10 +54,31 @@
         display: none;
         position: absolute;
         bottom: 0px;
-        right: 0px;
+        right: 20px;
         font-size: 1.25rem;
         color: $black;
+        transition: all .25s ease;
 
+        img, svg {          
+            position: absolute;
+            top: 55%;
+            right: -55%;
+            transform: translate(0%, -50%) rotate(0deg);
+            height: 25px;
+            transition: all .25s ease;
+        }
+        &:hover, &:active, &:focus {
+            cursor: pointer;
+            img, svg {            
+                fill: $pale-grey; // when svg..
+            }
+        }
+        &.active {           
+            img, svg {   
+                fill: $ocean;
+                transform: translate(0%, -50%) rotate(90deg);
+            }
+        }
         @media (max-width: 997px) {
             display: block;
         }
@@ -66,13 +87,11 @@
     // titles
     .title {
         font-weight: normal;
-        color: $primary;
+        margin: 0;
     }
-    .subtitle {
-        // font-style: italic;
-        strong {
-            color: $ocean-dark;
-        }
+    strong {
+        font-weight: bold;
+        color: $ocean-dark;
     }
 
 }

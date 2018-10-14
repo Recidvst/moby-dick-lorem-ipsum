@@ -1,9 +1,15 @@
 {
-  "name": "moby-dick-lorem-ipsum-frontend",
+  "name": "moby-dick-lorem-ipsum",
   "version": "1.0.0",
-  "description": "The Nuxt/Vue front-end for a Moby Dick themed Lorem Ipsum generator",
-  "author": "recidvst <cdsnowden@gmail.com>",
-  "private": true,
+  "description": "To produce a mighty book, you must choose a mighty theme. The Vue/Nuxt front-end for a Moby Dick themed Lorem Ipsum generator.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recidvst/moby-dick-lorem-ipsum.git"
+  },
+  "homepage": "https://github.com/Recidvst/moby-dick-lorem-ipsum#readme",
+  "author": "Chris Snowden <cdsnowden@gmail.com>",
+  "license": "MIT",
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

@@ -6,11 +6,11 @@
       <div class="hero-body container-fluid">
         <div class="header-left">
 
-          <h1 class="subtitle is-size-3">
+          <h1 class="title is-size-3">
             A Lorem Ipsum generator using snippets from Herman Melville's <strong>Moby Dick</strong>
           </h1>
 
-          <span class="header-toggle" @click="toggleHeader($event)"> <small> controls X </small> </span>
+          <span class="header-toggle" @click="toggleHeader($event)"> <small> controls <img src="~/static/images/menu_squares.png" alt="control menu" /> </small> </span>
 
         </div>
         <div class="header-right controls">
@@ -30,7 +30,7 @@
 
             <div class="count-filter">
               <label for="checkbox-amount">
-                <input type="number" name="checkbox-choice" id="checkbox-amount" min="1" max="10" value="5" v-model="filters.amount" onkeyup="if(this.value > 10) this.value = 10;"> 
+                <input type="number" name="checkbox-choice" id="checkbox-amount" min="1" max="10" value="5" v-model="filters.amount" v-on:keyup="maxAmount($event)"> 
                 {{ prettyPrintChoice }}
               </label>
             </div>
@@ -142,6 +142,12 @@ export default {
         localStorage.setItem('mobyDipsumFilters', JSON.stringify(filterPrefs));
       }
     },
+    maxAmount(e) {
+      if ( e.target.value > 10) {
+        this.filters.amount = 10;
+        e.target.value = this.filters.amount;
+      }
+    },
     debounceSnippetsAmountInput: debounce(function (newAmount, e) {
       this.$store.commit('changesnippetsAmount',newAmount); 
     }, 250),
@@ -154,7 +160,13 @@ export default {
     },
     toggleHeader() {
       let headerControls = document.querySelector('.moby-dick-hero .hero-body .controls');
-      headerControls.classList.toggle('show-mobile');
+      let controlsToggle = document.querySelector('.moby-dick-hero .hero-body .header-toggle');
+      if (headerControls) {
+        headerControls.classList.toggle('show-mobile');
+      }
+      if (controlsToggle) {
+        controlsToggle.classList.toggle('active');
+      }
     }
   },  
   mounted() {

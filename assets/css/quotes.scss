@@ -3,12 +3,7 @@
     position: relative;
     z-index: 1;
     margin: 30px auto;
-    @media (max-width: 1800px) {
-        padding-left: 200px;
-    }  
-    @media (max-width: 767px) {
-        padding-left: 0;
-    }  
+    padding: 15px;
     .card-footer {
         border-bottom: 1px solid $pale-grey;
         flex-wrap: wrap;
@@ -68,8 +63,10 @@
 // blockquote setion
 blockquote {
     font-family: $family-secondary;
-    font-size: 1.5rem;
-    // font-style: italic;
+    font-size: 1.3rem;
+    @media (max-width: 1023px) {
+        font-size: 1.1rem;
+    }   
     .border {
         border-left: 6px solid $primary;
         padding-left: 18px;
@@ -102,7 +99,7 @@ blockquote {
             content: 'copied!';
             position: absolute;
             top: 50%;
-            left: -100%;
+            left: -75%;
             transform: translate(-50%, -50%);
             color: $tertiary;
             font-size: 15px;
@@ -110,7 +107,6 @@ blockquote {
     }
     &:hover {
         cursor: pointer;
-        // border: 1px solid $pale-grey;
         .scissors-icon {
             fill: $ocean;
         }
