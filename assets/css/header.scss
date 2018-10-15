@@ -67,16 +67,20 @@
             height: 25px;
             transition: all .25s ease;
         }
-        &:hover, &:active, &:focus {
+        &:hover {
             cursor: pointer;
-            img, svg {            
-                fill: $pale-grey; // when svg..
-            }
+            img, svg {      
+                path {
+                    fill: $ocean;
+                }      
+            }   
         }
         &.active {           
             img, svg {   
-                fill: $ocean;
                 transform: translate(0%, -50%) rotate(90deg);
+                path {
+                    fill: $ocean-dark;
+                }
             }
         }
         @media (max-width: 997px) {

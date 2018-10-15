@@ -10,7 +10,11 @@
             A Lorem Ipsum generator using snippets from Herman Melville's <strong>Moby Dick</strong>
           </h1>
 
-          <span class="header-toggle" @click="toggleHeader($event)"> <small> controls <img src="~/static/images/menu_squares.png" alt="control menu" /> </small> </span>
+          <span class="header-toggle" @click="toggleHeader($event)"> 
+            <small> controls 
+              <menuIcon/>
+            </small> 
+          </span>
 
         </div>
         <div class="header-right controls">
@@ -51,7 +55,7 @@
               {{ paragraphContent }}
             </blockquote>         
             <span class="icon-box" v-bind:data-clipboard="index">
-                <scissorsIcon/>
+                <copyIcon/>
             </span>
           </li>          
         </ul>
@@ -67,16 +71,16 @@
 <script>
 
 import BackgroundImage from '~/components/BackgroundImage.vue';
-import WhaleLogo from '~/components/WhaleLogo.vue';
-import scissorsIcon from '~/components/scissorsIcon';
+import copyIcon from '~/components/copyIcon';
+import menuIcon from '~/components/menuIcon';
 import { copyToClipboard } from '@/assets/js/utils';
 import { debounce } from '@/assets/js/utils';
 
 export default {
   components: {
-    WhaleLogo,
     BackgroundImage,
-    scissorsIcon
+    copyIcon,
+    menuIcon
   },
   data () {
     return {
