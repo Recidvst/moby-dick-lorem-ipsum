@@ -211,9 +211,6 @@ export default {
     window.addEventListener("resize", headerHeightFn);
 
     parallax();
-  },
-  updated() {
-    console.log("updated");
   }
 };
 </script>

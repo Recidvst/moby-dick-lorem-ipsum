@@ -1,9 +1,14 @@
 # Moby Dipsum
 
-> A Moby Dick themed Lorem Ipsum generator.
-> Vue.js/Nuxt frontend & Node/Express API.
+> To produce a mighty book, you must choose a mighty theme.
 
-- [Visit the site here](https://moby-dick-lorem-ipsum.chris-snowden.me)
-- [The API](https://github.com/Recidvst/moby-dick-lorem-ipsum-api)
-- Run as a [Nuxt](https://github.com/nuxt/nuxt.js) static site - `npm run generate`
+### [A Moby Dick themed Lorem Ipsum generator](https://moby-dipsum.com)
+
+#### Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book.
+
+---
+
+- Using Vue.js/Nuxt for the frontend & Node/Express for the API.
+- [Check it out](https://moby-dipsum.com)
+- [The API repo](https://github.com/Recidvst/moby-dick-lorem-ipsum-api)
 - Text courtesy of [Project Gutenberg](https://www.gutenberg.org/ebooks/2701)
