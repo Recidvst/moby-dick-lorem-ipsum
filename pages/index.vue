@@ -69,12 +69,12 @@
 </template>
 
 <script>
-
-import BackgroundImage from '~/components/BackgroundImage.vue';
-import copyIcon from '~/components/copyIcon';
-import menuIcon from '~/components/menuIcon';
-import { copyToClipboard } from '@/assets/js/utils';
-import { debounce } from '@/assets/js/utils';
+import BackgroundImage from "~/components/BackgroundImage.vue";
+import copyIcon from "~/components/copyIcon";
+import menuIcon from "~/components/menuIcon";
+import { copyToClipboard } from "@/assets/js/utils";
+import { debounce } from "@/assets/js/utils";
+import { parallax } from "@/assets/js/utils";
 
 export default {
   components: {
@@ -82,131 +82,148 @@ export default {
     copyIcon,
     menuIcon
   },
-  data () {
+  data() {
     return {
-      bgImage: require('~/static/images/gloomy-ocean.jpg'),
+      bgImage: require("~/static/images/gloomy-ocean.jpg"),
       filters: {
-        choice: 'paragraphs',
-        amount : 5
+        choice: "paragraphs",
+        amount: 5
       }
-    }
+    };
   },
   computed: {
-    snippetsArray() { // requested quotes from api
-      return this.$store.state.snippetsArray
+    snippetsArray() {
+      // requested quotes from api
+      return this.$store.state.snippetsArray;
     },
-    quotePara() { // example quote 
-      return this.$store.state.quoteParagraph
+    quotePara() {
+      // example quote
+      return this.$store.state.quoteParagraph;
     },
     prettyPrintChoice() {
-      return this.filters.choice.charAt(0).toUpperCase() + this.filters.choice.slice(1);
+      return (
+        this.filters.choice.charAt(0).toUpperCase() +
+        this.filters.choice.slice(1)
+      );
     },
-    snippetsAmount: { // update number of paras to fetch
-      get: function() { 
-        return this.$store.state.snippetsAmount; 
-      }, 
-      set: function(newAmount){ 
+    snippetsAmount: {
+      // update number of paras to fetch
+      get: function() {
+        return this.$store.state.snippetsAmount;
+      },
+      set: function(newAmount) {
         this.debounceSnippetsAmountInput(newAmount);
       }
     }
   },
   watch: {
     // watch for filter changes and update localstorage
-    'filters.choice': function (val) {
-      this.updateFilters('choice', val);
-      if ( this.filters.choice === 'paragraphs' ) {
-        this.$store.commit('changeContentType', 'paragraphs');
-      }
-      else if ( this.filters.choice === 'titles' ) {
-        this.$store.commit('changeContentType', 'titles'); 
+    "filters.choice": function(val) {
+      this.updateFilters("choice", val);
+      if (this.filters.choice === "paragraphs") {
+        this.$store.commit("changeContentType", "paragraphs");
+      } else if (this.filters.choice === "titles") {
+        this.$store.commit("changeContentType", "titles");
       }
     },
-    'filters.amount': function (val) {
-      this.updateFilters('amount', val);
-      this.$store.commit('changesnippetsAmount', val); 
+    "filters.amount": function(val) {
+      this.updateFilters("amount", val);
+      this.$store.commit("changesnippetsAmount", val);
     }
   },
   methods: {
     // fire action to retrieve random paragraphs
     getParagraphs(e) {
-      this.$store.dispatch('getMultipleRandomAction'); 
+      this.$store.dispatch("getMultipleRandomAction");
     },
     updateFilters(type, val) {
       // save in localStorage
       if (process.browser) {
-        let filterPrefs = localStorage.getItem('mobyDipsumFilters');
+        let filterPrefs = localStorage.getItem("mobyDipsumFilters");
         filterPrefs = JSON.parse(filterPrefs);
-        if (filterPrefs && filterPrefs !== '') {
-          filterPrefs[type] = val;        
-        }
-        else {
+        if (filterPrefs && filterPrefs !== "") {
+          filterPrefs[type] = val;
+        } else {
           filterPrefs = {
-            'choice' : 'paragraphs',
-            'amount' : 5
-          }
+            choice: "paragraphs",
+            amount: 5
+          };
           filterPrefs[type] = val;
         }
-        localStorage.setItem('mobyDipsumFilters', JSON.stringify(filterPrefs));
+        localStorage.setItem("mobyDipsumFilters", JSON.stringify(filterPrefs));
       }
     },
     maxAmount(e) {
-      if ( e.target.value > 10) {
+      if (e.target.value > 10) {
         this.filters.amount = 10;
         e.target.value = this.filters.amount;
       }
     },
-    debounceSnippetsAmountInput: debounce(function (newAmount, e) {
-      this.$store.commit('changesnippetsAmount',newAmount); 
+    debounceSnippetsAmountInput: debounce(function(newAmount, e) {
+      this.$store.commit("changesnippetsAmount", newAmount);
     }, 250),
     headerHeight() {
-      let body = document.querySelector('#__nuxt');
-      let headerHeight = document.querySelector('.moby-dick-hero').offsetHeight;
-      if ( headerHeight && headerHeight > 0 ) {
+      let body = document.querySelector("#__nuxt");
+      let headerHeight = document.querySelector(".moby-dick-hero").offsetHeight;
+      if (headerHeight && headerHeight > 0) {
         body.style.paddingTop = `${headerHeight - 30}px`;
-      }      
+      }
     },
     toggleHeader() {
-      let headerControls = document.querySelector('.moby-dick-hero .hero-body .controls');
-      let controlsToggle = document.querySelector('.moby-dick-hero .hero-body .header-toggle');
+      let headerControls = document.querySelector(
+        ".moby-dick-hero .hero-body .controls"
+      );
+      let controlsToggle = document.querySelector(
+        ".moby-dick-hero .hero-body .header-toggle"
+      );
       if (headerControls) {
-        headerControls.classList.toggle('show-mobile');
+        headerControls.classList.toggle("show-mobile");
       }
       if (controlsToggle) {
-        controlsToggle.classList.toggle('active');
+        controlsToggle.classList.toggle("active");
       }
     }
-  },  
+  },
   beforeMount() {
     // get first items
-    this.$store.dispatch('getMultipleRandomAction'); 
+    this.$store.dispatch("getMultipleRandomAction");
     // set filters from localstorage
     if (process.browser) {
-      let filterPrefs = localStorage.getItem('mobyDipsumFilters');
-      if (filterPrefs && filterPrefs !== '') {
+      let filterPrefs = localStorage.getItem("mobyDipsumFilters");
+      if (filterPrefs && filterPrefs !== "") {
         filterPrefs = JSON.parse(filterPrefs);
-        if ( filterPrefs.choice && filterPrefs.choice !== '' && this.filters.choice !== filterPrefs.choice) {
+        if (
+          filterPrefs.choice &&
+          filterPrefs.choice !== "" &&
+          this.filters.choice !== filterPrefs.choice
+        ) {
           this.filters.choice = filterPrefs.choice;
-          if ( this.filters.choice === 'paras' ) {
-            this.$store.commit('changeContentType', 'paragraphs');
-          }
-          else {
-            this.$store.commit('changeContentType', 'titles'); 
+          if (this.filters.choice === "paras") {
+            this.$store.commit("changeContentType", "paragraphs");
+          } else {
+            this.$store.commit("changeContentType", "titles");
           }
         }
-        if ( filterPrefs.amount && filterPrefs.amount !== '' && this.filters.amount !== filterPrefs.amount) {
+        if (
+          filterPrefs.amount &&
+          filterPrefs.amount !== "" &&
+          this.filters.amount !== filterPrefs.amount
+        ) {
           this.filters.amount = filterPrefs.amount;
-          this.$store.commit('changesnippetsAmount', filterPrefs.amount);
+          this.$store.commit("changesnippetsAmount", filterPrefs.amount);
         }
       }
     }
   },
   mounted() {
-    // setting heeader height
-    let headerHeightFn = debounce( () => {
+    // setting header height
+    let headerHeightFn = debounce(() => {
       this.headerHeight();
     }, 50);
     this.headerHeight();
-    window.addEventListener('resize', headerHeightFn);
-  },
-}
+    window.addEventListener("resize", headerHeightFn);
+
+    parallax();
+  }
+};
 </script>

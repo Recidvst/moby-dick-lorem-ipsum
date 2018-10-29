@@ -1,42 +1,42 @@
 {
-  "name": "moby-dick-lorem-ipsum",
-  "version": "1.0.0",
-  "description": "To produce a mighty book, you must choose a mighty theme. The Vue/Nuxt front-end for a Moby Dick themed Lorem Ipsum generator.",
-  "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Recidvst/moby-dick-lorem-ipsum.git"
-  },
-  "homepage": "https://github.com/Recidvst/moby-dick-lorem-ipsum#readme",
-  "author": "Chris Snowden <cdsnowden@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint"
-  },
-  "config": {
-    "nuxt": {
-      "host": "0.0.0.0",
-      "port": "3333"
-    }
-  },
-  "dependencies": {
-    "bulma": "^0.7.1",
-    "font-awesome": "^4.7.0",
-    "nuxt": "^1.0.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^8.2.1",
-    "dotenv": "^6.0.0",
-    "eslint": "^4.15.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0",
-    "node-sass": "^4.9.3",
-    "sass-loader": "^7.1.0"
-  }
+	"name": "moby-dick-lorem-ipsum",
+	"version": "1.0.1",
+	"description": "To produce a mighty book, you must choose a mighty theme. The Vue/Nuxt front-end for a Moby Dick themed Lorem Ipsum generator.",
+	"main": "app.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Recidvst/moby-dick-lorem-ipsum.git"
+	},
+	"homepage": "https://github.com/Recidvst/moby-dick-lorem-ipsum#readme",
+	"author": "Chris Snowden <cdsnowden@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"dev": "nuxt",
+		"build": "nuxt build",
+		"start": "nuxt start",
+		"generate": "nuxt generate",
+		"lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+		"precommit": "npm run lint"
+	},
+	"config": {
+		"nuxt": {
+			"host": "0.0.0.0",
+			"port": "3333"
+		}
+	},
+	"dependencies": {
+		"bulma": "^0.7.1",
+		"font-awesome": "^4.7.0",
+		"nuxt": "^1.0.0"
+	},
+	"devDependencies": {
+		"babel-eslint": "^8.2.1",
+		"dotenv": "^6.0.0",
+		"eslint": "^4.15.0",
+		"eslint-friendly-formatter": "^3.0.0",
+		"eslint-loader": "^1.7.1",
+		"eslint-plugin-vue": "^4.0.0",
+		"node-sass": "^4.9.3",
+		"sass-loader": "^7.1.0"
+	}
 }
