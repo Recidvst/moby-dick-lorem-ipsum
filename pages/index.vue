@@ -96,24 +96,11 @@ export default {
       // requested quotes from api
       return this.$store.state.snippetsArray;
     },
-    quotePara() {
-      // example quote
-      return this.$store.state.quoteParagraph;
-    },
     prettyPrintChoice() {
       return (
         this.filters.choice.charAt(0).toUpperCase() +
         this.filters.choice.slice(1)
       );
-    },
-    snippetsAmount: {
-      // update number of paras to fetch
-      get: function() {
-        return this.$store.state.snippetsAmount;
-      },
-      set: function(newAmount) {
-        this.debounceSnippetsAmountInput(newAmount);
-      }
     }
   },
   watch: {
@@ -125,10 +112,12 @@ export default {
       } else if (this.filters.choice === "titles") {
         this.$store.commit("changeContentType", "titles");
       }
+      this.$store.dispatch("getMultipleRandomAction");
     },
     "filters.amount": function(val) {
       this.updateFilters("amount", val);
       this.$store.commit("changesnippetsAmount", val);
+      this.$store.dispatch("getMultipleRandomAction");
     }
   },
   methods: {
@@ -159,9 +148,6 @@ export default {
         e.target.value = this.filters.amount;
       }
     },
-    debounceSnippetsAmountInput: debounce(function(newAmount, e) {
-      this.$store.commit("changesnippetsAmount", newAmount);
-    }, 250),
     headerHeight() {
       let body = document.querySelector("#__nuxt");
       let headerHeight = document.querySelector(".moby-dick-hero").offsetHeight;
@@ -185,8 +171,6 @@ export default {
     }
   },
   beforeMount() {
-    // get first items
-    this.$store.dispatch("getMultipleRandomAction");
     // set filters from localstorage
     if (process.browser) {
       let filterPrefs = localStorage.getItem("mobyDipsumFilters");
@@ -216,6 +200,9 @@ export default {
     }
   },
   mounted() {
+    // get first items
+    this.$store.dispatch("getMultipleRandomAction");
+
     // setting header height
     let headerHeightFn = debounce(() => {
       this.headerHeight();
@@ -224,6 +211,9 @@ export default {
     window.addEventListener("resize", headerHeightFn);
 
     parallax();
+  },
+  updated() {
+    console.log("updated");
   }
 };
 </script>
