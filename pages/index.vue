@@ -5,64 +5,97 @@
     <section class="moby-dick-hero hero is-small is-bold">
       <div class="hero-body container-fluid">
         <div class="header-left">
-
           <h1 class="title is-size-3">
-            A Lorem Ipsum generator using snippets from Herman Melville's <strong>Moby Dick</strong>
+            A Lorem Ipsum generator using snippets from Herman Melville's
+            <strong>Moby Dick</strong>
           </h1>
 
-          <span class="header-toggle" @click="toggleHeader($event)"> 
-            <small> controls 
+          <span class="header-toggle" @click="toggleHeader($event)">
+            <small>controls
               <menuIcon/>
-            </small> 
+            </small>
           </span>
-
         </div>
         <div class="header-right controls">
-      
-            <ul class="type-filter">   
-              <label for="checkbox-fetch-paras">
-                <input type="radio" name="checkbox-choice" id="checkbox-fetch-paras" value='paragraphs' v-model="filters.choice" checked> 
-                Paragraphs
-                <br/>
-              </label>
-              <label for="checkbox-fetch-titles">
-                <input type="radio" name="checkbox-choice" id="checkbox-fetch-titles" value='titles' v-model="filters.choice"> 
-                Titles
-                <br/>
-              </label>
-            </ul>
+          <ul class="type-filter">
+            <label for="checkbox-fetch-paras">
+              <input
+                type="radio"
+                name="checkbox-choice"
+                id="checkbox-fetch-paras"
+                value="paragraphs"
+                v-model="filters.choice"
+                checked
+              >
+              Paragraphs
+              <br>
+            </label>
+            <label for="checkbox-fetch-titles">
+              <input
+                type="radio"
+                name="checkbox-choice"
+                id="checkbox-fetch-titles"
+                value="titles"
+                v-model="filters.choice"
+              >
+              Titles
+              <br>
+            </label>
+          </ul>
 
-            <div class="count-filter">
-              <label for="checkbox-amount">
-                <input type="number" name="checkbox-choice" id="checkbox-amount" min="1" max="10" value="5" v-model="filters.amount" v-on:keyup="maxAmount($event)"> 
-                {{ prettyPrintChoice }}
-              </label>
-            </div>
-     
-            <a class="button search-button card-footer-item is-size-4 " id="fetch-button" @click="getParagraphs($event)"> 
-              <h2>Fetch</h2> 
-            </a>   
+          <div class="count-filter">
+            <label for="checkbox-amount">
+              <input
+                type="number"
+                name="checkbox-choice"
+                id="checkbox-amount"
+                min="1"
+                max="10"
+                value="5"
+                v-model="filters.amount"
+                v-on:keyup="maxAmount($event)"
+              >
+              {{ prettyPrintChoice }}
+            </label>
+          </div>
 
+          <a
+            class="button search-button card-footer-item is-size-4"
+            id="fetch-button"
+            @click="getParagraphs($event)"
+          >
+            <h2>Fetch</h2>
+          </a>
         </div>
       </div>
     </section>
-  
+
     <section class="moby-dick-quotes-main">
       <div class="container">
         <ul class="card-content">
-          <li class="box columns is-12 is-flex is-vcentered" v-for="(paragraphContent, index) in snippetsArray" :key="index">
-            <blockquote class="column is-11 quote" v-bind:data-quote="index">
-              {{ paragraphContent }}
-            </blockquote>         
+          <li
+            class="box columns is-12 is-flex is-vcentered"
+            v-for="(paragraphContent, index) in snippetsArray"
+            :key="index"
+          >
+            <blockquote class="column is-11 quote" v-bind:data-quote="index">{{ paragraphContent }}</blockquote>
             <span class="icon-box" v-bind:data-clipboard="index">
-                <copyIcon/>
+              <copyIcon/>
             </span>
-          </li>          
+          </li>
         </ul>
       </div>
     </section>
 
-    <a href="https://github.com/Recidvst" title="Recidvst on Github" class="github-link footer-link" target="_blank" rel="noopener"><i class="fab fa-github-square"></i></a>
+    <a
+      href="https://github.com/Recidvst"
+      title="Recidvst on Github"
+      class="github-link footer-link"
+      target="_blank"
+      rel="noopener"
+    >
+      <i class="fab fa-github-square"></i>
+    </a>
 
     <BackgroundImage/>
   </div>
@@ -72,9 +105,9 @@
 import BackgroundImage from "~/components/BackgroundImage.vue";
 import copyIcon from "~/components/copyIcon";
 import menuIcon from "~/components/menuIcon";
-import { copyToClipboard } from "@/assets/js/utils";
-import { debounce } from "@/assets/js/utils";
-import { parallax } from "@/assets/js/utils";
+import { copyToClipboard } from "../assets/js/utils";
+import { debounce } from "../assets/js/utils";
+import { parallax } from "../assets/js/utils";
 
 export default {
   components: {

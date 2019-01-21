@@ -1,8 +1,8 @@
 import Vuex from "vuex";
-import { setFetchHeaders } from "@/assets/js/utils";
-import { truncateText } from "@/assets/js/utils";
-import { APIURL } from "@/static/config"; // get api endpoint
-import { APITOKEN } from "@/static/config"; // get api token
+import { setFetchHeaders } from "../assets/js/utils";
+import { truncateText } from "../assets/js/utils";
+import { APIURL } from "../static/config"; // get api endpoint
+import { APITOKEN } from "../static/config"; // get api token
 
 const createStore = () => {
 	return new Vuex.Store({
@@ -32,7 +32,7 @@ const createStore = () => {
 					type: "cors",
 					headers: setFetchHeaders(state.token)
 				})
-					.then(function(response) {
+					.then(function (response) {
 						return response.json();
 					})
 					.then(data => {
@@ -43,7 +43,7 @@ const createStore = () => {
 						}
 						commit("updateParagraphs", [newParas]); // trigger the mutation once data fetched
 					})
-					.catch(function(err) {
+					.catch(function (err) {
 						console.warn(err);
 					});
 			}
