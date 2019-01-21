@@ -1,8 +1,10 @@
 import Vuex from "vuex";
 import { setFetchHeaders } from "../assets/js/utils";
 import { truncateText } from "../assets/js/utils";
-import { APIURL } from "../static/config"; // get api endpoint
-import { APITOKEN } from "../static/config"; // get api token
+// import { APIURL } from "../static/config"; // get api endpoint
+// import { APITOKEN } from "../static/config"; // get api token
+const APIURL = process.env.APIURL;
+const APITOKEN = process.env.APITOKEN;
 
 const createStore = () => {
 	return new Vuex.Store({
@@ -10,7 +12,7 @@ const createStore = () => {
 			snippetsArray: ["..."],
 			snippetsAmount: 5,
 			contentType: "paragraphs",
-			token: APITOKEN()
+			token: APITOKEN
 		},
 		mutations: {
 			updateParagraphs(state, [newParagraphs]) {
@@ -27,7 +29,7 @@ const createStore = () => {
 			// fetch multiple paragraphs/titles
 			getMultipleRandomAction({ commit, state }, count) {
 				let getCount = count || state.snippetsAmount;
-				fetch(`${APIURL()}/${state.contentType}/random/${getCount}`, {
+				fetch(`${APIURL}/${state.contentType}/random/${getCount}`, {
 					method: "GET",
 					type: "cors",
 					headers: setFetchHeaders(state.token)

@@ -1,7 +1,6 @@
 <template>
   <div class="moby-dick-lp-container">
-    <link rel="preload" v-bind:href="bgImage" as="image">
-
+    <!-- <link rel="preload" v-bind:href="bgImage" as="image"> -->
     <section class="moby-dick-hero hero is-small is-bold">
       <div class="hero-body container-fluid">
         <div class="header-left">

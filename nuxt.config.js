@@ -20,7 +20,8 @@ module.exports = {
 			}
 		],
 		link: [
-			{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+			// { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+			{ rel: "icon", type: "image/x-icon", href: "/favicon.png" },
 			{
 				rel: "stylesheet",
 				href:
@@ -55,6 +56,12 @@ module.exports = {
 				"postcss-custom-properties": false
 			}
 		}
+	},
+	// env variables - handled by netlify in production
+	env: {
+		environment: process.env.NODE_ENV || 'development',
+		APIURL: process.env.APIURL || 'url',
+		APITOKEN: process.env.APITOKEN || 'token'
 	},
 	css: [
 		{ src: "~assets/css/main.scss", lang: "sass" },
