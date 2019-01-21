@@ -6,8 +6,6 @@
 
 #### Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book.
 
----
-
 - Using Vue.js/Nuxt for the frontend & Node/Express for the API.
 - [Check it out](https://moby-dipsum.com)
 - [The API repo](https://github.com/Recidvst/moby-dick-lorem-ipsum-api)
