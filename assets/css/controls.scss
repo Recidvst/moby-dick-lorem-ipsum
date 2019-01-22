@@ -99,15 +99,27 @@
             height: 450%;             
         }
     }
-    @media (max-width: 997px) {
-        width: 100%;
-        margin: 10px auto 0px;
-    }
-
     // for active toggle
     &.active {
         &:after {
             height: 450%;                
+        }
+    }
+    
+    @media (max-width: 997px) {
+        width: 100%;
+        margin: 10px auto 0px;
+    }
+    @media (max-width: 997px) and (min-width: 500px ) {
+        &:hover, &:focus, &:active {
+            &:after {
+                height: 650%;             
+            }
+        }
+        &.active {
+            &:after {
+                height: 650%;                
+            }
         }
     }
 
