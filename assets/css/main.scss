@@ -4,6 +4,7 @@
 
 // Set own variables
 $blue: #72d0eb;
+$shining-blue: #37cecd;
 $ocean: #556271;
 $ocean-dark: #0E1319;
 $ocean-back: #DAE0E6;
@@ -27,3 +28,20 @@ $family-secondary: 'Hind Siliguri', sans-serif;
 @import "./header";
 @import "./controls";
 @import "./quotes";
+
+
+html {
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  background-color: #000;
+  body {
+    min-height: 100vh;
+    background-color: #000;
+  }
+}

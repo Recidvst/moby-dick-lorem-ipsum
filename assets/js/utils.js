@@ -28,10 +28,10 @@ export function truncateText(element, maxLength) {
 // debounce event listeners
 export function debounce(func, wait, immediate) {
 	var timeout;
-	return function() {
+	return function () {
 		var context = this,
 			args = arguments;
-		var later = function() {
+		var later = function () {
 			timeout = null;
 			if (!immediate) func.apply(context, args);
 		};
@@ -96,15 +96,17 @@ export function copyToClipboard(str) {
 export function parallax() {
 	const parallaxElements = [...document.getElementsByClassName("parallax")];
 
-	const parallax = function(img) {
+	const parallax = function (img) {
 		const speed = 40;
 		let pos = window.pageYOffset / speed + "px";
 		img.style.backgroundPosition = `center ${pos}`;
 	};
 
-	window.addEventListener("scroll", function(e) {
-		parallaxElements.map(img => {
-			parallax(img);
+	if (parallaxElements.length > 0) {
+		window.addEventListener("scroll", function (e) {
+			parallaxElements.map(img => {
+				parallax(img);
+			});
 		});
-	});
+	}
 }

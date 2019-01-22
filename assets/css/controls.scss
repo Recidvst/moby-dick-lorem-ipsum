@@ -51,45 +51,88 @@
             padding-top: 15px;
             padding-bottom: 15px;
         }
-    }    
+    }  
 
-    #fetch-button {
-        position: relative;
-        display: block;
-        background-color: $ocean-dark;
-        border: 2px solid $ocean-dark;
-        border-radius: 0;
+}  
+
+#fetch-button, .search-button {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 12px 24px;
+    min-width: 200px;
+    border: none;
+    font-weight: 700;
+    background-color: $ocean-dark;
+    border: 2px solid $white;
+    border-radius: 0;
+    // border: none;
+    color: $white;
+    overflow: hidden;
+    z-index: 1;
+    transition: all .75s ease-in-out;
+    height: auto;
+    h2, h3 {
+        font-size: 1.25rem;
+        z-index: 2;
+        transition: all .2s ease-in-out;
         color: $white;
-        min-width: 200px;
-        overflow: hidden;
-        transition: all .25s ease;
-        z-index: 1;
-        transform: scale(0.9);
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        height: 0%;
+        left: 50%;
+        top: 50%;
+        width: 150%;
+        z-index: -1;
+        transition: all .75s ease 0s;
+        transform: translateX(-50%) translateY(-50%) rotate(25deg);
+        background: $shining-blue;
+    }
+    &:hover, &:focus, &:active {
+        color: $ocean-dark;
         h2, h3 {
-            font-size: 1.25rem;
-            z-index: 2;
+            color: $ocean-dark;
         }
         &:after {
-            content: '';
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            width: 0%;
-            height: 100%;
-            background: $ocean-back;
-            transition: all .25s ease;
-            z-index: -1;
+            height: 450%;             
         }
-        &:hover, &:focus, &:active {
-            color: $ocean-dark;
-            &:after {
-                width: 101%;                
-            }
-        }
-        @media (max-width: 997px) {
-            width: 100%;
-            margin: 10px auto 0px;
+    }
+    @media (max-width: 997px) {
+        width: 100%;
+        margin: 10px auto 0px;
+    }
+
+    // for active toggle
+    &.active {
+        &:after {
+            height: 450%;                
         }
     }
 
+}
+
+.plain-button {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 8px 24px;
+    min-width: 200px;
+    border: none;
+    font-weight: 700;
+    background-color: transparent;
+    border: 2px solid $ocean-dark;
+    // border: none;
+    color: $ocean-dark;
+    overflow: hidden;
+    z-index: 1;
+    transition: all .2s ease-in-out;
+    height: auto;
+    h2, h3 {
+        font-size: 1.25rem;
+        z-index: 2;
+        transition: all .2s ease-in-out;
+        color: $white;
+    }
 }

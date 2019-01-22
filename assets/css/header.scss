@@ -28,6 +28,18 @@
             align-items: center;
             transition: all .25s ease;
         }
+        .header-left {
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            h1 {
+                font-weight: bold;
+                margin: 10px 0;
+            }
+            h2 {
+                flex-basis: 100%;
+                margin: 5px 0 10px;
+            }
+        }
 
         @media (max-width: 997px) {
             flex-wrap: wrap;
@@ -52,18 +64,14 @@
 
     .header-toggle { // toggle
         display: none;
-        position: absolute;
-        bottom: 0px;
-        right: 20px;
+        position: relative;
+        margin: 20px 0 5px;
         font-size: 1.25rem;
-        color: $black;
+        text-align: center;
         transition: all .25s ease;
 
         img, svg {          
-            position: absolute;
-            top: 55%;
-            right: -55%;
-            transform: translate(0%, -50%) rotate(0deg);
+            position: relative;
             height: 25px;
             transition: all .25s ease;
         }
@@ -85,6 +93,7 @@
         }
         @media (max-width: 997px) {
             display: block;
+            flex-basis: 100%;
         }
     }
 

@@ -4,16 +4,21 @@
     <section class="moby-dick-hero hero is-small is-bold">
       <div class="hero-body container-fluid">
         <div class="header-left">
-          <h1 class="title is-size-3">
+          <h1 class="title is-size-3">Moby Dipsum</h1>
+          <h2 class="title is-size-4">
             A Lorem Ipsum generator using snippets from Herman Melville's
             <strong>Moby Dick</strong>
-          </h1>
+          </h2>
 
-          <span class="header-toggle" @click="toggleHeader($event)">
-            <small>controls
-              <menuIcon/>
-            </small>
-          </span>
+          <a
+            href="javascript:void(0);"
+            title="toggle controls"
+            class="header-toggle button plain-button"
+            @click="toggleHeader($event)"
+          >
+            <span v-if="menuToggled">Close Controls</span>
+            <span v-if="!menuToggled">Open Controls</span>
+          </a>
         </div>
         <div class="header-right controls">
           <ul class="type-filter">
@@ -63,7 +68,7 @@
             id="fetch-button"
             @click="getParagraphs($event)"
           >
-            <h2>Fetch</h2>
+            <h2>Refresh Text</h2>
           </a>
         </div>
       </div>
@@ -120,7 +125,8 @@ export default {
       filters: {
         choice: "paragraphs",
         amount: 5
-      }
+      },
+      menuToggled: false
     };
   },
   computed: {
@@ -200,6 +206,7 @@ export default {
       if (controlsToggle) {
         controlsToggle.classList.toggle("active");
       }
+      this.menuToggled = !this.menuToggled;
     }
   },
   beforeMount() {
