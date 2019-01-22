@@ -207,6 +207,7 @@ export default {
         controlsToggle.classList.toggle("active");
       }
       this.menuToggled = !this.menuToggled;
+      this.headerHeight();
     }
   },
   beforeMount() {
@@ -248,6 +249,7 @@ export default {
     }, 50);
     this.headerHeight();
     window.addEventListener("resize", headerHeightFn);
+    window.addEventListener("orientationchange", headerHeightFn);
 
     parallax();
   }
