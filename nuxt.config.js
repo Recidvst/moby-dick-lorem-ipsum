@@ -47,6 +47,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
     ['@nuxtjs/google-analytics', {
       id: process.env.GA_ID || ''
     }]
