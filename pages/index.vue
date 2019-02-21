@@ -1,6 +1,5 @@
 <template>
   <div class="moby-dick-lp-container">
-    <!-- <link rel="preload" v-bind:href="bgImage" as="image"> -->
     <section class="moby-dick-hero hero is-small is-bold">
       <div class="hero-body container-fluid">
         <div class="header-left">
@@ -121,7 +120,6 @@ export default {
   },
   data() {
     return {
-      bgImage: require("~/static/images/gloomy-ocean.jpg"),
       filters: {
         choice: "paragraphs",
         amount: 5

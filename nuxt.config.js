@@ -32,29 +32,6 @@ module.exports = {
   ** Customize the progress bar color
   */
 	loading: { color: "#d59d37" },
-	/*
-  ** Build configuration
-  */
-	build: {
-		/*
-    ** Run ESLint on save
-    */
-		extend(config, { isDev, isClient }) {
-			if (isDev && isClient) {
-				config.module.rules.push({
-					enforce: "pre",
-					test: /\.(js|vue)$/,
-					loader: "eslint-loader",
-					exclude: /(node_modules)/
-				});
-			}
-		},
-		postcss: {
-			plugins: {
-				"postcss-custom-properties": false
-			}
-		}
-	},
 	// env variables - handled by netlify in production
 	env: {
 		environment: process.env.NODE_ENV || 'development',
@@ -74,4 +51,38 @@ module.exports = {
       id: process.env.GA_ID || ''
     }]
   ],
+	/*
+  ** Build configuration
+  */
+	build: {
+		/*
+    ** Run ESLint on save
+    */
+		// extend(config, { isDev, isClient }) {
+		// 	if (isDev && isClient) {
+		// 		config.module.rules.push({
+		// 			enforce: "pre",
+		// 			test: /\.(js|vue)$/,
+		// 			loader: "eslint-loader",
+		// 			exclude: /(node_modules)/
+		// 		});
+		// 	}
+		// },
+    extend(config, ctx) {
+      // Run ESLint on save
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    },
+		postcss: {
+			plugins: {
+				"postcss-custom-properties": false
+			}
+		}
+	}
 };
