@@ -20,14 +20,12 @@ module.exports = {
 			}
 		],
 		link: [
-			// { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
 			{ rel: "icon", type: "image/x-icon", href: "/favicon.png" },
 			{
 				rel: "stylesheet",
 				href:
 					"https://fonts.googleapis.com/css?family=EB+Garamond|Hind+Siliguri"
 			}
-			// { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=EB+Garamond|Hind+Siliguri|Muli' }
 		]
 	},
 	/*
@@ -68,5 +66,12 @@ module.exports = {
 		{ src: "font-awesome/scss/font-awesome.scss", lang: "scss" }
 	],
 	vendor: ["~/assets/js/utils.js"],
-	plugins: [{ src: "~plugins/ga.js", ssr: false }]
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    ['@nuxtjs/google-analytics', {
+      id: process.env.GA_ID || ''
+    }]
+  ],
 };
