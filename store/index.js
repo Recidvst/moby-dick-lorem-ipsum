@@ -34,7 +34,7 @@ const createStore = () => {
 					type: "cors",
 					headers: setFetchHeaders(state.token)
 				})
-					.then(function (response) {
+					.then(function(response) {
 						return response.json();
 					})
 					.then(data => {
@@ -45,8 +45,10 @@ const createStore = () => {
 						}
 						commit("updateParagraphs", [newParas]); // trigger the mutation once data fetched
 					})
-					.catch(function (err) {
+					.catch(function(err) {
+						/* eslint-disable no-console */
 						console.warn(err);
+						/* eslint-enable no-console */
 					});
 			}
 		}

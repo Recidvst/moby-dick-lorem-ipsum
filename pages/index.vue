@@ -110,7 +110,6 @@ import copyIcon from "~/components/copyIcon";
 import menuIcon from "~/components/menuIcon";
 import { copyToClipboard } from "../assets/js/utils";
 import { debounce } from "../assets/js/utils";
-import { parallax } from "../assets/js/utils";
 
 export default {
   components: {
@@ -248,8 +247,6 @@ export default {
     this.headerHeight();
     window.addEventListener("resize", headerHeightFn);
     window.addEventListener("orientationchange", headerHeightFn);
-
-    parallax();
   }
 };
 </script>
