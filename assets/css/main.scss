@@ -1,4 +1,3 @@
-
 // Import the initial variables
 @import "~bulma/sass/utilities/initial-variables";
 
@@ -6,8 +5,8 @@
 $blue: #72d0eb;
 $shining-blue: #37cecd;
 $ocean: #556271;
-$ocean-dark: #0E1319;
-$ocean-back: #DAE0E6;
+$ocean-dark: #0e1319;
+$ocean-back: #dae0e6;
 // Set derived variables
 $primary: $ocean-dark;
 $secondary: $ocean-back;
@@ -17,31 +16,32 @@ $pale-grey: #dbdbdb;
 $info: $tertiary;
 
 // font
-$family-primary: 'EB Garamond', serif;
-$family-secondary: 'Hind Siliguri', sans-serif;
+$family-primary: "EB Garamond", serif;
+$family-secondary: "Hind Siliguri", sans-serif;
 
 // get the rest of bulma
 @import "~bulma/bulma";
 
 // import other personal styles
+@import "./fontawesome/font-awesome";
 @import "./scaffold";
 @import "./header";
 @import "./controls";
 @import "./quotes";
 
-
 html {
-  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-  background-color: #000;
-  body {
-    min-height: 100vh;
-    background-color: #000;
-  }
+	font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-size: 16px;
+	word-spacing: 1px;
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	box-sizing: border-box;
+	background-color: #000;
+	body {
+		min-height: 100vh;
+		background-color: #000;
+	}
 }

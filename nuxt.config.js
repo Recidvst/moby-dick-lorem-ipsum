@@ -40,10 +40,7 @@ module.exports = {
 		APITOKEN: process.env.APITOKEN || "token",
 		GA_ID: process.env.GA_ID || "gaid"
 	},
-	css: [
-		{ src: "~assets/css/main.scss", lang: "sass" },
-		{ src: "font-awesome/scss/font-awesome.scss", lang: "scss" }
-	],
+	css: [{ src: "~assets/css/main.scss", lang: "sass" }],
 	/*
 	 ** Nuxt.js modules
 	 */
