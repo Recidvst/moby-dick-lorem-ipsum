@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
 	mode: "universal",
 	/*
@@ -38,20 +40,24 @@ module.exports = {
 		environment: process.env.NODE_ENV || "development",
 		APIURL: process.env.APIURL || "url",
 		APITOKEN: process.env.APITOKEN || "token",
-		GA_ID: process.env.GA_ID || "gaid"
+		GA_ID: process.env.GA_ID || "gaid",
+		SENTRY_DSN: process.env.SENTRY_DSN || "sentry_dsn"
 	},
 	css: [{ src: "~assets/css/main.scss", lang: "sass" }],
 	/*
 	 ** Nuxt.js modules
 	 */
 	modules: [
-		[
-			"@nuxtjs/google-analytics",
-			{
-				id: process.env.GA_ID || "gaid"
-			}
-		]
+    '@nuxtjs/sentry',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/google-analytics'
 	],
+	sentry: {
+    dsn: process.env.SENTRY_DSN
+  },
+  googleAnalytics: {
+    id: process.env.GA_ID
+  },
 	/*
 	 ** Build configuration
 	 */

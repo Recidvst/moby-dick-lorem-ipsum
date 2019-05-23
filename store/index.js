@@ -1,8 +1,6 @@
 import Vuex from "vuex";
 import { setFetchHeaders } from "../assets/js/utils";
 import { truncateText } from "../assets/js/utils";
-// import { APIURL } from "../static/config"; // get api endpoint
-// import { APITOKEN } from "../static/config"; // get api token
 const APIURL = process.env.APIURL;
 const APITOKEN = process.env.APITOKEN;
 
