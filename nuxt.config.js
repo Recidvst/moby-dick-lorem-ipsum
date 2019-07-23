@@ -14,7 +14,7 @@ module.exports = {
 				hid: "description",
 				name: "description",
 				content:
-					"A Moby Dick themed Lorem Ipsum generator. Request paragraph content or chapter titles."
+					"A Moby Dick themed Lorem Ipsum generator. Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book."
 			},
 			{
 				hid: "keywords",
@@ -81,5 +81,5 @@ module.exports = {
 				"postcss-custom-properties": false
 			}
 		}
-	}
+	},
 };

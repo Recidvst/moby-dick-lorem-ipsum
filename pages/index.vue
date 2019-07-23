@@ -129,7 +129,7 @@ export default {
   computed: {
     snippetsArray() {
       // requested quotes from api
-      return this.$store.state.snippetsArray;
+      return this.$store.state.content.snippetsArray;
     },
     prettyPrintChoice() {
       return (
@@ -143,22 +143,22 @@ export default {
     "filters.choice": function(val) {
       this.updateFilters("choice", val);
       if (this.filters.choice === "paragraphs") {
-        this.$store.commit("changeContentType", "paragraphs");
+      this.$store.dispatch("changeContentTypeAction", "paragraphs");
       } else if (this.filters.choice === "titles") {
-        this.$store.commit("changeContentType", "titles");
+      this.$store.dispatch("changeContentTypeAction", "titles");
       }
       this.$store.dispatch("getMultipleRandomAction");
     },
     "filters.amount": function(val) {
       this.updateFilters("amount", val);
-      this.$store.commit("changesnippetsAmount", val);
+      this.$store.dispatch("changeSnippetsAmountAction", val);
       this.$store.dispatch("getMultipleRandomAction");
     }
   },
   methods: {
     // fire action to retrieve random paragraphs
     getParagraphs(e) {
-      this.$store.dispatch("getMultipleRandomAction");
+      this.$store.content.dispatch("getMultipleRandomAction");
     },
     updateFilters(type, val) {
       // save in localStorage
@@ -220,9 +220,9 @@ export default {
         ) {
           this.filters.choice = filterPrefs.choice;
           if (this.filters.choice === "paras") {
-            this.$store.commit("changeContentType", "paragraphs");
+      			this.$store.dispatch("changeContentTypeAction", "paragraphs");
           } else {
-            this.$store.commit("changeContentType", "titles");
+      			this.$store.dispatch("changeContentTypeAction", "titles");
           }
         }
         if (
@@ -231,13 +231,14 @@ export default {
           this.filters.amount !== filterPrefs.amount
         ) {
           this.filters.amount = filterPrefs.amount;
-          this.$store.commit("changesnippetsAmount", filterPrefs.amount);
+          // this.$store.commit("changesnippetsAmount", filterPrefs.amount);
+					this.$store.dispatch("changeSnippetsAmountAction", filterPrefs.amount);
         }
       }
     }
   },
   mounted() {
-    // get first items
+		// get first items
     this.$store.dispatch("getMultipleRandomAction");
 
     // setting header height
