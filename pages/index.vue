@@ -129,7 +129,7 @@ export default {
   computed: {
     snippetsArray() {
       // requested quotes from api
-      return this.$store.state.content.snippetsArray;
+      return this.$store.state.snippetsArray;
     },
     prettyPrintChoice() {
       return (
@@ -158,7 +158,7 @@ export default {
   methods: {
     // fire action to retrieve random paragraphs
     getParagraphs(e) {
-      this.$store.content.dispatch("getMultipleRandomAction");
+      this.$store.dispatch("getMultipleRandomAction");
     },
     updateFilters(type, val) {
       // save in localStorage
@@ -231,7 +231,6 @@ export default {
           this.filters.amount !== filterPrefs.amount
         ) {
           this.filters.amount = filterPrefs.amount;
-          // this.$store.commit("changesnippetsAmount", filterPrefs.amount);
 					this.$store.dispatch("changeSnippetsAmountAction", filterPrefs.amount);
         }
       }
