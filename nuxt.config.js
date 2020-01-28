@@ -1,4 +1,7 @@
 require('dotenv').config();
+import axios from 'axios';
+const APIURL = process.env.APIURL;
+const APITOKEN = process.env.APITOKEN;
 
 module.exports = {
 	mode: "universal",
@@ -82,4 +85,40 @@ module.exports = {
 			}
 		}
 	},
+  generate: {
+    fallback: true,
+    routes () {
+      let titles = axios.get(`${APIURL}/titles/moby-dick`, {
+        method: "GET",
+        type: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Origin": "*",
+          "x-access-token": APITOKEN
+        }
+      })
+      .then((res) => {
+        return res.data.map((title) => {
+          return '/titles/' + title._id;
+        })
+      })
+      let paragraphs = axios.get(`${APIURL}/paragraphs/moby-dick`, {
+        method: "GET",
+        type: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Origin": "*",
+          "x-access-token": APITOKEN
+        }
+      })
+      .then((res) => {
+        return res.data.map((paragraph) => {
+          return '/paragraphs/' + paragraph._id;
+        })
+      })
+      return Promise.all([titles, paragraphs]).then(values => {
+        return values.join().split(',');
+      })
+    }
+  },
 };

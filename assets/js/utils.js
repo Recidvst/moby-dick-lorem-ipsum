@@ -1,17 +1,21 @@
 // matchheight elements
 export function matchSomeHeights(array) {
 	if (!array) return false;
-	setTimeout(time => {
+	setTimeout( (time) => {
 		let heights = [];
-		array.forEach(top => {
-			let insideHeight = window
-				.getComputedStyle(top, null)
-				.getPropertyValue("height");
+		array.forEach( (top) => {
+			// remove current height to allow recalculation
+			if (top.style.removeProperty) {
+				top.style.removeProperty('height');
+			} else {
+				top.style.removeAttribute('height');
+			}
+			const insideHeight = window.getComputedStyle(top, null).getPropertyValue('height');
 			heights.push(parseInt(insideHeight));
 		});
-		let biggest = Math.max(...heights);
-		array.forEach(top => {
-			top.style.height = biggest + "px";
+		const biggest = Math.max(...heights);
+		array.forEach( (top) => {
+			top.style.height = biggest + 'px';
 		});
 	}, 250);
 }
