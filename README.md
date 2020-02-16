@@ -10,3 +10,4 @@
 - [Check it out](https://moby-dipsum.com)
 - [The API repo](https://github.com/Recidvst/moby-dick-lorem-ipsum-api)
 - Text courtesy of [Project Gutenberg](https://www.gutenberg.org/ebooks/2701)
+- Thanks to [Hero Patterns](https://www.heropatterns.com/) for the awesome SVG background

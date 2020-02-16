@@ -1,5 +1,5 @@
 <template>
-  <div class="moby-dick-lp-container">
+  <div>
     <section class="moby-dick-hero hero is-small is-bold">
       <div class="hero-body container-fluid">
         <div class="header-left">
@@ -78,42 +78,31 @@
         <ul class="card-content">
           <li
             class="box columns is-12 is-flex is-vcentered"
-            v-for="(paragraphContent, index) in snippetsArray"
+            v-for="(content, index) in snippetsArray"
             :key="index"
           >
-            <blockquote class="column is-11 quote" v-bind:data-quote="index">{{ paragraphContent }}</blockquote>
-            <span class="icon-box" v-bind:data-clipboard="index">
+            <blockquote class="column is-11 quote" :data-id="content.id" :data-type="content.type" :data-quote="index">{{ content.text }}</blockquote>
+            <div class="icon-box" :data-clipboard="index">
               <copyIcon/>
-            </span>
+              <span class="copy-notif">copied!</span>
+              <span class="view-icon" @click.prevent="goToSnippet($event)">👀</span>
+            </div>
           </li>
         </ul>
       </div>
     </section>
 
-    <a
-      href="https://github.com/Recidvst"
-      title="Recidvst on Github"
-      class="github-link footer-link"
-      target="_blank"
-      rel="noopener"
-    >
-      <i class="fab fa-github-square"></i>
-    </a>
-
-    <BackgroundImage/>
   </div>
 </template>
 
 <script>
-import BackgroundImage from "~/components/BackgroundImage.vue";
-import copyIcon from "~/components/copyIcon";
-import menuIcon from "~/components/menuIcon";
+import copyIcon from "~/components/icons/copyIcon";
+import menuIcon from "~/components/icons/menuIcon";
 import { copyToClipboard } from "../assets/js/utils";
 import { debounce } from "../assets/js/utils";
 
 export default {
   components: {
-    BackgroundImage,
     copyIcon,
     menuIcon
   },
@@ -159,6 +148,19 @@ export default {
     // fire action to retrieve random paragraphs
     getParagraphs(e) {
       this.$store.dispatch("getMultipleRandomAction");
+    },
+    goToSnippet(e) {
+      let target = e.currentTarget;
+      let parent = target.parentElement.parentElement;
+      if (parent) {
+        let snippetID = parent.querySelector(`.quote`).getAttribute('data-id');
+        let snippetType = parent.querySelector(`.quote`).getAttribute('data-type');
+        if (snippetID && snippetType) {
+          this.$router.push({
+            path: `/${snippetType}/${snippetID}`
+          })
+        }
+      }
     },
     updateFilters(type, val) {
       // save in localStorage

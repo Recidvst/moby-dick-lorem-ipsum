@@ -44,7 +44,8 @@ module.exports = {
 		APIURL: process.env.APIURL || "url",
 		APITOKEN: process.env.APITOKEN || "token",
 		GA_ID: process.env.GA_ID || "gaid",
-		SENTRY_DSN: process.env.SENTRY_DSN || "sentry_dsn"
+		SENTRY_DSN: process.env.SENTRY_DSN || "sentry_dsn",
+		SENTRY_DISABLED: process.env.SENTRY_DISABLED || false,
 	},
 	css: [{ src: "~assets/css/main.scss", lang: "sass" }],
 	/*

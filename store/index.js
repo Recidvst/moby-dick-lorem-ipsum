@@ -35,12 +35,16 @@ export const actions = {
 			return response.json();
 		})
 		.then(data => {
-			let newParas = [];
-			for (let para in data) {
-				let trimmedPara = truncateText(data[para].content, 1250).trim();
-				newParas.push(trimmedPara);
+			let newItems = [];
+			for (let item in data) {
+        let trimmedPara = truncateText(data[item].content, 1250).trim();
+				newItems.push({
+          id: data[item]._id,
+          text: trimmedPara,
+          type: 'paragraphs',
+        });
 			}
-			commit("updateParagraphs", [newParas]); // trigger the mutation once data fetched
+			commit("updateParagraphs", [newItems]); // trigger the mutation once data fetched
 		})
 		.catch(function(err) {
 			console.warn(err); // eslint-disable-line

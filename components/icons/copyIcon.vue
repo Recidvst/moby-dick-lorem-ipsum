@@ -19,9 +19,9 @@ export default {
             let textToCopy = copyTarget.querySelector(`.quote`).textContent;
             if (textToCopy) {
                 copyToClipboard(textToCopy.trim());
-                target.parentElement.classList.add('clicked');
+                target.classList.add('clicked');
                 setTimeout( () => {
-                    target.parentElement.classList.remove('clicked');
+                    target.classList.remove('clicked');
                 }, 1500);            
             }
         }

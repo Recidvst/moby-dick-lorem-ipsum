@@ -14,22 +14,23 @@
                 border-right: .5px solid $pale-grey;
             }
             &:nth-child(even){
-                border-left: .5px solid $pale-grey;                
+                border-left: .5px solid $pale-grey;
             }
             @media (max-width: 767px) {
                 border: 0.5px solid #dbdbdb;
-            }  
+            }
         }
     }
     .card-content {
         > .box {
             @media (max-width: 767px) {
                 align-items: flex-start;
-            }   
+            }
         }
         li.box.columns {
             position: relative;
             justify-content: space-between;
+            flex-wrap: wrap;
             &:before {
                 content: '\f10d';
                 position: absolute;
@@ -66,56 +67,79 @@ blockquote {
     font-size: 1.3rem;
     @media (max-width: 1023px) {
         font-size: 1.1rem;
-    }   
+    }
     .border {
         border-left: 6px solid $primary;
         padding-left: 18px;
     }
 }
+.go-back {
+  position: relative;
+  z-index: 1;
+  padding: 0 15px 0;
+  flex-basis: 100%;
+  color: $tertiary;
+}
+// icon and actions
 .icon-box {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     align-self: flex-start;
+    flex-direction: column;
     max-height: 100%;
     max-width: 35px;
     padding: 0;
     border: 1px solid transparent;
     transition: all .25s ease;
     .copy-icon {
-        position: relative;
-        z-index: 998;
-        max-height: 100%;
-        height: 30px;
-        transition: all .25s ease;
-    }
-    &.clicked {
-        .copy-icon {
-            path {
-                fill: $shining-blue;
-            }
-        }
-        &:after {
-            content: 'copied!';
-            position: absolute;
-            top: 50%;
-            left: -75%;
-            transform: translate(-50%, -50%);
-            path {
-                fill: $tertiary;
-            }
-            font-size: 15px;
-        }
-    }
-    &:hover {
+      position: relative;
+      z-index: 998;
+      max-height: 100%;
+      height: 25px;
+      transition: all .25s ease;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      &:hover {
         cursor: pointer;
-        .copy-icon {
-            animation: icon-bounce 1s ease;
-            path {
-                fill: $tertiary;
-            }
+        animation: icon-bounce 1s ease;
+        path {
+            fill: $tertiary;
         }
+      }
+      &.clicked {
+        path {
+          fill: $shining-blue;
+        }
+        + .copy-notif {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
+    .copy-notif {
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: -75%;
+      transform: translate(-50%, -50%);
+      path {
+        fill: $tertiary;
+      }
+      font-size: 15px;
+      transition: all .25s ease;
+    }
+    .view-icon {
+      position: relative;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      transition: all .25s ease;
+      &:hover {
+        cursor: pointer;
+        animation: icon-bounce 1s ease;
+      }
     }
     @keyframes icon-bounce {
         0%, 20%, 50%, 80%, 100% {
