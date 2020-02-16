@@ -1,5 +1,5 @@
 <template>
-  <section class="moby-dick-quotes-main">
+  <section class="moby-dick-quotes-main moby-dick">
     <div class="container">
 
       <ul class="card-content">
@@ -9,7 +9,7 @@
           :key="index"
           :content="content"
           :index="index"
-          prevRoute="none"
+          :prevRoute="prevRoute"
         />
       </ul>
 

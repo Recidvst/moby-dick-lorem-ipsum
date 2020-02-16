@@ -1,5 +1,5 @@
 <template>
-  <section class="moby-dick-quotes-main">
+  <section class="moby-dick-quotes-main alice">
     <div class="container">
 
       <ul class="card-content">
@@ -9,7 +9,8 @@
           :key="index"
           :content="content"
           :index="index"
-          prevRoute="none"
+          :prevRoute="prevRoute"
+          :allowViewSingle=false
         />
       </ul>
 
@@ -41,7 +42,7 @@ export default {
   },
   mounted() {
 		// get first items
-    this.$store.dispatch("getMultipleRandomAction", 'moby-dick');
+    this.$store.dispatch("getMultipleRandomAction", 'alice');
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {

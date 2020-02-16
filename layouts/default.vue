@@ -1,32 +1,35 @@
 <template>
   <div class="moby-dick-lp-container">
 
+    <Header
+      @getContent=getContent
+    />
+    
     <nuxt/>
 
-    <a
-      href="https://github.com/Recidvst"
-      title="Recidvst on Github"
-      class="github-link footer-link"
-      target="_blank"
-      rel="noopener"
-    >
-      <i class="fab fa-github-square"></i>
-    </a>
+    <Footer/>
 
     <BackgroundImage/>
+    
   </div>
 </template>
 
 <script>
-import BackgroundImage from "~/components/BackgroundImage.vue";
+import Header from "~/components/structure/Header.vue";
+import Footer from "~/components/structure/Footer.vue";
+import BackgroundImage from "~/components/images/BackgroundImage.vue";
 
 export default {
   components: {
+    Header,
+    Footer,
     BackgroundImage,
   },
-  data() {
-    return {
-    };
-  },
+  methods: {
+    // fire action to retrieve random paragraphs
+    getContent(e) {
+      this.$store.dispatch("getMultipleRandomAction");
+    },
+  }
 };
 </script>

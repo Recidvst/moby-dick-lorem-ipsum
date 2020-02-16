@@ -1,15 +1,16 @@
 <template>
   <section class="moby-dick-quotes-main single-quote single-title">
     <div class="container">
+   
       <ul class="card-content">
-        <li class="box columns is-12 is-flex is-vcentered">
-          <blockquote class="column is-11 quote" :data-id="content.id" :data-type="content.type" :data-quote="id">{{ content.text }}</blockquote>
-          <span class="icon-box" :data-clipboard="id">
-            <copyIcon/>
-          </span>
-          <router-link :to="'home'" tag="a" class="go-back">Go back</router-link>
-        </li>
+        <Quote
+          v-if="loadState"
+          :content="content"
+          :id="id"
+          :prevRoute="prevRoute"
+        />
       </ul>
+
     </div>
   </section>
 </template>
@@ -18,18 +19,22 @@
 import axios from 'axios';
 import { setFetchHeaders } from "../../assets/js/utils";
 import { truncateText } from "../../assets/js/utils";
+import Quote from "~/components/quotes/Quote";
 import copyIcon from "~/components/icons/copyIcon";
 const APIURL = process.env.APIURL;
 const APITOKEN = process.env.APITOKEN;
 
 export default {
   components: {
+    Quote,
     copyIcon,
   },
   data() {
     return {
       id: this.$route.params.id,
-      content: '',
+      content: {},
+      prevRoute: '/',
+      loadState: false
     }
   },
   methods: {
@@ -52,15 +57,23 @@ export default {
           id: data._id,
           text: trimmedContent,
           type: 'titles',
-        }
+        };
+        this.loadState = true;
       })
       .catch(function(err) {
         console.warn(err); // eslint-disable-line
       });
     }
   },
-  created() {
+  mounted() {
     this.getTitle();
-  }
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (from.path) {
+        vm.prevRoute = from.path;
+      }
+    })
+  },
 };
 </script>

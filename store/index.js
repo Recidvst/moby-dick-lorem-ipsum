@@ -1,9 +1,11 @@
+import axios from 'axios';
 import { setFetchHeaders } from "../assets/js/utils";
 import { truncateText } from "../assets/js/utils";
 const APIURL = process.env.APIURL;
 const APITOKEN = process.env.APITOKEN;
 
 export const state = () => ({
+	loadState: false,
 	snippetsArray: ['...'],
 	snippetsAmount: 5,
 	contentType: "paragraphs",
@@ -11,6 +13,9 @@ export const state = () => ({
 });
 
 export const mutations = {
+	updateLoadState(state, bool) {
+		state.loadState = bool;
+	},
 	updateParagraphs(state, [newParagraphs]) {
 		state.snippetsArray = newParagraphs;
 	},
@@ -24,15 +29,20 @@ export const mutations = {
 
 export const actions = {
 	// fetch multiple paragraphs/titles
-	getMultipleRandomAction({ commit, state }, count) {
-		let getCount = count || state.snippetsAmount;
-		fetch(`${APIURL}/${state.contentType}/random/${getCount}`, {
-			method: "GET",
+	getMultipleRandomAction({ commit, state }, type, count) {
+		commit("updateLoadState", false);
+		let getCount = count || state.snippetsAmount; // amount requested
+		let contentType = type || 'moby-dick'; // moby or alice?
+		axios.get(`${APIURL}/${state.contentType}/${contentType}/random/${getCount}`, {
 			type: "cors",
-			headers: setFetchHeaders(state.token)
+			headers: {
+				"Content-Type": "application/json",
+				"Access-Control-Origin": "*",
+				"x-access-token": APITOKEN
+			}
 		})
 		.then(function(response) {
-			return response.json();
+			return response.data;
 		})
 		.then(data => {
 			let newItems = [];
@@ -41,9 +51,10 @@ export const actions = {
 				newItems.push({
           id: data[item]._id,
           text: trimmedPara,
-          type: 'paragraphs',
+          type: state.contentType,
         });
 			}
+			commit("updateLoadState", true);
 			commit("updateParagraphs", [newItems]); // trigger the mutation once data fetched
 		})
 		.catch(function(err) {

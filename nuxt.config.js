@@ -102,7 +102,21 @@ module.exports = {
         return res.data.map((title) => {
           return '/titles/' + title._id;
         })
+      });
+      let alicetitles = axios.get(`${APIURL}/titles/alice`, {
+        method: "GET",
+        type: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Origin": "*",
+          "x-access-token": APITOKEN
+        }
       })
+      .then((res) => {
+        return res.data.map((title) => {
+          return '/titles/' + title._id;
+        })
+      });
       let paragraphs = axios.get(`${APIURL}/paragraphs/moby-dick`, {
         method: "GET",
         type: "cors",
@@ -116,8 +130,22 @@ module.exports = {
         return res.data.map((paragraph) => {
           return '/paragraphs/' + paragraph._id;
         })
+      });
+      let aliceparagraphs = axios.get(`${APIURL}/paragraphs/alice`, {
+        method: "GET",
+        type: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Origin": "*",
+          "x-access-token": APITOKEN
+        }
       })
-      return Promise.all([titles, paragraphs]).then(values => {
+      .then((res) => {
+        return res.data.map((paragraph) => {
+          return '/paragraphs/' + paragraph._id;
+        })
+      });
+      return Promise.all([titles, alicetitles, paragraphs, aliceparagraphs]).then(values => {
         return values.join().split(',');
       })
     }

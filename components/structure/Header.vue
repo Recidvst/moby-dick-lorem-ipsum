@@ -1,0 +1,211 @@
+<template>
+  <header class="moby-dick-hero hero is-small is-bold">
+    <div class="hero-body container-fluid">
+      <div class="header-left">
+        <h1 class="title is-size-3">Moby Dipsum</h1>
+        <h2 class="title is-size-4">
+          A Lorem Ipsum generator using snippets from Herman Melville's
+          <strong>Moby Dick</strong>
+        </h2>
+
+        <a
+          href="javascript:void(0);"
+          title="toggle controls"
+          class="header-toggle button plain-button"
+          @click="toggleHeader($event)"
+        >
+          <span v-if="menuToggled">Close Controls</span>
+          <span v-if="!menuToggled">Open Controls</span>
+        </a>
+      </div>
+      <div class="header-right controls" v-if="!this.paramOptions.id">
+        <ul class="type-filter">
+          <label for="checkbox-fetch-paras">
+            <input
+              type="radio"
+              name="checkbox-choice"
+              id="checkbox-fetch-paras"
+              value="paragraphs"
+              v-model="filters.choice"
+              checked
+            >
+            Paragraphs
+            <br>
+          </label>
+          <label for="checkbox-fetch-titles">
+            <input
+              type="radio"
+              name="checkbox-choice"
+              id="checkbox-fetch-titles"
+              value="titles"
+              v-model="filters.choice"
+            >
+            Titles
+            <br>
+          </label>
+        </ul>
+
+        <div class="count-filter">
+          <label for="checkbox-amount">
+            <input
+              type="number"
+              name="checkbox-choice"
+              id="checkbox-amount"
+              min="1"
+              max="10"
+              value="5"
+              v-model="filters.amount"
+              v-on:keyup="maxAmount($event)"
+            >
+            {{ prettyPrintChoice }}
+          </label>
+        </div>
+
+        <a
+          class="button search-button card-footer-item is-size-4"
+          id="fetch-button"
+          @click="getContent($event)"
+        >
+          <h2>Refresh Text</h2>
+        </a>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script>
+import menuIcon from "~/components/icons/menuIcon";
+import { debounce } from "~/assets/js/utils";
+
+export default {
+  components: {
+    menuIcon,
+  },
+  data() {
+    return {
+      filters: {
+        choice: "paragraphs",
+        amount: 5
+      },
+      menuToggled: false
+    };
+  },
+  computed: {
+    paramOptions() {
+      return this.$route.params;
+    },
+    prettyPrintChoice() {
+      return (
+        this.filters.choice.charAt(0).toUpperCase() +
+        this.filters.choice.slice(1)
+      );
+    }
+  },
+  watch: {
+    // watch for filter changes and update localstorage
+    "filters.choice": function(val) {
+      this.updateFilters("choice", val);
+      if (this.filters.choice === "paragraphs") {
+      this.$store.dispatch("changeContentTypeAction", "paragraphs");
+      } else if (this.filters.choice === "titles") {
+      this.$store.dispatch("changeContentTypeAction", "titles");
+      }
+      this.$store.dispatch("getMultipleRandomAction");
+    },
+    "filters.amount": function(val) {
+      this.updateFilters("amount", val);
+      this.$store.dispatch("changeSnippetsAmountAction", val);
+      this.$store.dispatch("getMultipleRandomAction");
+    }
+  },
+  methods: {
+    updateFilters(type, val) {
+      // save in localStorage
+      if (process.browser) {
+        let filterPrefs = localStorage.getItem("mobyDipsumFilters");
+        filterPrefs = JSON.parse(filterPrefs);
+        if (filterPrefs && filterPrefs !== "") {
+          filterPrefs[type] = val;
+        } else {
+          filterPrefs = {
+            choice: "paragraphs",
+            amount: 5
+          };
+          filterPrefs[type] = val;
+        }
+        localStorage.setItem("mobyDipsumFilters", JSON.stringify(filterPrefs));
+      }
+    },
+    maxAmount(e) {
+      if (e.target.value > 10) {
+        this.filters.amount = 10;
+        e.target.value = this.filters.amount;
+      }
+    },
+    headerHeight() {
+      let body = document.querySelector("#__nuxt");
+      let headerHeight = document.querySelector(".moby-dick-hero").offsetHeight;
+      if (headerHeight && headerHeight > 0) {
+        body.style.paddingTop = `${headerHeight - 30}px`;
+      }
+    },
+    toggleHeader() {
+      let headerControls = document.querySelector(
+        ".moby-dick-hero .hero-body .controls"
+      );
+      let controlsToggle = document.querySelector(
+        ".moby-dick-hero .hero-body .header-toggle"
+      );
+      if (headerControls) {
+        headerControls.classList.toggle("show-mobile");
+      }
+      if (controlsToggle) {
+        controlsToggle.classList.toggle("active");
+      }
+      this.menuToggled = !this.menuToggled;
+      this.headerHeight();
+    },
+    getContent(e) {
+      this.$emit('getContent');
+    },
+  },
+  beforeMount() {
+    // set filters from localstorage
+    if (process.browser) {
+      let filterPrefs = localStorage.getItem("mobyDipsumFilters");
+      if (filterPrefs && filterPrefs !== "") {
+        filterPrefs = JSON.parse(filterPrefs);
+        if (
+          filterPrefs.choice &&
+          filterPrefs.choice !== "" &&
+          this.filters.choice !== filterPrefs.choice
+        ) {
+          this.filters.choice = filterPrefs.choice;
+          if (this.filters.choice === "paras") {
+      			this.$store.dispatch("changeContentTypeAction", "paragraphs");
+          } else {
+      			this.$store.dispatch("changeContentTypeAction", "titles");
+          }
+        }
+        if (
+          filterPrefs.amount &&
+          filterPrefs.amount !== "" &&
+          this.filters.amount !== filterPrefs.amount
+        ) {
+          this.filters.amount = filterPrefs.amount;
+					this.$store.dispatch("changeSnippetsAmountAction", filterPrefs.amount);
+        }
+      }
+    }
+  },
+  mounted() {
+    // setting header height
+    let headerHeightFn = debounce(() => {
+      this.headerHeight();
+    }, 50);
+    this.headerHeight();
+    window.addEventListener("resize", headerHeightFn);
+    window.addEventListener("orientationchange", headerHeightFn);
+  }
+};
+</script>
