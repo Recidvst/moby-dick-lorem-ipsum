@@ -39,6 +39,18 @@ export default {
       return this.$store.state.snippetsArray;
     },
   },
+  // methods: {
+  //   // TODO: update the favicon when changing between alice and moby dick
+  //   updateFavicon() {
+  //     // (function() {
+  //     //     var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+  //     //     link.type = 'image/x-icon';
+  //     //     link.rel = 'shortcut icon';
+  //     //     link.href = 'http://www.stackoverflow.com/favicon.ico';
+  //     //     document.getElementsByTagName('head')[0].appendChild(link);
+  //     // })();
+  //   },
+  // },
   mounted() {
 		// get first items
     this.$store.dispatch("getMultipleRandomAction", 'moby-dick');

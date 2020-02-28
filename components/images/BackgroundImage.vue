@@ -1,11 +1,14 @@
 <template>
-  <div class="full-background-image"></div>
+  <div :class="['full-background-image', type]"></div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {};
+  props: {
+    type: {
+      type: String,
+      default: 'moby-dick'
+    },
   }
 };
 </script>
