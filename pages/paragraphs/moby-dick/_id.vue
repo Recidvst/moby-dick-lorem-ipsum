@@ -17,14 +17,15 @@
 
 <script>
 import axios from 'axios';
-import { setFetchHeaders } from "../../assets/js/utils";
-import { truncateText } from "../../assets/js/utils";
+import { setFetchHeaders } from "../../../assets/js/utils";
+import { truncateText } from "../../../assets/js/utils";
 import Quote from "~/components/quotes/Quote";
 import copyIcon from "~/components/icons/copyIcon";
 const APIURL = process.env.APIURL;
 const APITOKEN = process.env.APITOKEN;
 
 export default {
+  transition: 'slide-left',
   components: {
     Quote,
     copyIcon,
@@ -33,14 +34,13 @@ export default {
     return {
       id: this.$route.params.id,
       content: {},
-      prevRoute: '/',
       loadState: false
     }
   },
   methods: {
     // fire action to retrieve the requested paragraph
     getParagraph: async function (event) {
-      await axios.get(`${APIURL}/paragraphs/${this.$route.params.id}`, {
+      await axios.get(`${APIURL}/paragraphs/moby-dick/${this.$route.params.id}`, {
         type: "cors",
         headers: {
           "Content-Type": "application/json",

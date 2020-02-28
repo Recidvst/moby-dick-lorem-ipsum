@@ -1,7 +1,7 @@
 
 // hero
 .hero, .hero .container {
-    position: relative;    
+    position: relative;
     &.moby-dick-hero {
         position: fixed;
         top: 0;
@@ -17,7 +17,7 @@
         justify-content: space-between;
         align-items: center;
         padding-top: .5rem !important;
-        padding-bottom: .5rem !important; 
+        padding-bottom: .5rem !important;
         transition: all .5s ease;
 
         .header-left, .header-right {
@@ -57,9 +57,9 @@
                 &.show-mobile {
                     display: flex;
                     height: 100%;
-                }    
+                }
             }
-        }  
+        }
     }
 
     .header-toggle { // toggle
@@ -70,21 +70,21 @@
         text-align: center;
         transition: all .25s ease;
 
-        img, svg {          
+        img, svg {
             position: relative;
             height: 25px;
             transition: all .25s ease;
         }
         &:hover {
             cursor: pointer;
-            img, svg {      
+            img, svg {
                 path {
                     fill: $ocean;
-                }      
-            }   
+                }
+            }
         }
-        &.active {           
-            img, svg {   
+        &.active {
+            img, svg {
                 transform: translate(0%, -50%) rotate(90deg);
                 path {
                     fill: $ocean-dark;
@@ -125,6 +125,6 @@
         left: unset;
         height: 150px;
         opacity: 0.6;
-    }   
+    }
     display: none;
 }

@@ -9,7 +9,7 @@
           :key="index"
           :content="content"
           :index="index"
-          :prevRoute="prevRoute"
+          bookType="moby-dick"
         />
       </ul>
 
@@ -21,12 +21,13 @@
 import Quote from "~/components/quotes/Quote";
 
 export default {
+  transition: 'slide-right',
   components: {
     Quote,
   },
   data() {
     return {
-      prevRoute: '/'
+      faviconPath: require('@/assets/icons/mobydick/favicon.png'),
     }
   },
   computed: {
@@ -39,21 +40,22 @@ export default {
       return this.$store.state.snippetsArray;
     },
   },
-  // methods: {
-  //   // TODO: update the favicon when changing between alice and moby dick
-  //   updateFavicon() {
-  //     // (function() {
-  //     //     var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-  //     //     link.type = 'image/x-icon';
-  //     //     link.rel = 'shortcut icon';
-  //     //     link.href = 'http://www.stackoverflow.com/favicon.ico';
-  //     //     document.getElementsByTagName('head')[0].appendChild(link);
-  //     // })();
-  //   },
-  // },
+  methods: {
+    updateFavicon() { // swithes between icons (moby dick and alice)
+      const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = this.faviconPath;
+      document.getElementsByTagName('head')[0].appendChild(link);
+    },
+  },
+  created() {
+    this.$store.dispatch("changeBookTypeAction", 'moby-dick');
+  },
   mounted() {
 		// get first items
     this.$store.dispatch("getMultipleRandomAction", 'moby-dick');
+    this.updateFavicon();
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {

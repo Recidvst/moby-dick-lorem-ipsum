@@ -4,7 +4,7 @@
     <div class="icon-box" :data-clipboard="index">
       <copyIcon/>
       <span class="copy-notif">copied!</span>
-      <span v-if="!this.paramOptions.id && allowViewSingle" class="view-icon" @click.prevent="goToSnippet($event)">👀</span>
+      <span v-if="!this.paramOptions.id && allowViewSingle" class="view-icon" @click.prevent="goToSnippet($event)"><linkIcon/></span>
     </div>
     <router-link v-if="prevRoute != 'none'" :to="prevRoute" tag="a" class="go-back">Go back</router-link>
   </li>
@@ -12,10 +12,12 @@
 
 <script>
 import copyIcon from "~/components/icons/copyIcon";
+import linkIcon from "~/components/icons/linkIcon";
 
 export default {
   components: {
     copyIcon,
+    linkIcon,
   },
   computed: {
     paramOptions() {
@@ -31,7 +33,7 @@ export default {
         let snippetType = parent.querySelector(`.quote`).getAttribute('data-type');
         if (snippetID && snippetType) {
           this.$router.push({
-            path: `/${snippetType}/${snippetID}`
+            path: `/${snippetType}/${this.bookType}/${snippetID}`,
           })
         }
       }
@@ -44,6 +46,10 @@ export default {
         return {}
       }
     },
+    bookType: {
+      type: String,
+      default: 'moby-dick'
+    },
     id: {
       type: String,
       default: ''
@@ -54,7 +60,7 @@ export default {
     },
     prevRoute: {
       type: String,
-      default: '/'
+      default: 'none'
     },
     allowViewSingle: {
       type: Boolean,

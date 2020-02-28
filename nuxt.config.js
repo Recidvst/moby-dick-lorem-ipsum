@@ -37,7 +37,15 @@ module.exports = {
 	/*
 	 ** Customize the progress bar color
 	 */
-	loading: { color: "#d59d37" },
+  loading: {
+    color: '#37cecd',
+    height: '6px',
+    throttle: 0,
+    duration: 3000,
+    continuous: true,
+  },
+  // transitions
+  pageTransition: 'page',
 	// env variables - handled by netlify in production
 	env: {
 		environment: process.env.NODE_ENV || "development",
@@ -79,13 +87,19 @@ module.exports = {
 					exclude: /(node_modules)/
 				});
 			}
+      config.module.rules.push(
+        {
+          test: /ico$/,
+          loader: 'file-loader?name=[name].[ext]',
+        }
+      )
 		},
 		postcss: {
 			plugins: {
 				"postcss-custom-properties": false
 			}
 		}
-	},
+  },
   generate: {
     fallback: true,
     routes () {
@@ -100,7 +114,7 @@ module.exports = {
       })
       .then((res) => {
         return res.data.map((title) => {
-          return '/titles/' + title._id;
+          return '/titles/moby-dick/' + title._id;
         })
       });
       let alicetitles = axios.get(`${APIURL}/titles/alice`, {
@@ -114,7 +128,7 @@ module.exports = {
       })
       .then((res) => {
         return res.data.map((title) => {
-          return '/titles/' + title._id;
+          return '/titles/alice/' + title._id;
         })
       });
       let paragraphs = axios.get(`${APIURL}/paragraphs/moby-dick`, {
@@ -128,7 +142,7 @@ module.exports = {
       })
       .then((res) => {
         return res.data.map((paragraph) => {
-          return '/paragraphs/' + paragraph._id;
+          return '/paragraphs/moby-dick/' + paragraph._id;
         })
       });
       let aliceparagraphs = axios.get(`${APIURL}/paragraphs/alice`, {
@@ -142,7 +156,7 @@ module.exports = {
       })
       .then((res) => {
         return res.data.map((paragraph) => {
-          return '/paragraphs/' + paragraph._id;
+          return '/paragraphs/alice/' + paragraph._id;
         })
       });
       return Promise.all([titles, alicetitles, paragraphs, aliceparagraphs]).then(values => {

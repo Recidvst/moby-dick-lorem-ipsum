@@ -136,9 +136,11 @@ blockquote {
       margin-top: 5px;
       margin-bottom: 15px;
       transition: all .25s ease;
+      stroke: $ocean-dark;
       &:hover {
         cursor: pointer;
         animation: icon-bounce 1s ease;
+        stroke: $tertiary;
       }
     }
     @keyframes icon-bounce {

@@ -9,6 +9,7 @@ export const state = () => ({
 	snippetsArray: ['...'],
 	snippetsAmount: 5,
 	contentType: "paragraphs",
+	bookType: "",
 	token: APITOKEN
 });
 
@@ -24,7 +25,10 @@ export const mutations = {
 	},
 	changeContentType(state, cType) {
 		state.contentType = cType;
-	}
+	},
+	changeBookType(state, bType) {
+		state.bookType = bType;
+	},
 };
 
 export const actions = {
@@ -32,8 +36,13 @@ export const actions = {
 	getMultipleRandomAction({ commit, state }, type, count) {
 		commit("updateLoadState", false);
 		let getCount = count || state.snippetsAmount; // amount requested
-		let contentType = type || 'moby-dick'; // moby or alice?
-		axios.get(`${APIURL}/${state.contentType}/${contentType}/random/${getCount}`, {
+		let bookType = 'moby-dick';
+		if (type !== undefined) {
+			bookType = type;
+		} else if (state.bookType !== '') {
+			bookType = state.bookType; // fallback
+		}
+		axios.get(`${APIURL}/${state.contentType}/${bookType}/random/${getCount}`, {
 			type: "cors",
 			headers: {
 				"Content-Type": "application/json",
@@ -64,7 +73,10 @@ export const actions = {
 	changeContentTypeAction({ commit }, type) {
 		commit("changeContentType", type);
 	},
+	changeBookTypeAction({ commit }, type) {
+		commit("changeBookType", type);
+	},
 	changeSnippetsAmountAction({ commit }, amount) {
 		commit("changesnippetsAmount", amount);
-	}
+	},
 };
