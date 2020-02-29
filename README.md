@@ -2,9 +2,9 @@
 
 > To produce a mighty book, you must choose a mighty theme.
 
-### [A Moby Dick themed Lorem Ipsum generator](https://moby-dipsum.com)
+### [A Moby Dick themed Lorem Ipsum generator (Now with added Alice in Wonderland)](https://moby-dipsum.com)
 
-#### Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book.
+#### Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book(s).
 
 - Using Vue.js/Nuxt for the frontend & Node/Express for the API.
 - [Check it out](https://moby-dipsum.com)
