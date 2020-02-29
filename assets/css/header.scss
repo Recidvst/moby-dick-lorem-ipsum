@@ -18,7 +18,12 @@
         align-items: center;
         padding-top: .5rem !important;
         padding-bottom: .5rem !important;
+        overflow: hidden;
+        max-height: 100vh;
         transition: all .5s ease;
+        @media (max-height: 600px) {
+            overflow-y: scroll;
+        }
 
         .header-left, .header-right {
             position: relative;
@@ -48,15 +53,6 @@
                 width: 100%;
                 &.controls {
                     flex-wrap: wrap;
-                }
-            }
-            .controls {
-                // hide initally on mobile
-                display: none;
-                height: 0px;
-                &.show-mobile {
-                    display: flex;
-                    height: 100%;
                 }
             }
         }

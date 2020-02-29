@@ -15,7 +15,7 @@
           <span v-if="!menuToggled">Open Controls</span>
         </a>
       </div>
-      <div class="header-right controls" v-if="!this.paramOptions.id">
+      <div class="header-right controls" v-if="menuToggled">
         <ul class="type-filter">
           <label for="checkbox-fetch-paras">
             <input
@@ -65,6 +65,9 @@
         >
           <h2>Refresh Text</h2>
         </a>
+
+        <Tab/>
+
       </div>
     </div>
   </header>
@@ -72,12 +75,14 @@
 
 <script>
 import { mapState } from 'vuex';
+import Tab from "~/components/structure/Tab.vue";
 import menuIcon from "~/components/icons/menuIcon";
 import { debounce } from "~/assets/js/utils";
 
 export default {
   components: {
     menuIcon,
+    Tab,
   },
   data() {
     return {
@@ -85,7 +90,7 @@ export default {
         choice: "paragraphs",
         amount: 5
       },
-      menuToggled: false
+      menuToggled: true
     };
   },
   computed: {
@@ -157,19 +162,20 @@ export default {
       }
     },
     headerHeight() {
-      let body = document.querySelector("#__nuxt");
-      let headerHeight = document.querySelector(".moby-dick-hero").offsetHeight;
-      if (headerHeight && headerHeight > 0) {
-        body.style.paddingTop = `${headerHeight - 30}px`;
-      }
+      setTimeout( () => {
+        let body = document.querySelector("#__nuxt");
+        let headerHeight = document.querySelector(".moby-dick-hero").offsetHeight;
+        if (window.matchMedia("(max-width: 997px)").matches) {  
+          headerHeight = document.querySelector(".moby-dick-hero .header-left").offsetHeight + 30;
+        }
+        if (headerHeight && headerHeight > 0) {
+          body.style.paddingTop = `${headerHeight - 30}px`;
+        }
+      }, 1);
     },
     toggleHeader() {
-      let headerControls = document.querySelector(
-        ".moby-dick-hero .hero-body .controls"
-      );
-      let controlsToggle = document.querySelector(
-        ".moby-dick-hero .hero-body .header-toggle"
-      );
+      let headerControls = document.querySelector(".moby-dick-hero .hero-body .controls");
+      let controlsToggle = document.querySelector(".moby-dick-hero .hero-body .header-toggle");
       if (headerControls) {
         headerControls.classList.toggle("show-mobile");
       }
@@ -201,11 +207,7 @@ export default {
       			this.$store.dispatch("changeContentTypeAction", "titles");
           }
         }
-        if (
-          filterPrefs.amount &&
-          filterPrefs.amount !== "" &&
-          this.filters.amount !== filterPrefs.amount
-        ) {
+        if ( filterPrefs.amount && filterPrefs.amount !== "" && this.filters.amount !== filterPrefs.amount ) {
           this.filters.amount = filterPrefs.amount;
 					this.$store.dispatch("changeSnippetsAmountAction", filterPrefs.amount);
         }
@@ -217,9 +219,26 @@ export default {
     let headerHeightFn = debounce(() => {
       this.headerHeight();
     }, 50);
+    // on mobile, set header to be closed by default
+    let menuCheckFn = debounce( () => {
+      if (window.matchMedia("(max-width: 997px)").matches) {
+        this.menuToggled = false;    
+      } else {
+        this.menuToggled = true;
+      }
+    }, 50);
+    // trigger
     this.headerHeight();
-    window.addEventListener("resize", headerHeightFn);
-    window.addEventListener("orientationchange", headerHeightFn);
+    menuCheckFn();
+    // listeners
+    window.addEventListener("resize", () => {
+      headerHeightFn();
+      menuCheckFn();
+    });
+    window.addEventListener("orientationchange", () => {
+      headerHeightFn();
+      menuCheckFn();
+    });
   }
 };
 </script>

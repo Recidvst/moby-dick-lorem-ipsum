@@ -27,7 +27,11 @@ export const mutations = {
 		state.contentType = cType;
 	},
 	changeBookType(state, bType) {
-		state.bookType = bType;
+    if (bType && bType !== '') {
+      state.bookType = bType;
+    } else {
+      state.bookType = 'moby-dick'; // toggle if not passed
+    }
 	},
 };
 
