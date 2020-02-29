@@ -4,13 +4,13 @@
     <Header
       @getContent=getContent
     />
-    
+
     <nuxt/>
 
     <Footer/>
 
     <BackgroundImage/>
-    
+
   </div>
 </template>
 

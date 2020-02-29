@@ -1,14 +1,14 @@
 <template>
-  <div :class="['full-background-image', type]"></div>
+  <div :class="['full-background-image', bookType]"></div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
-  props: {
-    type: {
-      type: String,
-      default: 'moby-dick'
-    },
-  }
+  computed: {
+    ...mapState({
+      bookType: state => state.bookType,
+    }),
+  },
 };
 </script>

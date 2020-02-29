@@ -2,11 +2,8 @@
   <header class="moby-dick-hero hero is-small is-bold">
     <div class="hero-body container-fluid">
       <div class="header-left">
-        <h1 class="title is-size-3">Moby Dipsum</h1>
-        <h2 class="title is-size-4">
-          A Lorem Ipsum generator using snippets from Herman Melville's
-          <strong>Moby Dick</strong>
-        </h2>
+        <h1 class="title is-size-3" v-html="title"></h1>
+        <h2 class="title is-size-4" v-html="subtitle"></h2>
 
         <a
           href="javascript:void(0);"
@@ -74,6 +71,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import menuIcon from "~/components/icons/menuIcon";
 import { debounce } from "~/assets/js/utils";
 
@@ -91,6 +89,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      bookType: state => state.bookType,
+    }),
     paramOptions() {
       return this.$route.params;
     },
@@ -99,7 +100,20 @@ export default {
         this.filters.choice.charAt(0).toUpperCase() +
         this.filters.choice.slice(1)
       );
-    }
+    },
+    // headings
+    title() {
+      if (this.bookType === 'alice') {
+        return 'Alice in Dipsum-land';
+      }
+      return 'Moby Dipsum';
+    },
+    subtitle() {
+      if (this.bookType === 'alice') {
+        return 'A Lorem Ipsum generator using snippets from Lewis Carroll\'s <br/><strong>Alice\'s Adventures in Wonderland and Through the Looking Glass</strong>';
+      }
+      return 'A Lorem Ipsum generator using snippets from Herman Melville\'s <strong>Moby Dick</strong>';
+    },
   },
   watch: {
     // watch for filter changes and update localstorage
