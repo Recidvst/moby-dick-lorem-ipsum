@@ -6,23 +6,21 @@
 import { copyToClipboard } from '~/assets/js/utils';
 export default {
   name: 'copyIcon',
-  data() {
-    return {
-    }
-  },
   methods: {
     // copy text to clipboard
     copyText(e) {
         let target = e.currentTarget;
         let copyTarget = target.parentElement.parentElement;
         if (copyTarget) {
-            let textToCopy = copyTarget.querySelector(`.quote`).textContent;
-            if (textToCopy) {
-                copyToClipboard(textToCopy.trim());
-                target.classList.add('clicked');
-                setTimeout( () => {
-                    target.classList.remove('clicked');
-                }, 1500);            
+            let textElement = copyTarget.querySelector(`.quote`);
+            if (textElement) {
+              let textToCopy = textElement.textContent;
+              let strippedTextToCopy = textToCopy.replace(/\s\s+/g, ' ').trim();
+              copyToClipboard(strippedTextToCopy);
+              target.classList.add('clicked');
+              setTimeout( () => {
+                  target.classList.remove('clicked');
+              }, 1500);
             }
         }
     }
