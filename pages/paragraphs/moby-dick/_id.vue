@@ -1,7 +1,7 @@
 <template>
   <section class="moby-dick-quotes-main single-quote single-paragraph">
     <div class="container">
-   
+
       <ul class="card-content">
         <Quote
           v-if="loadState"
@@ -10,14 +10,13 @@
           :prevRoute="prevRoute"
         />
       </ul>
-      
+
     </div>
   </section>
 </template>
 
 <script>
 import axios from 'axios';
-import { setFetchHeaders } from "../../../assets/js/utils";
 import { truncateText } from "../../../assets/js/utils";
 import Quote from "~/components/quotes/Quote";
 import copyIcon from "~/components/icons/copyIcon";

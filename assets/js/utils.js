@@ -62,16 +62,6 @@ export function validateEmail(email) {
 	return re.test(email);
 }
 
-// fetch headers
-export function setFetchHeaders(token) {
-	token = token || "";
-	return new Headers({
-		"Content-Type": "application/json",
-		"Access-Control-Origin": "*",
-		"x-access-token": token
-	});
-}
-
 // AUTH
 // Set JWT token in localStorage
 export function setJWTstorage(key, value) {
