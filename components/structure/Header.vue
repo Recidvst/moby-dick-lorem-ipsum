@@ -6,6 +6,7 @@
         <h2 class="title is-size-4" v-html="subtitle"></h2>
 
         <a
+          v-if="allowMenu"
           href="javascript:void(0);"
           title="toggle controls"
           class="header-toggle button plain-button"
@@ -15,7 +16,7 @@
           <span v-if="!menuToggled">Open Controls</span>
         </a>
       </div>
-      <div class="header-right controls" v-if="menuToggled">
+      <div class="header-right controls" v-if="menuToggled && allowMenu">
         <ul class="type-filter">
           <label for="checkbox-fetch-paras">
             <input
@@ -90,7 +91,8 @@ export default {
         choice: "paragraphs",
         amount: 5
       },
-      menuToggled: true
+      menuToggled: true,
+      allowMenu: true,
     };
   },
   computed: {
@@ -165,7 +167,7 @@ export default {
       setTimeout( () => {
         let body = document.querySelector("#__nuxt");
         let headerHeight = document.querySelector(".moby-dick-hero").offsetHeight;
-        if (window.matchMedia("(max-width: 997px)").matches) {  
+        if (window.matchMedia("(max-width: 997px)").matches) {
           headerHeight = document.querySelector(".moby-dick-hero .header-left").offsetHeight + 30;
         }
         if (headerHeight && headerHeight > 0) {
@@ -215,6 +217,13 @@ export default {
     }
   },
   mounted() {
+    // don't show ehader controls on single snippet pages
+    if (this.$route.params.id) {
+      this.allowMenu = false;
+    }
+    else {
+      this.allowMenu = true;
+    }
     // setting header height
     let headerHeightFn = debounce(() => {
       this.headerHeight();
@@ -222,7 +231,7 @@ export default {
     // on mobile, set header to be closed by default
     let menuCheckFn = debounce( () => {
       if (window.matchMedia("(max-width: 997px)").matches) {
-        this.menuToggled = false;    
+        this.menuToggled = false;
       } else {
         this.menuToggled = true;
       }
@@ -239,6 +248,16 @@ export default {
       headerHeightFn();
       menuCheckFn();
     });
+  },
+  watch: {
+    $route(newRoute, oldRoute) {
+      if (newRoute.params.id) {
+        this.allowMenu = false;
+      }
+      else {
+        this.allowMenu = true;
+      }
+    }
   }
 };
 </script>
