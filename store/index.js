@@ -45,14 +45,16 @@ export const actions = {
 			bookType = type;
 		} else if (state.bookType !== '') {
 			bookType = state.bookType; // fallback
-    }
+		}
+		// build graphql query
     const query = `query {
-      ${state.contentType}(book: "moby", count: 5, random: true) {
+      ${state.contentType}(book: "${bookType}", count: ${getCount}, random: true) {
         _id
         identifier
         content
       }
-    }`;
+		}`;
+		// run api query
 		axios.post(`${APIURL}/graphql`, query, {
 			type: "cors",
 			headers: {
@@ -72,7 +74,6 @@ export const actions = {
       if (dataArr) {
         let newItems = [];
         for (let item in dataArr) {
-          console.log(item);
           let trimmedPara = truncateText(dataArr[item].content, 1250).trim();
           newItems.push({
             id: dataArr[item]._id,
