@@ -41,11 +41,13 @@ export default {
     getParagraph: async function (event) {
       // build graphql query
       const query = `query {
-        paragraphs(book: "moby-dick", _id:"${this.$route.params.id}") {
-          _id
-          identifier
-          content
-        }
+        book(name: "moby-dick") {
+          paragraphs(_id:"${this.$route.params.id}") {
+            _id
+            identifier
+            content
+          },
+        },
       }`;
       // run api query
       axios.post(`${APIURL}/graphql`, query, {
@@ -63,7 +65,7 @@ export default {
         return response.data;
       })
       .then(data => {
-        const dataArr = data.paragraphs;
+        const dataArr = data.book.paragraphs;
         if (dataArr && dataArr.length > 0) {
           const dataObj = dataArr[0];
           let trimmedContent = truncateText(dataObj.content, 1250).trim();

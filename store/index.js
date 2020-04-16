@@ -48,14 +48,16 @@ export const actions = {
 		}
 		// build graphql query
     const query = `query {
-      ${state.contentType}(book: "${bookType}", count: ${getCount}, random: true) {
-        _id
-        identifier
-        content
-      }
+      book(name: "${bookType}") {
+        ${state.contentType}(count: ${getCount}, random: true) {
+          _id
+          identifier
+          content
+        },
+      },
 		}`;
 		// run api query
-		axios.post(`${APIURL}/graphql`, query, {
+    axios.post(`${APIURL}/graphql`, query, {
 			type: "cors",
 			headers: {
 				"Content-Type": "application/graphql",
@@ -70,7 +72,7 @@ export const actions = {
 			return response;
 		})
 		.then(data => {
-      const dataArr = data[state.contentType];
+      const dataArr = data.book[state.contentType];
       if (dataArr) {
         let newItems = [];
         for (let item in dataArr) {
