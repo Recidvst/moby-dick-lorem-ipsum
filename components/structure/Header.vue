@@ -137,6 +137,14 @@ export default {
       this.updateFilters("amount", val);
       this.$store.dispatch("changeSnippetsAmountAction", val);
       this.$store.dispatch("getMultipleRandomAction");
+    },
+    $route(newRoute, oldRoute) {
+      if (newRoute.params.id) {
+        this.allowMenu = false;
+      }
+      else {
+        this.allowMenu = true;
+      }
     }
   },
   methods: {
@@ -217,7 +225,7 @@ export default {
     }
   },
   mounted() {
-    // don't show ehader controls on single snippet pages
+    // don't show header controls on single snippet pages
     if (this.$route.params.id) {
       this.allowMenu = false;
     }
@@ -249,15 +257,5 @@ export default {
       menuCheckFn();
     });
   },
-  watch: {
-    $route(newRoute, oldRoute) {
-      if (newRoute.params.id) {
-        this.allowMenu = false;
-      }
-      else {
-        this.allowMenu = true;
-      }
-    }
-  }
 };
 </script>
