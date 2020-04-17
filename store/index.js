@@ -46,29 +46,46 @@ export const actions = {
 		} else if (state.bookType !== '') {
 			bookType = state.bookType; // fallback
 		}
-		axios.get(`${APIURL}/${state.contentType}/${bookType}/random/${getCount}`, {
+		// build graphql query
+    const query = `query {
+      book(name: "${bookType}") {
+        ${state.contentType}(count: ${getCount}, random: true) {
+          _id
+          identifier
+          content
+        },
+      },
+		}`;
+		// run api query
+    axios.post(`${APIURL}/graphql`, query, {
 			type: "cors",
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/graphql",
 				"Access-Control-Origin": "*",
 				"x-access-token": APITOKEN
-			}
+      }
 		})
 		.then(function(response) {
-			return response.data;
+      if (response.data && response.data.data) {
+        return response.data.data;
+      }
+			return response;
 		})
 		.then(data => {
-			let newItems = [];
-			for (let item in data) {
-        let trimmedPara = truncateText(data[item].content, 1250).trim();
-				newItems.push({
-          id: data[item]._id,
-          text: trimmedPara,
-          type: state.contentType,
-        });
-			}
-			commit("updateLoadState", true);
-			commit("updateParagraphs", [newItems]); // trigger the mutation once data fetched
+      const dataArr = data.book[state.contentType];
+      if (dataArr) {
+        let newItems = [];
+        for (let item in dataArr) {
+          let trimmedPara = truncateText(dataArr[item].content, 1250).trim();
+          newItems.push({
+            id: dataArr[item]._id,
+            text: trimmedPara,
+            type: state.contentType,
+          });
+        }
+        commit("updateLoadState", true);
+        commit("updateParagraphs", [newItems]); // trigger the mutation once data fetched
+      }
 		})
 		.catch(function(err) {
 			console.warn(err); // eslint-disable-line

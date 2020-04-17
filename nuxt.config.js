@@ -103,65 +103,73 @@ module.exports = {
   generate: {
     fallback: true,
     routes () {
-      let titles = axios.get(`${APIURL}/titles/moby-dick`, {
-        method: "GET",
+      // build graphql query
+      const query = `query {
+        bookalice: book(name: "alice") {
+          titles(random: false) {
+            _id
+            identifier
+            content
+          },
+          paragraphs(random: false) {
+            _id
+            identifier
+            content
+          },
+        },
+        bookmoby: book(name: "moby") {
+          titles(random: false) {
+            _id
+            identifier
+            content
+          },
+          paragraphs(random: false) {
+            _id
+            identifier
+            content
+          },
+        },
+      }`;
+      let allContent = axios.post(`${APIURL}/graphql`, query, {
         type: "cors",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/graphql",
           "Access-Control-Origin": "*",
           "x-access-token": APITOKEN
         }
       })
-      .then((res) => {
-        return res.data.map((title) => {
-          return '/titles/moby-dick/' + title._id;
-        })
-      });
-      let alicetitles = axios.get(`${APIURL}/titles/alice`, {
-        method: "GET",
-        type: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Origin": "*",
-          "x-access-token": APITOKEN
+      .then(function(response) {
+        if (response.data && response.data.data) {
+          return response.data.data;
         }
+      	return response;
       })
-      .then((res) => {
-        return res.data.map((title) => {
-          return '/titles/alice/' + title._id;
-        })
-      });
-      let paragraphs = axios.get(`${APIURL}/paragraphs/moby-dick`, {
-        method: "GET",
-        type: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Origin": "*",
-          "x-access-token": APITOKEN
+      .then(data => {
+        const aliceContent = data.bookalice;
+        const mobyContent = data.bookalice;
+        // map the returned data to URLs for Nuxt
+        if (aliceContent && mobyContent) {
+          const aliceTitles = aliceContent.titles.map((title) => {
+            return '/titles/alice/' + title._id;
+          });
+          const aliceParagraphs = aliceContent.paragraphs.map((paragraph) => {
+            return '/paragraphs/alice/' + paragraph._id;
+          });
+          const mobyTitles = mobyContent.titles.map((title) => {
+            return '/titles/moby-dick/' + title._id;
+          });
+          const mobyParagraphs = mobyContent.paragraphs.map((paragraph) => {
+            return '/paragraphs/moby-dick/' + paragraph._id;
+          });
+          // return combined array of all content
+          return [...aliceTitles, ...aliceParagraphs, ...mobyTitles, ...mobyParagraphs];
         }
-      })
-      .then((res) => {
-        return res.data.map((paragraph) => {
-          return '/paragraphs/moby-dick/' + paragraph._id;
-        })
+        return [];
       });
-      let aliceparagraphs = axios.get(`${APIURL}/paragraphs/alice`, {
-        method: "GET",
-        type: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Origin": "*",
-          "x-access-token": APITOKEN
-        }
-      })
-      .then((res) => {
-        return res.data.map((paragraph) => {
-          return '/paragraphs/alice/' + paragraph._id;
-        })
-      });
-      return Promise.all([titles, alicetitles, paragraphs, aliceparagraphs]).then(values => {
+      // return promise into routes
+      return Promise.all([allContent]).then(values => {
         return values.join().split(',');
-      })
+      });
     }
   },
 };

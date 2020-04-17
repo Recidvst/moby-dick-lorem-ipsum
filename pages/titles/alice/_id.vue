@@ -1,7 +1,7 @@
 <template>
   <section class="moby-dick-quotes-main single-quote single-title">
     <div class="container">
-   
+
       <ul class="card-content">
         <Quote
           v-if="loadState"
@@ -17,7 +17,6 @@
 
 <script>
 import axios from 'axios';
-import { setFetchHeaders } from "../../../assets/js/utils";
 import { truncateText } from "../../../assets/js/utils";
 import Quote from "~/components/quotes/Quote";
 import copyIcon from "~/components/icons/copyIcon";
@@ -40,25 +39,51 @@ export default {
   methods: {
     // fire action to retrieve the requested title
     getTitle: async function (event) {
-      await axios.get(`${APIURL}/titles/alice/${this.$route.params.id}`, {
+      // build graphql query
+      const query = `query {
+        book(name: "alice") {
+          titles(_id:"${this.$route.params.id}") {
+            _id
+            identifier
+            content
+          },
+        },
+      }`;
+      // run api query
+      axios.post(`${APIURL}/graphql`, query, {
         type: "cors",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/graphql",
           "Access-Control-Origin": "*",
           "x-access-token": APITOKEN
         }
       })
       .then(function(response) {
+        if (response.data && response.data.data) {
+          return response.data.data;
+        }
         return response.data;
       })
       .then(data => {
-        let trimmedContent = truncateText(data.content, 1250).trim();
-        this.content = {
-          id: data._id,
-          text: trimmedContent,
-          type: 'titles',
-        };
-        this.loadState = true;
+        const dataArr = data.book.titles;
+        if (dataArr && dataArr.length > 0) {
+          const dataObj = dataArr[0];
+          let trimmedContent = truncateText(dataObj.content, 1250).trim();
+          this.content = {
+            id: dataObj._id,
+            text: trimmedContent,
+            type: 'titles',
+          };
+          this.loadState = true;
+        }
+        else {
+          this.content = {
+            id: -1,
+            text: 'Whoops, something\'s gone wrong ... that snippet wasn\'t found :(',
+            type: 'titles',
+          };
+          this.loadState = true;
+        }
       })
       .catch(function(err) {
         console.warn(err); // eslint-disable-line
@@ -66,6 +91,7 @@ export default {
     }
   },
   mounted() {
+    this.$store.dispatch("changeBookTypeAction", 'alice');
     this.getTitle();
   },
   beforeRouteEnter(to, from, next) {

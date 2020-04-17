@@ -6,7 +6,7 @@
       <span class="copy-notif">copied!</span>
       <span v-if="!this.paramOptions.id && allowViewSingle" class="view-icon" @click.prevent="goToSnippet($event)"><linkIcon/></span>
     </div>
-    <router-link v-if="prevRoute != 'none'" :to="prevRoute" tag="a" class="go-back">Go back</router-link>
+    <router-link v-if="prevRoute != 'none'" :to="prevRoute" tag="a" class="go-back search-button">Go back</router-link>
   </li>
 </template>
 
