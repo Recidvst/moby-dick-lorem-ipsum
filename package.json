@@ -1,6 +1,6 @@
 {
 	"name": "moby-dick-lorem-ipsum",
-	"version": "1.2.0",
+	"version": "1.3.1",
 	"description": "To produce a mighty book, you must choose a mighty theme. The Vue/Nuxt front-end for a Moby Dick themed Lorem Ipsum generator.",
 	"main": "app.js",
 	"repository": {
