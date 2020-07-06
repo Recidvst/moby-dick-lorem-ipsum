@@ -76,7 +76,7 @@ export const actions = {
       if (dataArr) {
         let newItems = [];
         for (let item in dataArr) {
-          let trimmedPara = truncateText(dataArr[item].content, 1250).trim();
+          let trimmedPara = truncateText(dataArr[item].content, 1500).trim();
           newItems.push({
             id: dataArr[item]._id,
             text: trimmedPara,

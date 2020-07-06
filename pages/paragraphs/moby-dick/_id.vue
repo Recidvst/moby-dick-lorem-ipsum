@@ -17,7 +17,6 @@
 
 <script>
 import axios from 'axios';
-import { truncateText } from "../../../assets/js/utils";
 import Quote from "~/components/quotes/Quote";
 import copyIcon from "~/components/icons/copyIcon";
 const APIURL = process.env.APIURL;
@@ -68,7 +67,7 @@ export default {
         const dataArr = data.book.paragraphs;
         if (dataArr && dataArr.length > 0) {
           const dataObj = dataArr[0];
-          let trimmedContent = truncateText(dataObj.content, 1250).trim();
+          let trimmedContent = dataObj.content.trim();
           this.content = {
             id: dataObj._id,
             text: trimmedContent,
