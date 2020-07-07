@@ -62,6 +62,7 @@ module.exports = {
 	modules: [
     '@nuxtjs/sentry',
     '@nuxtjs/dotenv',
+    '@nuxtjs/axios',
     '@nuxtjs/google-analytics'
 	],
 	sentry: {
