@@ -1,18 +1,15 @@
 <template>
   <section class="moby-dick-quotes-main alice">
     <div class="container">
-
-      <ul class="card-content">
+      <ul v-if="loadState" class="card-content">
         <Quote
-          v-if="loadState"
           v-for="(content, index) in snippetsArray"
           :key="index"
           :content="content"
           :index="index"
-          bookType="alice"
+          book-type="alice"
         />
       </ul>
-
     </div>
   </section>
 </template>
@@ -21,14 +18,21 @@
 import Quote from "~/components/quotes/Quote";
 
 export default {
-  transition: 'slide-right',
   components: {
     Quote,
   },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (from.path) {
+        vm.prevRoute = from.path;
+      }
+    });
+  },
+  transition: "slide-right",
   data() {
     return {
-      faviconPath: require('@/assets/icons/alice/favicon.png'),
-    }
+      faviconPath: require("@/assets/icons/alice/favicon.png"),
+    };
   },
   computed: {
     loadState() {
@@ -40,29 +44,23 @@ export default {
       return this.$store.state.snippetsArray;
     },
   },
-  methods: {
-    updateFavicon() { // swithes between icons (moby dick and alice)
-      const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
-      link.type = 'image/x-icon';
-      link.rel = 'shortcut icon';
-      link.href = this.faviconPath;
-      document.getElementsByTagName('head')[0].appendChild(link);
-    },
-  },
   created() {
-    this.$store.dispatch("changeBookTypeAction", 'alice');
+    this.$store.dispatch("changeBookTypeAction", "alice");
   },
   mounted() {
-		// get first items
-    this.$store.dispatch("getMultipleRandomAction", 'alice');
+    // get first items
+    this.$store.dispatch("getMultipleRandomAction", "alice");
     this.updateFavicon();
   },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      if (from.path) {
-        vm.prevRoute = from.path;
-      }
-    })
+  methods: {
+    updateFavicon() {
+      // swithes between icons (moby dick and alice)
+      const link = document.querySelector("link[rel*='icon']") || document.createElement("link");
+      link.type = "image/x-icon";
+      link.rel = "shortcut icon";
+      link.href = this.faviconPath;
+      document.getElementsByTagName("head")[0].appendChild(link);
+    },
   },
 };
 </script>

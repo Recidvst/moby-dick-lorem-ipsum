@@ -1,12 +1,21 @@
 <template>
   <li class="box columns is-12 is-flex is-vcentered">
-    <blockquote class="column is-11 quote" :data-id="content.id" :data-type="content.type">{{ content.text }}</blockquote>
+    <blockquote class="column is-11 quote" :data-id="content.id" :data-type="content.type">
+      {{ content.text }}
+    </blockquote>
     <div class="icon-box" :data-clipboard="index">
-      <copyIcon/>
+      <copyIcon />
       <span class="copy-notif">copied!</span>
-      <span v-if="!this.paramOptions.id && allowViewSingle" class="view-icon" @click.prevent="goToSnippet($event)"><linkIcon/></span>
+      <span
+        v-if="!paramOptions.id && allowViewSingle"
+        class="view-icon"
+        @click.prevent="goToSnippet($event)"
+        ><linkIcon
+      /></span>
     </div>
-    <router-link v-if="prevRoute != 'none'" :to="prevRoute" tag="a" class="go-back search-button">Go back</router-link>
+    <router-link v-if="prevRoute != 'none'" :to="prevRoute" tag="a" class="go-back search-button"
+      >Go back</router-link
+    >
   </li>
 </template>
 
@@ -19,6 +28,34 @@ export default {
     copyIcon,
     linkIcon,
   },
+  props: {
+    content: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    bookType: {
+      type: String,
+      default: "moby-dick",
+    },
+    id: {
+      type: String,
+      default: "",
+    },
+    index: {
+      type: Number,
+      default: 1,
+    },
+    prevRoute: {
+      type: String,
+      default: "none",
+    },
+    allowViewSingle: {
+      type: Boolean,
+      default: true,
+    },
+  },
   computed: {
     paramOptions() {
       return this.$route.params;
@@ -26,46 +63,18 @@ export default {
   },
   methods: {
     goToSnippet(e) {
-      let target = e.currentTarget;
-      let parent = target.parentElement.parentElement;
+      const target = e.currentTarget;
+      const parent = target.parentElement.parentElement;
       if (parent) {
-        let snippetID = parent.querySelector(`.quote`).getAttribute('data-id');
-        let snippetType = parent.querySelector(`.quote`).getAttribute('data-type');
+        const snippetID = parent.querySelector(".quote").getAttribute("data-id");
+        const snippetType = parent.querySelector(".quote").getAttribute("data-type");
         if (snippetID && snippetType) {
           this.$router.push({
             path: `/${snippetType}/${this.bookType}/${snippetID}`,
-          })
+          });
         }
       }
     },
   },
-  props: {
-    content: {
-      type: Object,
-      default: function () {
-        return {}
-      }
-    },
-    bookType: {
-      type: String,
-      default: 'moby-dick'
-    },
-    id: {
-      type: String,
-      default: ''
-    },
-    index: {
-      type: Number,
-      default: 1
-    },
-    prevRoute: {
-      type: String,
-      default: 'none'
-    },
-    allowViewSingle: {
-      type: Boolean,
-      default: true
-    }
-  }
 };
 </script>

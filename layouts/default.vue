@@ -1,16 +1,12 @@
 <template>
   <div class="moby-dick-lp-container">
+    <Header @getContent="getContent" />
 
-    <Header
-      @getContent=getContent
-    />
+    <nuxt />
 
-    <nuxt/>
+    <Footer />
 
-    <Footer/>
-
-    <BackgroundImage/>
-
+    <BackgroundImage />
   </div>
 </template>
 
@@ -30,6 +26,6 @@ export default {
     getContent(e) {
       this.$store.dispatch("getMultipleRandomAction");
     },
-  }
+  },
 };
 </script>

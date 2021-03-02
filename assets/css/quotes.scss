@@ -4,18 +4,22 @@
     z-index: 1;
     margin: 30px auto;
     padding: 15px;
+
     .card-footer {
         border-bottom: 1px solid $pale-grey;
         flex-wrap: wrap;
+
         .card-footer-item {
             border-radius: 0;
             border: none;
-            &:nth-child(odd){
-                border-right: .5px solid $pale-grey;
+
+            &:nth-child(odd) {
+                border-right: 0.5px solid $pale-grey;
             }
-            &:nth-child(even){
-                border-left: .5px solid $pale-grey;
+            &:nth-child(even) {
+                border-left: 0.5px solid $pale-grey;
             }
+
             @media (max-width: 767px) {
                 border: 0.5px solid #dbdbdb;
             }
@@ -31,8 +35,9 @@
             position: relative;
             justify-content: space-between;
             flex-wrap: wrap;
-            &:before {
-                content: '\f10d';
+
+            &::before {
+                content: "\f10d";
                 position: absolute;
                 display: block;
                 top: 3px;
@@ -44,8 +49,8 @@
                 font-family: FontAwesome;
                 font-size: 1.3rem;
             }
-            &:after {
-                content: '\f10e';
+            &::after {
+                content: "\f10e";
                 position: absolute;
                 display: block;
                 bottom: 35px;
@@ -65,29 +70,31 @@
 blockquote {
     font-family: $family-secondary;
     font-size: 1.3rem;
+
     @media (max-width: 1023px) {
         font-size: 1.1rem;
     }
+
     .border {
         border-left: 6px solid $primary;
         padding-left: 18px;
     }
 }
 .go-back {
-  position: relative;
-  display: block;
-  z-index: 1;
-  margin: 0;
-  margin-left: 10px;
-  padding: 6px 12px 6px;
-  flex-basis: auto;
-  border: none;
-  border-radius: 1px;
-  font-weight: normal;
-  font-family: $family-secondary;
-  transition: all .2s ease-in-out;
-  height: auto;
-  min-width: auto;
+    position: relative;
+    display: block;
+    z-index: 1;
+    margin: 0;
+    margin-left: 10px;
+    padding: 6px 12px 6px;
+    flex-basis: auto;
+    border: none;
+    border-radius: 1px;
+    font-weight: normal;
+    font-family: $family-secondary;
+    transition: all 0.2s ease-in-out;
+    height: auto;
+    min-width: auto;
 }
 // icon and actions
 .icon-box {
@@ -101,59 +108,70 @@ blockquote {
     max-width: 35px;
     padding: 0;
     border: 1px solid transparent;
-    transition: all .25s ease;
+    transition: all 0.25s ease;
+
     .copy-icon {
-      position: relative;
-      z-index: 998;
-      max-height: 100%;
-      height: 25px;
-      transition: all .25s ease;
-      margin-top: 5px;
-      margin-bottom: 10px;
-      &:hover {
-        cursor: pointer;
-        animation: icon-bounce 1s ease;
+        position: relative;
+        z-index: 998;
+        max-height: 100%;
+        height: 25px;
+        transition: all 0.25s ease;
+        margin-top: 5px;
+        margin-bottom: 10px;
+
+        &:hover {
+            cursor: pointer;
+            animation: icon-bounce 1s ease;
+
+            path {
+                fill: $tertiary;
+            }
+        }
+        &.clicked {
+            path {
+                fill: $shining-blue;
+            }
+            + .copy-notif {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    }
+    .copy-notif {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: -75%;
+        transform: translate(-50%, -50%);
+
         path {
             fill: $tertiary;
         }
-      }
-      &.clicked {
-        path {
-          fill: $shining-blue;
-        }
-        + .copy-notif {
-          visibility: visible;
-          opacity: 1;
-        }
-      }
-    }
-    .copy-notif {
-      visibility: hidden;
-      opacity: 0;
-      position: absolute;
-      top: 50%;
-      left: -75%;
-      transform: translate(-50%, -50%);
-      path {
-        fill: $tertiary;
-      }
-      font-size: 15px;
-      transition: all .25s ease;
+
+        font-size: 15px;
+        transition: all 0.25s ease;
     }
     .view-icon {
-      position: relative;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      transition: all .25s ease;
-      stroke: $ocean-dark;
-      &:hover {
-        cursor: pointer;
-        animation: icon-bounce 1s ease;
-        stroke: $tertiary;
-      }
+        position: relative;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        transition: all 0.25s ease;
+        stroke: $ocean-dark;
+
+        &:hover {
+            cursor: pointer;
+            animation: icon-bounce 1s ease;
+            stroke: $tertiary;
+        }
     }
+
     @keyframes icon-bounce {
-        0%, 20%, 50%, 80%, 100% {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
             transform: translateY(0);
         }
         40% {

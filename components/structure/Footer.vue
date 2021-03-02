@@ -6,6 +6,7 @@
     target="_blank"
     rel="noopener"
   >
-    <i class="fab fa-github-square"></i>
+    <i class="fab fa-github-square" />
+    <font-awesome-icon :icon="['fab', 'github-square']" />
   </a>
 </template>

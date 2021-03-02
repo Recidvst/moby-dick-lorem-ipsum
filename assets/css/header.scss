@@ -1,7 +1,8 @@
-
 // hero
-.hero, .hero .container {
+.hero,
+.hero .container {
     position: relative;
+
     &.moby-dick-hero {
         position: fixed;
         top: 0;
@@ -16,26 +17,29 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: .5rem !important;
-        padding-bottom: .5rem !important;
+        padding-top: 0.5rem !important;
+        padding-bottom: 0.5rem !important;
         overflow: hidden;
         max-height: 100vh;
-        transition: all .5s ease;
+        transition: all 0.5s ease;
+
         @media (max-height: 600px) {
             overflow-y: scroll;
         }
 
-        .header-left, .header-right {
+        .header-left,
+        .header-right {
             position: relative;
             flex: 0 1 auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: all .25s ease;
+            transition: all 0.25s ease;
         }
         .header-left {
             justify-content: flex-start;
             flex-wrap: wrap;
+
             h1 {
                 font-weight: bold;
                 margin: 10px 0;
@@ -48,45 +52,54 @@
 
         @media (max-width: 997px) {
             flex-wrap: wrap;
-            .header-left, .header-right {
+
+            .header-left,
+            .header-right {
                 margin: 10px auto;
                 width: 100%;
+
                 &.controls {
                     flex-wrap: wrap;
                 }
             }
         }
     }
-
-    .header-toggle { // toggle
+    .header-toggle {
+        // toggle
         display: none;
         position: relative;
         margin: 20px 0 5px;
         font-size: 1.25rem;
         text-align: center;
-        transition: all .25s ease;
+        transition: all 0.25s ease;
 
-        img, svg {
+        img,
+        svg {
             position: relative;
             height: 25px;
-            transition: all .25s ease;
+            transition: all 0.25s ease;
         }
         &:hover {
             cursor: pointer;
-            img, svg {
+
+            img,
+            svg {
                 path {
                     fill: $ocean;
                 }
             }
         }
         &.active {
-            img, svg {
+            img,
+            svg {
                 transform: translate(0%, -50%) rotate(90deg);
+
                 path {
                     fill: $ocean-dark;
                 }
             }
         }
+
         @media (max-width: 997px) {
             display: block;
             flex-basis: 100%;
@@ -102,7 +115,6 @@
         font-weight: bold;
         color: $ocean-dark;
     }
-
 }
 
 // logo
@@ -113,8 +125,9 @@
     left: 0;
     height: 85px;
     width: 300px;
-    transform: translate(-75%,0);
+    transform: translate(-75%, 0);
     z-index: -1;
+
     @media (max-width: 1400px) {
         transform: rotateY(180deg);
         right: 0;
@@ -122,5 +135,6 @@
         height: 150px;
         opacity: 0.6;
     }
+
     display: none;
 }

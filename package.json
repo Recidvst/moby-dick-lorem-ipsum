@@ -1,42 +1,96 @@
 {
-	"name": "moby-dick-lorem-ipsum",
-	"version": "1.3.1",
-	"description": "To produce a mighty book, you must choose a mighty theme. The Vue/Nuxt front-end for a Moby Dick themed Lorem Ipsum generator.",
-	"main": "app.js",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/Recidvst/moby-dick-lorem-ipsum.git"
-	},
-	"homepage": "https://github.com/Recidvst/moby-dick-lorem-ipsum#readme",
-	"author": "Chris Snowden <cdsnowden@gmail.com>",
-	"license": "MIT",
-	"scripts": {
-		"dev": "SET NODE_ENV=development & nuxt",
-		"build": "nuxt build",
-		"start": "nuxt start",
-		"generate": "nuxt generate",
-		"lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-		"precommit": "npm run lint"
-	},
-	"dependencies": {
-		"@nuxtjs/axios": "^5.0.0",
-		"@nuxtjs/dotenv": "^1.3.0",
-		"@nuxtjs/google-analytics": "^2.1.0",
-		"@nuxtjs/sentry": "^3.0.0",
-		"bulma": "^0.7.1",
-		"dotenv": "^6.0.0",
-		"node-sass": "^4.9.3",
-		"nodemon": "^1.11.0",
-		"nuxt": "^2.4.0",
-		"sass-loader": "^7.1.0"
-	},
-	"devDependencies": {
-		"babel-eslint": "^8.2.1",
-		"cross-env": "^5.2.0",
-		"eslint": "^5.0.1",
-		"eslint-friendly-formatter": "^3.0.0",
-		"eslint-loader": "^2.0.0",
-		"eslint-plugin-vue": "^4.0.0",
-		"font-awesome": "^4.7.0"
-	}
+  "name": "moby-dick-lorem-ipsum",
+  "version": "1.3.1",
+  "description": "To produce a mighty book, you must choose a mighty theme. The Vue/Nuxt front-end for a Moby Dick themed Lorem Ipsum generator.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Recidvst/moby-dick-lorem-ipsum.git"
+  },
+  "homepage": "https://github.com/Recidvst/moby-dick-lorem-ipsum#readme",
+  "author": "Chris Snowden <cdsnowden@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "SET NODE_ENV=development & nuxt -o --port 5678",
+    "build": "nuxt build",
+    "build:a": "nuxt build -a",
+    "start": "nuxt start -o --port 5678",
+    "generate": "nuxt generate",
+    "generate:start": "nuxt generate && nuxt start -o --port 5678",
+    "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:jsfix": "eslint --fix --ext \".js,.vue\" --ignore-path .gitignore .",
+    "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
+    "lint:stylefix": "stylelint --fix \"**/*.{vue,css}\" --ignore-path .gitignore",
+    "lint": "npm run lint:js && npm run lint:style",
+    "lint:fix": "npm run lint:jsfix && npm run lint:stylefix",
+    "prettier:fix": "npx prettier --write .",
+    "check": "echo 'npm OK'",
+    "release:major": "npm version major -m 'upgrade to major version %s'",
+    "release:minor": "npm version minor -m 'upgrade to minor version %s'",
+    "release:patch": "npm version patch -m 'upgrade to patch version %s'",
+    "postversion": "git checkout master && git push && git push --tags"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "eslint",
+    "*.{css,vue}": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --verbose && pretty-quick --staged --verbose",
+      "post-commit": "echo '🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈'"
+    }
+  },
+  "dependencies": {
+    "@nuxt/content": "^1.11.1",
+    "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/dotenv": "^1.3.0",
+    "@nuxtjs/fontawesome": "^1.1.2",
+    "@nuxtjs/google-analytics": "^2.1.0",
+    "@nuxtjs/pwa": "^3.3.5",
+    "@nuxtjs/sentry": "^3.0.0",
+    "@nuxtjs/sitemap": "^2.4.0",
+    "axios": "^0.21.1",
+    "bulma": "^0.7.1",
+    "core-js": "^3.8.3",
+    "dotenv": "^6.0.0",
+    "node-sass": "^4.9.3",
+    "nuxt": "^2.14.12",
+    "sass-loader": "^7.1.0",
+    "vue": "^2.6.12",
+    "vue-dompurify-html": "^2.3.0",
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.0.0-beta.3"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
+    "@nuxtjs/eslint-config": "^5.0.0",
+    "@nuxtjs/eslint-module": "^3.0.2",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/stylelint-module": "^4.0.0",
+    "@nuxtjs/svg": "^0.1.12",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^5.2.0",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-html": "^6.1.1",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.5.0",
+    "font-awesome": "^4.7.0",
+    "husky": "^4.3.8",
+    "lint-staged": "^10.5.4",
+    "nuxt-build-optimisations": "^1.0.1",
+    "postcss-custom-properties": "^11.0.0",
+    "prettier": "^2.2.1",
+    "pretty-quick": "^3.1.0",
+    "sass-loader": "^10.1.1",
+    "stylelint": "^13.9.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^20.0.0"
+  }
 }
