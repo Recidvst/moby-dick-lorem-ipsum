@@ -1,5 +1,5 @@
 import axios from "axios";
-import { truncateText } from "../assets/js/utils";
+import { cropString } from "../assets/js/utils";
 
 const APIURL = process.env.APIURL;
 const APITOKEN = process.env.APITOKEN;
@@ -77,10 +77,10 @@ export const actions = {
         if (dataArr) {
           const newItems = [];
           for (const item in dataArr) {
-            const trimmedPara = truncateText(dataArr[item].content, 1500).trim();
+            const trimmedPara = cropString(dataArr[item].content, 1500).trim();
             newItems.push({
               id: dataArr[item]._id,
-              text: trimmedPara,
+              text: trimmedPara.trim(),
               type: state.contentType,
             });
           }

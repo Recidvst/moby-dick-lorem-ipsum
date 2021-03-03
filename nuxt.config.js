@@ -2,8 +2,8 @@ require("dotenv").config();
 // const appVersion = require('./package.json').version;
 // const isProduction = process.env.NODE_ENV === 'production' || false;
 let APIURL = process.env.APIURL || "url";
-if (APIURL && APIURL.slice(-1) !== "/") {
-  APIURL += "/";
+if (APIURL && APIURL.slice(-1) === "/") {
+  APIURL = APIURL.substring(1);
 }
 
 export default {
@@ -64,7 +64,11 @@ export default {
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: "plugins/persistedState.client.js" }, { src: "plugins/vue-dompurify.js" }],
+  plugins: [
+    { src: "plugins/persistedState.client.js" },
+    { src: "plugins/vue-dompurify.js" },
+    { src: "plugins/vue-cropString.js" },
+  ],
 
   /*
    ** Nuxt.js modules
@@ -91,7 +95,6 @@ export default {
     "@nuxtjs/fontawesome",
     "@nuxtjs/style-resources",
     "@nuxtjs/svg",
-    "nuxt-build-optimisations",
   ],
 
   // fontawesome
@@ -100,6 +103,7 @@ export default {
     suffix: true,
     icons: {
       brands: ["faGithubSquare"],
+      solid: ["faQuoteLeft", "faQuoteRight"],
     },
   },
 
@@ -179,10 +183,6 @@ export default {
         "postcss-custom-properties": false,
       },
     },
-  },
-
-  buildOptimisations: {
-    profile: "risky",
   },
 
   // generate: {

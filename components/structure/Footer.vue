@@ -7,6 +7,6 @@
     rel="noopener"
   >
     <i class="fab fa-github-square" />
-    <font-awesome-icon :icon="['fab', 'github-square']" />
+    <faIcon :icon="['fab', 'github-square']" />
   </a>
 </template>

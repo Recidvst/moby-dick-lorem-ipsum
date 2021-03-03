@@ -16,6 +16,8 @@
     <router-link v-if="prevRoute != 'none'" :to="prevRoute" tag="a" class="go-back search-button"
       >Go back</router-link
     >
+    <faIcon :icon="['fas', 'quote-left']" class="left-quote-mark" />
+    <faIcon :icon="['fas', 'quote-right']" class="right-quote-mark" />
   </li>
 </template>
 
