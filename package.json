@@ -19,16 +19,11 @@
     "generate:start": "nuxt generate && nuxt start -o --port 5678",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint:jsfix": "eslint --fix --ext \".js,.vue\" --ignore-path .gitignore .",
-    "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
-    "lint:stylefix": "stylelint --fix \"**/*.{vue,css}\" --ignore-path .gitignore",
+    "lint:style": "stylelint \"**/*.{vue,css,scss}\" --ignore-path .gitignore",
+    "lint:stylefix": "stylelint --fix \"**/*.{vue,css,scss}\" --ignore-path .gitignore",
     "lint": "npm run lint:js && npm run lint:style",
     "lint:fix": "npm run lint:jsfix && npm run lint:stylefix",
-    "prettier:fix": "npx prettier --write .",
-    "check": "echo 'npm OK'",
-    "release:major": "npm version major -m 'upgrade to major version %s'",
-    "release:minor": "npm version minor -m 'upgrade to minor version %s'",
-    "release:patch": "npm version patch -m 'upgrade to patch version %s'",
-    "postversion": "git checkout master && git push && git push --tags"
+    "check": "echo 'npm OK'"
   },
   "lint-staged": {
     "*.{js,vue}": "eslint",
@@ -64,8 +59,6 @@
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.0.1",
-    "@commitlint/config-conventional": "^12.0.1",
     "@nuxtjs/eslint-config": "^5.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/style-resources": "^1.0.0",
@@ -75,13 +68,11 @@
     "babel-eslint": "^10.1.0",
     "cross-env": "^5.2.0",
     "eslint": "^7.21.0",
-    "eslint-config-prettier": "^7.2.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-html": "^6.1.1",
     "eslint-plugin-import": "^2.17.3",
     "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.5.0",
     "font-awesome": "^4.7.0",
     "husky": "^4.3.8",
@@ -90,8 +81,9 @@
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0",
     "sass-loader": "^10.1.1",
-    "stylelint": "^13.9.0",
+    "stylelint": "^13.12.0",
     "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-standard": "^20.0.0"
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.2.0"
   }
 }

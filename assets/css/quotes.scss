@@ -1,178 +1,178 @@
 // quotes display card
 .moby-dick-quotes-main {
-    position: relative;
-    z-index: 1;
-    margin: 30px auto;
-    padding: 15px;
+  position: relative;
+  z-index: 1;
+  margin: 30px auto;
+  padding: 15px;
 
-    .card-footer {
-        border-bottom: 1px solid $pale-grey;
-        flex-wrap: wrap;
+  .card-footer {
+    border-bottom: 1px solid $pale-grey;
+    flex-wrap: wrap;
 
-        .card-footer-item {
-            border-radius: 0;
-            border: none;
+    .card-footer-item {
+      border-radius: 0;
+      border: none;
 
-            &:nth-child(odd) {
-                border-right: 0.5px solid $pale-grey;
-            }
-            &:nth-child(even) {
-                border-left: 0.5px solid $pale-grey;
-            }
+      &:nth-child(odd) {
+        border-right: 0.5px solid $pale-grey;
+      }
+      &:nth-child(even) {
+        border-left: 0.5px solid $pale-grey;
+      }
 
-            @media (max-width: 767px) {
-                border: 0.5px solid #dbdbdb;
-            }
-        }
+      @media (max-width: 767px) {
+        border: 0.5px solid #dbdbdb;
+      }
     }
-    .card-content {
-        > .box {
-            @media (max-width: 767px) {
-                align-items: flex-start;
-            }
-        }
-        li.box.columns {
-            position: relative;
-            justify-content: space-between;
-            flex-wrap: wrap;
-
-            .left-quote-mark {
-                position: absolute;
-                display: block;
-                top: 8px;
-                left: 10px;
-                color: $ocean-back;
-                font-style: italic;
-                font-family: FontAwesome;
-                font-size: 1.3rem;
-            }
-            .right-quote-mark {
-                position: absolute;
-                display: block;
-                bottom: 10px;
-                right: 10px;
-                color: $ocean-back;
-                font-style: italic;
-                font-family: FontAwesome;
-                font-size: 1.3rem;
-            }
-        }
+  }
+  .card-content {
+    > .box {
+      @media (max-width: 767px) {
+        align-items: flex-start;
+      }
     }
+    li.box.columns {
+      position: relative;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      .left-quote-mark {
+        position: absolute;
+        display: block;
+        top: 8px;
+        left: 10px;
+        color: $ocean-back;
+        font-style: italic;
+        font-family: FontAwesome;
+        font-size: 1.3rem;
+      }
+      .right-quote-mark {
+        position: absolute;
+        display: block;
+        bottom: 10px;
+        right: 10px;
+        color: $ocean-back;
+        font-style: italic;
+        font-family: FontAwesome;
+        font-size: 1.3rem;
+      }
+    }
+  }
 }
 
 // blockquote setion
 blockquote {
-    font-family: $family-secondary;
-    font-size: 1.3rem;
+  font-family: $family-secondary;
+  font-size: 1.3rem;
 
-    @media (max-width: 1023px) {
-        font-size: 1.1rem;
-    }
+  @media (max-width: 1023px) {
+    font-size: 1.1rem;
+  }
 
-    .border {
-        border-left: 6px solid $primary;
-        padding-left: 18px;
-    }
+  .border {
+    border-left: 6px solid $primary;
+    padding-left: 18px;
+  }
 }
 .go-back {
-    position: relative;
-    display: block;
-    z-index: 1;
-    margin: 0;
-    margin-left: 10px;
-    padding: 6px 12px 6px;
-    flex-basis: auto;
-    border: none;
-    border-radius: 1px;
-    font-weight: normal;
-    font-family: $family-secondary;
-    transition: all 0.2s ease-in-out;
-    height: auto;
-    min-width: auto;
+  position: relative;
+  display: block;
+  z-index: 1;
+  margin: 0;
+  margin-left: 10px;
+  padding: 6px 12px 6px;
+  flex-basis: auto;
+  border: none;
+  border-radius: 1px;
+  font-weight: normal;
+  font-family: $family-secondary;
+  transition: all 0.2s ease-in-out;
+  height: auto;
+  min-width: auto;
 }
 // icon and actions
 .icon-box {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: flex-start;
+  flex-direction: column;
+  max-height: 100%;
+  max-width: 35px;
+  padding: 0;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+
+  .copy-icon {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: flex-start;
-    flex-direction: column;
+    z-index: 998;
     max-height: 100%;
-    max-width: 35px;
-    padding: 0;
-    border: 1px solid transparent;
+    height: 25px;
     transition: all 0.25s ease;
+    margin-top: 5px;
+    margin-bottom: 10px;
 
-    .copy-icon {
-        position: relative;
-        z-index: 998;
-        max-height: 100%;
-        height: 25px;
-        transition: all 0.25s ease;
-        margin-top: 5px;
-        margin-bottom: 10px;
+    &:hover {
+      cursor: pointer;
+      animation: icon-bounce 1s ease;
 
-        &:hover {
-            cursor: pointer;
-            animation: icon-bounce 1s ease;
-
-            path {
-                fill: $tertiary;
-            }
-        }
-        &.clicked {
-            path {
-                fill: $shining-blue;
-            }
-            + .copy-notif {
-                visibility: visible;
-                opacity: 1;
-            }
-        }
+      path {
+        fill: $tertiary;
+      }
     }
-    .copy-notif {
-        visibility: hidden;
-        opacity: 0;
-        position: absolute;
-        top: 50%;
-        left: -75%;
-        transform: translate(-50%, -50%);
-
-        path {
-            fill: $tertiary;
-        }
-
-        font-size: 15px;
-        transition: all 0.25s ease;
+    &.clicked {
+      path {
+        fill: $shining-blue;
+      }
+      + .copy-notif {
+        visibility: visible;
+        opacity: 1;
+      }
     }
-    .view-icon {
-        position: relative;
-        margin-top: 5px;
-        margin-bottom: 15px;
-        transition: all 0.25s ease;
-        stroke: $ocean-dark;
+  }
+  .copy-notif {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: -75%;
+    transform: translate(-50%, -50%);
 
-        &:hover {
-            cursor: pointer;
-            animation: icon-bounce 1s ease;
-            stroke: $tertiary;
-        }
+    path {
+      fill: $tertiary;
     }
 
-    @keyframes icon-bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-            transform: translateY(0);
-        }
-        40% {
-            transform: translateY(-15px);
-        }
-        60% {
-            transform: translateY(-8px);
-        }
+    font-size: 15px;
+    transition: all 0.25s ease;
+  }
+  .view-icon {
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    transition: all 0.25s ease;
+    stroke: $ocean-dark;
+
+    &:hover {
+      cursor: pointer;
+      animation: icon-bounce 1s ease;
+      stroke: $tertiary;
     }
+  }
+
+  @keyframes icon-bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-15px);
+    }
+    60% {
+      transform: translateY(-8px);
+    }
+  }
 }

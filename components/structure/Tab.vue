@@ -11,31 +11,32 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 export default {
   computed: {
     ...mapState({
-      contentType: (state) => state.contentType,
-      bookType: (state) => state.bookType,
+      contentType: state => state.contentType,
+      bookType: state => state.bookType,
     }),
     // text
     text() {
-      if (this.bookType === "alice") {
-        return "Back to Moby Dipsum";
+      if (this.bookType === 'alice') {
+        return 'Back to Moby Dipsum';
       }
-      return "Check out Alice in Dipsum-land";
+      return 'Check out Alice in Dipsum-land';
     },
   },
   methods: {
     toggleBookType() {
-      if (this.bookType === "moby-dick") {
+      if (this.bookType === 'moby-dick') {
         this.$router.push({
-          name: "alice",
+          name: 'alice',
         });
-      } else {
+      }
+      else {
         this.$router.push({
-          name: "index",
+          name: 'index',
         });
       }
     },
@@ -75,7 +76,7 @@ export default {
   }
 
   // fixed tab on desktop, relative button on mobile
-  @media (min-width: 998px) {
+  @media ( min-width: 998px ) {
     position: fixed;
     left: 0%;
     bottom: 0%;

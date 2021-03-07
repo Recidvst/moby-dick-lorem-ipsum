@@ -26,9 +26,9 @@
               name="checkbox-choice"
               value="paragraphs"
               checked
-            />
+            >
             Paragraphs
-            <br />
+            <br>
           </label>
           <label for="checkbox-fetch-titles">
             <input
@@ -37,9 +37,9 @@
               type="radio"
               name="checkbox-choice"
               value="titles"
-            />
+            >
             Titles
-            <br />
+            <br>
           </label>
         </ul>
 
@@ -54,7 +54,7 @@
               max="10"
               value="5"
               @keyup="maxAmount($event)"
-            />
+            >
             {{ prettyPrintChoice }}
           </label>
         </div>
@@ -74,9 +74,9 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import Tab from "~/components/structure/Tab.vue";
-import { debounce } from "~/assets/js/utils";
+import { mapState } from 'vuex';
+import Tab from '~/components/structure/Tab.vue';
+import { debounce } from '~/assets/js/utils';
 
 export default {
   components: {
@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       filters: {
-        choice: "paragraphs",
+        choice: 'paragraphs',
         amount: 5,
       },
       menuToggled: true,
@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     ...mapState({
-      bookType: (state) => state.bookType,
+      bookType: state => state.bookType,
     }),
     paramOptions() {
       return this.$route.params;
@@ -104,13 +104,13 @@ export default {
     },
     // headings
     title() {
-      if (this.bookType === "alice") {
-        return "Alice in Dipsum-land";
+      if (this.bookType === 'alice') {
+        return 'Alice in Dipsum-land';
       }
-      return "Moby Dipsum";
+      return 'Moby Dipsum';
     },
     subtitle() {
-      if (this.bookType === "alice") {
+      if (this.bookType === 'alice') {
         return "A Lorem Ipsum generator using snippets from Lewis Carroll's <br/><strong>Alice's Adventures in Wonderland and Through the Looking Glass</strong>";
       }
       return "A Lorem Ipsum generator using snippets from Herman Melville's <strong>Moby Dick</strong>";
@@ -118,24 +118,26 @@ export default {
   },
   watch: {
     // watch for filter changes and update localstorage
-    "filters.choice"(val) {
-      this.updateFilters("choice", val);
-      if (this.filters.choice === "paragraphs") {
-        this.$store.dispatch("changeContentTypeAction", "paragraphs");
-      } else if (this.filters.choice === "titles") {
-        this.$store.dispatch("changeContentTypeAction", "titles");
+    'filters.choice'(val) {
+      this.updateFilters('choice', val);
+      if (this.filters.choice === 'paragraphs') {
+        this.$store.dispatch('changeContentTypeAction', 'paragraphs');
       }
-      this.$store.dispatch("getMultipleRandomAction");
+      else if (this.filters.choice === 'titles') {
+        this.$store.dispatch('changeContentTypeAction', 'titles');
+      }
+      this.$store.dispatch('getMultipleRandomAction');
     },
-    "filters.amount"(val) {
-      this.updateFilters("amount", val);
-      this.$store.dispatch("changeSnippetsAmountAction", val);
-      this.$store.dispatch("getMultipleRandomAction");
+    'filters.amount'(val) {
+      this.updateFilters('amount', val);
+      this.$store.dispatch('changeSnippetsAmountAction', val);
+      this.$store.dispatch('getMultipleRandomAction');
     },
     $route(newRoute, oldRoute) {
       if (newRoute.params.id) {
         this.allowMenu = false;
-      } else {
+      }
+      else {
         this.allowMenu = true;
       }
     },
@@ -143,28 +145,29 @@ export default {
   beforeMount() {
     // set filters from localstorage
     if (process.browser) {
-      let filterPrefs = localStorage.getItem("mobyDipsumFilters");
-      if (filterPrefs && filterPrefs !== "") {
+      let filterPrefs = localStorage.getItem('mobyDipsumFilters');
+      if (filterPrefs && filterPrefs !== '') {
         filterPrefs = JSON.parse(filterPrefs);
         if (
           filterPrefs.choice &&
-          filterPrefs.choice !== "" &&
+          filterPrefs.choice !== '' &&
           this.filters.choice !== filterPrefs.choice
         ) {
           this.filters.choice = filterPrefs.choice;
-          if (this.filters.choice === "paras") {
-            this.$store.dispatch("changeContentTypeAction", "paragraphs");
-          } else {
-            this.$store.dispatch("changeContentTypeAction", "titles");
+          if (this.filters.choice === 'paras') {
+            this.$store.dispatch('changeContentTypeAction', 'paragraphs');
+          }
+          else {
+            this.$store.dispatch('changeContentTypeAction', 'titles');
           }
         }
         if (
           filterPrefs.amount &&
-          filterPrefs.amount !== "" &&
+          filterPrefs.amount !== '' &&
           this.filters.amount !== filterPrefs.amount
         ) {
           this.filters.amount = filterPrefs.amount;
-          this.$store.dispatch("changeSnippetsAmountAction", filterPrefs.amount);
+          this.$store.dispatch('changeSnippetsAmountAction', filterPrefs.amount);
         }
       }
     }
@@ -173,7 +176,8 @@ export default {
     // don't show header controls on single snippet pages
     if (this.$route.params.id) {
       this.allowMenu = false;
-    } else {
+    }
+    else {
       this.allowMenu = true;
     }
     // setting header height
@@ -182,9 +186,10 @@ export default {
     }, 50);
     // on mobile, set header to be closed by default
     const menuCheckFn = debounce(() => {
-      if (window.matchMedia("(max-width: 997px)").matches) {
+      if (window.matchMedia('(max-width: 997px)').matches) {
         this.menuToggled = false;
-      } else {
+      }
+      else {
         this.menuToggled = true;
       }
     }, 50);
@@ -192,11 +197,11 @@ export default {
     this.headerHeight();
     menuCheckFn();
     // listeners
-    window.addEventListener("resize", () => {
+    window.addEventListener('resize', () => {
       headerHeightFn();
       menuCheckFn();
     });
-    window.addEventListener("orientationchange", () => {
+    window.addEventListener('orientationchange', () => {
       headerHeightFn();
       menuCheckFn();
     });
@@ -205,18 +210,19 @@ export default {
     updateFilters(type, val) {
       // save in localStorage
       if (process.browser) {
-        let filterPrefs = localStorage.getItem("mobyDipsumFilters");
+        let filterPrefs = localStorage.getItem('mobyDipsumFilters');
         filterPrefs = JSON.parse(filterPrefs);
-        if (filterPrefs && filterPrefs !== "") {
+        if (filterPrefs && filterPrefs !== '') {
           filterPrefs[type] = val;
-        } else {
+        }
+        else {
           filterPrefs = {
-            choice: "paragraphs",
+            choice: 'paragraphs',
             amount: 5,
           };
           filterPrefs[type] = val;
         }
-        localStorage.setItem("mobyDipsumFilters", JSON.stringify(filterPrefs));
+        localStorage.setItem('mobyDipsumFilters', JSON.stringify(filterPrefs));
       }
     },
     maxAmount(e) {
@@ -227,10 +233,10 @@ export default {
     },
     headerHeight() {
       setTimeout(() => {
-        const body = document.querySelector("#__nuxt");
-        let headerHeight = document.querySelector(".moby-dick-hero").offsetHeight;
-        if (window.matchMedia("(max-width: 997px)").matches) {
-          headerHeight = document.querySelector(".moby-dick-hero .header-left").offsetHeight + 30;
+        const body = document.querySelector('#__nuxt');
+        let headerHeight = document.querySelector('.moby-dick-hero').offsetHeight;
+        if (window.matchMedia('(max-width: 997px)').matches) {
+          headerHeight = document.querySelector('.moby-dick-hero .header-left').offsetHeight + 30;
         }
         if (headerHeight && headerHeight > 0) {
           body.style.paddingTop = `${headerHeight - 30}px`;
@@ -238,19 +244,19 @@ export default {
       }, 1);
     },
     toggleHeader() {
-      const headerControls = document.querySelector(".moby-dick-hero .hero-body .controls");
-      const controlsToggle = document.querySelector(".moby-dick-hero .hero-body .header-toggle");
+      const headerControls = document.querySelector('.moby-dick-hero .hero-body .controls');
+      const controlsToggle = document.querySelector('.moby-dick-hero .hero-body .header-toggle');
       if (headerControls) {
-        headerControls.classList.toggle("show-mobile");
+        headerControls.classList.toggle('show-mobile');
       }
       if (controlsToggle) {
-        controlsToggle.classList.toggle("active");
+        controlsToggle.classList.toggle('active');
       }
       this.menuToggled = !this.menuToggled;
       this.headerHeight();
     },
     getContent(e) {
-      this.$emit("getContent");
+      this.$emit('getContent');
     },
   },
 };

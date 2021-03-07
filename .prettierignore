@@ -3,3 +3,7 @@ dist
 coverage
 .nuxt
 node_modules
+
+# don't format javascript - we are using eslint for this
+*.js
+*.vue

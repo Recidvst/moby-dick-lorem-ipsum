@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "MenuIcon",
+  name: 'MenuIcon',
   data() {
     return {};
   },

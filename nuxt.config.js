@@ -1,13 +1,13 @@
-require("dotenv").config();
+require('dotenv').config();
 // const appVersion = require('./package.json').version;
 // const isProduction = process.env.NODE_ENV === 'production' || false;
-let APIURL = process.env.APIURL || "url";
-if (APIURL && APIURL.slice(-1) === "/") {
+let APIURL = process.env.APIURL || 'url';
+if (APIURL && APIURL.slice(-1) === '/') {
   APIURL = APIURL.substring(1);
 }
 
 export default {
-  target: "static",
+  target: 'static',
 
   generate: {
     fallback: true,
@@ -17,28 +17,28 @@ export default {
    ** Global page headers
    */
   head: {
-    title: "Moby Dipsum",
+    title: 'Moby Dipsum',
     meta: [
-      { charset: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
-        hid: "description",
-        name: "description",
+        hid: 'description',
+        name: 'description',
         content:
-          "A Moby Dick themed Lorem Ipsum generator. Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book.",
+          'A Moby Dick themed Lorem Ipsum generator. Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book.',
       },
       {
-        hid: "keywords",
-        name: "keywords",
-        content: "Moby Dick, Lorem Ipsum, generator, nuxt",
-      },
+        hid: 'keywords',
+        name: 'keywords',
+        content: 'Moby Dick, Lorem Ipsum, generator, nuxt',
+      }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css?family=EB+Garamond|Hind+Siliguri",
-      },
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=EB+Garamond|Hind+Siliguri',
+      }
     ],
   },
 
@@ -48,81 +48,81 @@ export default {
   // env variables - handled by netlify in production
   env: {
     APIURL,
-    APITOKEN: process.env.APITOKEN || "token",
-    GA_ID: process.env.GA_ID || "gaid",
-    SENTRY_DSN: process.env.SENTRY_DSN || "sentry_dsn",
+    APITOKEN: process.env.APITOKEN || 'token',
+    GA_ID: process.env.GA_ID || 'gaid',
+    SENTRY_DSN: process.env.SENTRY_DSN || 'sentry_dsn',
     SENTRY_DISABLED: process.env.SENTRY_DISABLED || false,
   },
 
   // adding env variables to the Nuxt runtime
   publicRuntimeConfig: {
     APIURL,
-    APITOKEN: process.env.APITOKEN || "token",
-    GA_ID: process.env.GA_ID || "gaid",
-    SENTRY_DSN: process.env.SENTRY_DSN || "sentry_dsn",
+    APITOKEN: process.env.APITOKEN || 'token',
+    GA_ID: process.env.GA_ID || 'gaid',
+    SENTRY_DSN: process.env.SENTRY_DSN || 'sentry_dsn',
     SENTRY_DISABLED: process.env.SENTRY_DISABLED || false,
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: "plugins/persistedState.client.js" },
-    { src: "plugins/vue-dompurify.js" },
-    { src: "plugins/vue-cropString.js" },
+    { src: 'plugins/persistedState.client.js' },
+    { src: 'plugins/vue-dompurify.js' },
+    { src: 'plugins/vue-cropString.js' }
   ],
 
   /*
    ** Nuxt.js modules
    */
   modules: [
-    "@nuxtjs/axios",
-    "@nuxt/content",
-    "@nuxtjs/dotenv",
-    "@nuxtjs/google-analytics",
-    "@nuxtjs/pwa",
-    "@nuxtjs/sitemap",
-    "@nuxtjs/sentry",
+    '@nuxtjs/axios',
+    '@nuxt/content',
+    '@nuxtjs/dotenv',
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/pwa',
+    '@nuxtjs/sitemap',
+    '@nuxtjs/sentry'
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    "@nuxtjs/eslint-module",
+    '@nuxtjs/eslint-module',
     [
-      "@nuxtjs/stylelint-module",
+      '@nuxtjs/stylelint-module',
       {
         fix: true,
-      },
+      }
     ],
-    "@nuxtjs/fontawesome",
-    "@nuxtjs/style-resources",
-    "@nuxtjs/svg",
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/style-resources',
+    '@nuxtjs/svg'
   ],
 
   // fontawesome
   fontawesome: {
-    component: "fa",
+    component: 'fa',
     suffix: true,
     icons: {
-      brands: ["faGithubSquare"],
-      solid: ["faQuoteLeft", "faQuoteRight"],
+      brands: ['faGithubSquare'],
+      solid: ['faQuoteLeft', 'faQuoteRight'],
     },
   },
 
   // global styling
   styleResources: {
-    scss: ["~assets/css/main.scss"],
+    scss: ['~assets/css/main.scss'],
   },
 
-  css: [{ src: "~assets/css/main.scss", lang: "sass" }],
+  css: [{ src: '~assets/css/main.scss', lang: 'sass' }],
 
   // transitions
-  pageTransition: "page",
+  pageTransition: 'page',
 
   /*
    ** Customize the progress bar color
    */
   loading: {
-    color: "#37cecd",
-    height: "6px",
+    color: '#37cecd',
+    height: '6px',
     throttle: 0,
     duration: 3000,
     continuous: true,
@@ -139,14 +139,14 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      name: "Moby Dipsum",
-      lang: "en",
+      name: 'Moby Dipsum',
+      lang: 'en',
     },
     meta: {
-      name: "Moby Dipsum",
-      lang: "en",
-      theme_color: "#37cecd",
-      ogHost: "https://moby-dipsum.com/",
+      name: 'Moby Dipsum',
+      lang: 'en',
+      theme_color: '#37cecd',
+      ogHost: 'https://moby-dipsum.com/',
     },
   },
 
@@ -167,20 +167,20 @@ export default {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
-          enforce: "pre",
+          enforce: 'pre',
           test: /\.(js|vue)$/,
-          loader: "eslint-loader",
+          loader: 'eslint-loader',
           exclude: /(node_modules)/,
         });
       }
       config.module.rules.push({
         test: /ico$/,
-        loader: "file-loader?name=[name].[ext]",
+        loader: 'file-loader?name=[name].[ext]',
       });
     },
     postcss: {
       plugins: {
-        "postcss-custom-properties": false,
+        'postcss-custom-properties': false,
       },
     },
   },
@@ -259,7 +259,7 @@ export default {
   // },
 
   sitemap: {
-    hostname: "https://moby-dipsum.com/",
+    hostname: 'https://moby-dipsum.com/',
     gzip: true,
   },
 };

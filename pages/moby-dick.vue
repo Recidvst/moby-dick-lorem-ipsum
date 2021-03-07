@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Quote from "~/components/quotes/Quote";
+import Quote from '~/components/quotes/Quote';
 
 export default {
   components: {
@@ -28,10 +28,10 @@ export default {
       }
     });
   },
-  transition: "slide-right",
+  transition: 'slide-right',
   data() {
     return {
-      faviconPath: require("@/assets/icons/mobydick/favicon.png"),
+      faviconPath: require('@/assets/icons/mobydick/favicon.png'),
     };
   },
   computed: {
@@ -45,21 +45,21 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("changeBookTypeAction", "moby-dick");
+    this.$store.dispatch('changeBookTypeAction', 'moby-dick');
   },
   mounted() {
     // get first items
-    this.$store.dispatch("getMultipleRandomAction", "moby-dick");
+    this.$store.dispatch('getMultipleRandomAction', 'moby-dick');
     this.updateFavicon();
   },
   methods: {
     updateFavicon() {
       // swithes between icons (moby dick and alice)
-      const link = document.querySelector("link[rel*='icon']") || document.createElement("link");
-      link.type = "image/x-icon";
-      link.rel = "shortcut icon";
+      const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
       link.href = this.faviconPath;
-      document.getElementsByTagName("head")[0].appendChild(link);
+      document.getElementsByTagName('head')[0].appendChild(link);
     },
   },
 };

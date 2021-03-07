@@ -10,20 +10,22 @@
         v-if="!paramOptions.id && allowViewSingle"
         class="view-icon"
         @click.prevent="goToSnippet($event)"
-        ><linkIcon
-      /></span>
+      ><linkIcon /></span>
     </div>
-    <router-link v-if="prevRoute != 'none'" :to="prevRoute" tag="a" class="go-back search-button"
-      >Go back</router-link
-    >
+    <router-link
+      v-if="prevRoute != 'none'"
+      :to="prevRoute"
+      tag="a"
+      class="go-back search-button"
+    >Go back</router-link>
     <faIcon :icon="['fas', 'quote-left']" class="left-quote-mark" />
     <faIcon :icon="['fas', 'quote-right']" class="right-quote-mark" />
   </li>
 </template>
 
 <script>
-import copyIcon from "~/components/icons/copyIcon";
-import linkIcon from "~/components/icons/linkIcon";
+import copyIcon from '~/components/icons/copyIcon';
+import linkIcon from '~/components/icons/linkIcon';
 
 export default {
   components: {
@@ -39,11 +41,11 @@ export default {
     },
     bookType: {
       type: String,
-      default: "moby-dick",
+      default: 'moby-dick',
     },
     id: {
       type: String,
-      default: "",
+      default: '',
     },
     index: {
       type: Number,
@@ -51,7 +53,7 @@ export default {
     },
     prevRoute: {
       type: String,
-      default: "none",
+      default: 'none',
     },
     allowViewSingle: {
       type: Boolean,
@@ -68,8 +70,8 @@ export default {
       const target = e.currentTarget;
       const parent = target.parentElement.parentElement;
       if (parent) {
-        const snippetID = parent.querySelector(".quote").getAttribute("data-id");
-        const snippetType = parent.querySelector(".quote").getAttribute("data-type");
+        const snippetID = parent.querySelector('.quote').getAttribute('data-id');
+        const snippetType = parent.querySelector('.quote').getAttribute('data-type');
         if (snippetID && snippetType) {
           this.$router.push({
             path: `/${snippetType}/${this.bookType}/${snippetID}`,

@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import Quote from "~/components/quotes/Quote";
+import axios from 'axios';
+import Quote from '~/components/quotes/Quote';
 const APIURL = process.env.APIURL;
 const APITOKEN = process.env.APITOKEN;
 
@@ -25,7 +25,7 @@ export default {
       }
     });
   },
-  transition: "slide-left",
+  transition: 'slide-left',
   data() {
     return {
       id: this.$route.params.id,
@@ -34,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    this.$store.dispatch("changeBookTypeAction", "alice");
+    this.$store.dispatch('changeBookTypeAction', 'alice');
     this.getParagraph();
   },
   methods: {
@@ -53,11 +53,11 @@ export default {
       // run api query
       await axios
         .post(`${APIURL}/graphql`, query, {
-          type: "cors",
+          type: 'cors',
           headers: {
-            "Content-Type": "application/graphql",
-            "Access-Control-Origin": "*",
-            "x-access-token": APITOKEN,
+            'Content-Type': 'application/graphql',
+            'Access-Control-Origin': '*',
+            'x-access-token': APITOKEN,
           },
         })
         .then(function (response) {
@@ -74,14 +74,15 @@ export default {
             this.content = {
               id: dataObj._id,
               text: trimmedContent,
-              type: "paragraphs",
+              type: 'paragraphs',
             };
             this.loadState = true;
-          } else {
+          }
+          else {
             this.content = {
               id: -1,
               text: "Whoops, something's gone wrong ... that snippet wasn't found :(",
-              type: "paragraphs",
+              type: 'paragraphs',
             };
             this.loadState = true;
           }

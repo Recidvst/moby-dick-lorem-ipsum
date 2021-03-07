@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "LinkIcon",
+  name: 'LinkIcon',
   data() {
     return {};
   },

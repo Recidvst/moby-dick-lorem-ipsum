@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
   computed: {
     ...mapState({
-      bookType: (state) => state.bookType,
+      bookType: state => state.bookType,
     }),
   },
 };

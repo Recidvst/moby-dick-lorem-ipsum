@@ -1,22 +1,22 @@
 .page-enter-active,
 .page-leave-active {
-    transition: all 0.3s ease-out;
-    opacity: 0.5;
-    margin-left: auto;
+  transition: all 0.3s ease-out;
+  opacity: 0.5;
+  margin-left: auto;
 }
 .page-enter,
 .page-leave-to {
-    opacity: 0;
-    transform-origin: 50% 50%;
-    margin-left: -100vw;
+  opacity: 0;
+  transform-origin: 50% 50%;
+  margin-left: -100vw;
 }
 .slide-left-enter,
 .slide-right-leave-active {
-    transition: all 0.3s ease-in;
-    transform: translate(100%, 0);
+  transition: all 0.3s ease-in;
+  transform: translate(100%, 0);
 }
 .slide-left-leave-active,
 .slide-right-enter {
-    transition: all 0.3s ease-in;
-    transform: translate(-100%, 0);
+  transition: all 0.3s ease-in;
+  transform: translate(-100%, 0);
 }

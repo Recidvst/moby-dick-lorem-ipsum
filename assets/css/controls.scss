@@ -1,160 +1,160 @@
 .controls {
-    > * {
-        margin: 5px 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: $family-secondary;
-    }
-    .type-filter {
-        min-width: 150px;
-        font-size: 1.25rem;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
+  > * {
+    margin: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $family-secondary;
+  }
+  .type-filter {
+    min-width: 150px;
+    font-size: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 
-        @media (max-width: 997px) {
-            width: 100%;
-            margin: 5px auto;
-            border-top: 2px solid $primary;
-            padding-top: 10px;
-        }
+    @media (max-width: 997px) {
+      width: 100%;
+      margin: 5px auto;
+      border-top: 2px solid $primary;
+      padding-top: 10px;
     }
-    .count-filter {
-        min-width: 175px;
-        font-size: 1.25rem;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
+  }
+  .count-filter {
+    min-width: 175px;
+    font-size: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
 
-        input {
-            text-align: center;
-            font-size: 1.25rem;
-            width: 55px;
-            border-left: 1px solid $pale-grey;
-            border-top: 1px solid $pale-grey;
-            border-bottom: 1px solid $pale-grey;
-        }
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            opacity: 1;
-        }
-
-        @media (max-width: 997px) {
-            width: 100%;
-            margin: 5px auto;
-            border-top: 2px solid $primary;
-            border-bottom: 2px solid $primary;
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
+    input {
+      text-align: center;
+      font-size: 1.25rem;
+      width: 55px;
+      border-left: 1px solid $pale-grey;
+      border-top: 1px solid $pale-grey;
+      border-bottom: 1px solid $pale-grey;
     }
-}
-#fetch-button,
-.search-button {
-    position: relative;
-    display: block;
-    margin: 0;
-    padding: 12px 24px;
-    min-width: 200px;
-    border: none;
-    font-weight: 700;
-    background-color: $ocean-dark;
-    border: 2px solid $white;
-    border-radius: 0;
-    // border: none;
-    color: $white;
-    overflow: hidden;
-    z-index: 1;
-    transition: all 0.75s ease-in-out;
-    height: auto;
-
-    h2,
-    h3 {
-        font-size: 1.25rem;
-        z-index: 2;
-        transition: all 0.2s ease-in-out;
-        color: $white;
-        text-overflow: ellipsis;
-        word-break: break-word;
-        overflow: hidden;
-    }
-    &::after {
-        content: "";
-        position: absolute;
-        height: 0%;
-        left: 50%;
-        top: 50%;
-        width: 150%;
-        z-index: -1;
-        transition: all 0.75s ease 0s;
-        transform: translateX(-50%) translateY(-50%) rotate(25deg);
-        background: $shining-blue;
-    }
-    &:hover,
-    &:focus,
-    &:active {
-        color: $ocean-dark;
-
-        h2,
-        h3 {
-            color: $ocean-dark;
-        }
-        &::after {
-            height: 450%;
-        }
-    }
-    // for active toggle
-    &.active {
-        &::after {
-            height: 450%;
-        }
+    input[type='number']::-webkit-inner-spin-button,
+    input[type='number']::-webkit-outer-spin-button {
+      opacity: 1;
     }
 
     @media (max-width: 997px) {
-        width: 100%;
-        margin: 10px auto 0;
+      width: 100%;
+      margin: 5px auto;
+      border-top: 2px solid $primary;
+      border-bottom: 2px solid $primary;
+      padding-top: 15px;
+      padding-bottom: 15px;
     }
-
-    @media (max-width: 997px) and (min-width: 500px) {
-        &:hover,
-        &:focus,
-        &:active {
-            &::after {
-                height: 650%;
-            }
-        }
-        &.active {
-            &::after {
-                height: 650%;
-            }
-        }
-    }
+  }
 }
-.plain-button {
-    position: relative;
-    display: block;
-    margin: 0;
-    padding: 8px 24px;
-    min-width: 200px;
-    border: none;
-    font-weight: 700;
-    background-color: transparent;
-    border: 2px solid $ocean-dark;
-    // border: none;
-    color: $ocean-dark;
-    overflow: hidden;
-    z-index: 1;
+#fetch-button,
+.search-button {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 12px 24px;
+  min-width: 200px;
+  border: none;
+  font-weight: 700;
+  background-color: $ocean-dark;
+  border: 2px solid $white;
+  border-radius: 0;
+  // border: none;
+  color: $white;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.75s ease-in-out;
+  height: auto;
+
+  h2,
+  h3 {
+    font-size: 1.25rem;
+    z-index: 2;
     transition: all 0.2s ease-in-out;
-    height: auto;
+    color: $white;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    overflow: hidden;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    height: 0%;
+    left: 50%;
+    top: 50%;
+    width: 150%;
+    z-index: -1;
+    transition: all 0.75s ease 0s;
+    transform: translateX(-50%) translateY(-50%) rotate(25deg);
+    background: $shining-blue;
+  }
+  &:hover,
+  &:focus,
+  &:active {
+    color: $ocean-dark;
 
     h2,
     h3 {
-        font-size: 1.25rem;
-        z-index: 2;
-        transition: all 0.2s ease-in-out;
-        color: $white;
+      color: $ocean-dark;
     }
+    &::after {
+      height: 450%;
+    }
+  }
+  // for active toggle
+  &.active {
+    &::after {
+      height: 450%;
+    }
+  }
+
+  @media (max-width: 997px) {
+    width: 100%;
+    margin: 10px auto 0;
+  }
+
+  @media (max-width: 997px) and (min-width: 500px) {
+    &:hover,
+    &:focus,
+    &:active {
+      &::after {
+        height: 650%;
+      }
+    }
+    &.active {
+      &::after {
+        height: 650%;
+      }
+    }
+  }
+}
+.plain-button {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 8px 24px;
+  min-width: 200px;
+  border: none;
+  font-weight: 700;
+  background-color: transparent;
+  border: 2px solid $ocean-dark;
+  // border: none;
+  color: $ocean-dark;
+  overflow: hidden;
+  z-index: 1;
+  transition: all 0.2s ease-in-out;
+  height: auto;
+
+  h2,
+  h3 {
+    font-size: 1.25rem;
+    z-index: 2;
+    transition: all 0.2s ease-in-out;
+    color: $white;
+  }
 }

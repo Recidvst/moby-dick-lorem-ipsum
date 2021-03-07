@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import Header from "~/components/structure/Header.vue";
-import Footer from "~/components/structure/Footer.vue";
-import BackgroundImage from "~/components/images/BackgroundImage.vue";
+import Header from '~/components/structure/Header.vue';
+import Footer from '~/components/structure/Footer.vue';
+import BackgroundImage from '~/components/images/BackgroundImage.vue';
 
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
   methods: {
     // fire action to retrieve random paragraphs
     getContent(e) {
-      this.$store.dispatch("getMultipleRandomAction");
+      this.$store.dispatch('getMultipleRandomAction');
     },
   },
 };

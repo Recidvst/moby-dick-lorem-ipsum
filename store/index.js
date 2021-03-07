@@ -1,15 +1,15 @@
-import axios from "axios";
-import { cropString } from "../assets/js/utils";
+import axios from 'axios';
+import { cropString } from '../assets/js/utils';
 
 const APIURL = process.env.APIURL;
 const APITOKEN = process.env.APITOKEN;
 
 export const state = () => ({
   loadState: false,
-  snippetsArray: ["..."],
+  snippetsArray: ['...'],
   snippetsAmount: 5,
-  contentType: "paragraphs",
-  bookType: "",
+  contentType: 'paragraphs',
+  bookType: '',
   token: APITOKEN,
 });
 
@@ -27,10 +27,11 @@ export const mutations = {
     state.contentType = cType;
   },
   changeBookType(state, bType) {
-    if (bType && bType !== "") {
+    if (bType && bType !== '') {
       state.bookType = bType;
-    } else {
-      state.bookType = "moby-dick"; // toggle if not passed
+    }
+    else {
+      state.bookType = 'moby-dick'; // toggle if not passed
     }
   },
 };
@@ -38,12 +39,13 @@ export const mutations = {
 export const actions = {
   // fetch multiple paragraphs/titles
   getMultipleRandomAction({ commit, state }, type, count) {
-    commit("updateLoadState", false);
+    commit('updateLoadState', false);
     const getCount = count || state.snippetsAmount; // amount requested
-    let bookType = "moby-dick";
+    let bookType = 'moby-dick';
     if (type !== undefined) {
       bookType = type;
-    } else if (state.bookType !== "") {
+    }
+    else if (state.bookType !== '') {
       bookType = state.bookType; // fallback
     }
     // build graphql query
@@ -59,11 +61,11 @@ export const actions = {
     // run api query
     axios
       .post(`${APIURL}/graphql`, query, {
-        type: "cors",
+        type: 'cors',
         headers: {
-          "Content-Type": "application/graphql",
-          "Access-Control-Origin": "*",
-          "x-access-token": APITOKEN,
+          'Content-Type': 'application/graphql',
+          'Access-Control-Origin': '*',
+          'x-access-token': APITOKEN,
         },
       })
       .then(function (response) {
@@ -84,8 +86,8 @@ export const actions = {
               type: state.contentType,
             });
           }
-          commit("updateLoadState", true);
-          commit("updateParagraphs", [newItems]); // trigger the mutation once data fetched
+          commit('updateLoadState', true);
+          commit('updateParagraphs', [newItems]); // trigger the mutation once data fetched
         }
       })
       .catch(function (err) {
@@ -93,12 +95,12 @@ export const actions = {
       });
   },
   changeContentTypeAction({ commit }, type) {
-    commit("changeContentType", type);
+    commit('changeContentType', type);
   },
   changeBookTypeAction({ commit }, type) {
-    commit("changeBookType", type);
+    commit('changeBookType', type);
   },
   changeSnippetsAmountAction({ commit }, amount) {
-    commit("changesnippetsAmount", amount);
+    commit('changesnippetsAmount', amount);
   },
 };
