@@ -12,3 +12,10 @@
 -   [Check it out](https://moby-dipsum.com)
 -   Text courtesy of [Project Gutenberg](https://www.gutenberg.org/ebooks/2701)
 -   Thanks to [Hero Patterns](https://www.heropatterns.com/) for the awesome SVG backgrounds
+
+Todo:
+- Update to Nuxt 3 and updated static mode
+- Add a quote index page
+- Add numbers to quotes (matching index page)
+- Split moby/alice into two separate frontends - configure with local config file
+- Migrate analytics to Plausible?
