@@ -2,8 +2,10 @@
   <header class="moby-dick-hero hero is-small is-bold">
     <div class="hero-body container-fluid">
       <div class="header-left">
-        <h1 class="title is-size-3" v-html="title" />
-        <h2 class="title is-size-4" v-html="subtitle" />
+        <h1 v-dompurify-html="title" class="title is-size-3" />
+        <h2 v-if="tagline" class="title is-size-4">
+          <nuxt-content :document="tagline" />
+        </h2>
 
         <a
           v-if="allowMenu"
@@ -66,8 +68,6 @@
         >
           <h2>Refresh Text</h2>
         </a>
-
-        <Tab />
       </div>
     </div>
   </header>
@@ -75,13 +75,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import Tab from '~/components/structure/Tab.vue';
 import { debounce } from '~/assets/js/utils';
 
 export default {
-  components: {
-    Tab,
-  },
   data() {
     return {
       filters: {
@@ -90,7 +86,13 @@ export default {
       },
       menuToggled: true,
       allowMenu: true,
+      title: null,
+      tagline: null,
     };
+  },
+  async fetch() {
+    const taglineType = (this.$route.name === 'index' || this.$route.name === 'moby-dick') ? 'moby-dick' : 'alice';
+    this.tagline = await this.$content('tagline', `${taglineType}`).fetch();
   },
   computed: {
     ...mapState({
@@ -101,19 +103,6 @@ export default {
     },
     prettyPrintChoice() {
       return this.filters.choice.charAt(0).toUpperCase() + this.filters.choice.slice(1);
-    },
-    // headings
-    title() {
-      if (this.bookType === 'alice') {
-        return 'Alice in Dipsum-land';
-      }
-      return 'Moby Dipsum';
-    },
-    subtitle() {
-      if (this.bookType === 'alice') {
-        return "A Lorem Ipsum generator using snippets from Lewis Carroll's <br/><strong>Alice's Adventures in Wonderland and Through the Looking Glass</strong>";
-      }
-      return "A Lorem Ipsum generator using snippets from Herman Melville's <strong>Moby Dick</strong>";
     },
   },
   watch: {
@@ -140,6 +129,8 @@ export default {
       else {
         this.allowMenu = true;
       }
+      this.setTitleByRoute(this.$route);
+      this.$fetch();
     },
   },
   beforeMount() {
@@ -206,6 +197,9 @@ export default {
       menuCheckFn();
     });
   },
+  created() {
+    this.setTitleByRoute(this.$route);
+  },
   methods: {
     updateFilters(type, val) {
       // save in localStorage
@@ -254,6 +248,11 @@ export default {
       }
       this.menuToggled = !this.menuToggled;
       this.headerHeight();
+    },
+    setTitleByRoute(route) {
+      if (route.name) {
+        this.title = (route.name === 'index' || route.name === 'moby-dick') ? 'Moby Dipsum' : 'Alice in Dipsum-land';
+      }
     },
     getContent(e) {
       this.$emit('getContent');

@@ -6,7 +6,7 @@
 
 #### This is the repo for the frontend. Check out [the API repo](https://github.com/Recidvst/moby-dick-lorem-ipsum-api)
 
-#### Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book(s).
+#### Make your placeholder content more majestic with random paragraphs and chapter titles from the legendary book(s)
 
 - Using Vue.js/Nuxt for the frontend & Node/Express with MongoDB/GraphQL for the API.
 - [Check it out](https://moby-dipsum.com)
@@ -18,5 +18,7 @@ Todo:
 - Update to Nuxt 3 and updated static mode
 - Add a quote index page
 - Add numbers to quotes (matching index page)
+- Use @nuxt/svg module for SVG icons
+- Add localised head info for seo
 - Split moby/alice into two separate frontends - configure with local config file
 - Migrate analytics to Plausible?

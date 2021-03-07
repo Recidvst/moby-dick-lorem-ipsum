@@ -1,8 +1,14 @@
 <template>
-  <div class="container">
-    <h1>An error occurred</h1>
-    <nuxt-link to="/">Back to site</nuxt-link>
-  </div>
+  <main class="moby-dick-lp-container">
+    <div class="content-wrapper">
+      <h1 v-if="error.statusCode === 404">Page not found</h1>
+      <div v-else style="margin-bottom: 15px;">
+        <strong>An error occurred</strong><br>
+        <span>{{ error.message }}</span>
+      </div><br>
+      <nuxt-link to="/">Go back to homepage</nuxt-link>
+    </div>
+  </main>
 </template>
 
 <script>

@@ -11,6 +11,9 @@ export default {
 
   generate: {
     fallback: true,
+    // exclude: [
+    //   // regex or page name here
+    // ],
   },
 
   /*
@@ -65,6 +68,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    { src: 'plugins/init.client.js' },
+    { src: 'plugins/preview.client.js' },
     { src: 'plugins/persistedState.client.js' },
     { src: 'plugins/vue-dompurify.js' },
     { src: 'plugins/vue-cropString.js' }

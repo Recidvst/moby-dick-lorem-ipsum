@@ -3,7 +3,7 @@
     :class="['tab control-tab tab--side button search-button card-footer-item', `tab--${bookType}`]"
     @click.prevent="toggleBookType($event)"
   >
-    <h2 v-html="text" />
+    <h2 v-dompurify-html="text" />
     <div class="corner-ribbon shadow">
       <span>New!</span>
     </div>
@@ -66,6 +66,7 @@ export default {
   * {
     color: white;
     font-size: 1.25rem;
+    font-family: $family-secondary;
   }
   &:hover {
     cursor: pointer;

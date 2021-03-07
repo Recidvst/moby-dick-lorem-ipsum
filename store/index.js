@@ -11,9 +11,13 @@ export const state = () => ({
   contentType: 'paragraphs',
   bookType: '',
   token: APITOKEN,
+  stateRandomNumber: null,
 });
 
 export const mutations = {
+  updateStateRandomNumber(state, number) {
+    state.stateRandomNumber = number;
+  },
   updateLoadState(state, bool) {
     state.loadState = bool;
   },
@@ -102,5 +106,8 @@ export const actions = {
   },
   changeSnippetsAmountAction({ commit }, amount) {
     commit('changesnippetsAmount', amount);
+  },
+  nuxtServerInit ({ commit }) {
+    commit('updateStateRandomNumber', Math.random())
   },
 };

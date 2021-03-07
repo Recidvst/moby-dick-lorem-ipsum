@@ -45,7 +45,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/multiline-html-element-content-newline': 0,
     'vue/singleline-html-element-content-newline': 0,
-    'vue/no-v-html': 0,
+    'vue/no-v-html': 1,
     'vue/max-attributes-per-line': [
       1,
       {
