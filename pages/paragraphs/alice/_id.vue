@@ -73,6 +73,7 @@ export default {
             const trimmedContent = dataObj.content.trim();
             this.content = {
               id: dataObj._id,
+              identifier: dataObj.identifier,
               text: trimmedContent,
               type: 'paragraphs',
             };

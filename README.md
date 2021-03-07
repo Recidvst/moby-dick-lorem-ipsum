@@ -21,4 +21,5 @@ Todo:
 - Use @nuxt/svg module for SVG icons
 - Add localised head info for seo
 - Split moby/alice into two separate frontends - configure with local config file
+- Pagination for archive pages
 - Migrate analytics to Plausible?

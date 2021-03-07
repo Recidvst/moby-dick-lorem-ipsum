@@ -13,6 +13,8 @@ module.exports = {
   globals: {
     $nuxt: 'readonly',
     ab: 'writeable',
+    workbox: 'readonly',
+    importScripts: 'writeable',
   },
   plugins: ['vue', 'html', 'import'],
   // add your custom rules here

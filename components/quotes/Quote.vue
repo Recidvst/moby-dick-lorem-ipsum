@@ -1,7 +1,7 @@
 <template>
   <li class="box columns is-12 is-flex is-vcentered">
     <blockquote class="column is-11 quote" :data-id="content.id" :data-type="content.type">
-      {{ content.text }}
+      <strong v-if="content.identifier">{{ content.identifier }}_ </strong>{{ content.text }}
     </blockquote>
     <div class="icon-box" :data-clipboard="index">
       <copyIcon />
@@ -46,6 +46,10 @@ export default {
     id: {
       type: String,
       default: '',
+    },
+    identifier: {
+      type: Number,
+      default: -1,
     },
     index: {
       type: Number,
