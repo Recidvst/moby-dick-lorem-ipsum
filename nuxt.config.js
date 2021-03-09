@@ -1,9 +1,9 @@
-require('dotenv').config();
-// const appVersion = require('./package.json').version;
-// const isProduction = process.env.NODE_ENV === 'production' || false;
-let APIURL = process.env.APIURL || 'url';
+let APIURL = process.env.APIURL;
 if (APIURL && APIURL.slice(-1) === '/') {
   APIURL = APIURL.substring(1);
+}
+if (process.env.API_ENV === 'localhost') {
+  APIURL = 'localhost:3001';
 }
 
 export default {
@@ -48,22 +48,23 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // env variables - handled by netlify in production
-  env: {
+  // adding env variables to the Nuxt runtime
+  publicRuntimeConfig: {
     APIURL,
-    APITOKEN: process.env.APITOKEN || 'token',
+    axios: {
+      baseURL: APIURL,
+    },
     GA_ID: process.env.GA_ID || 'gaid',
     SENTRY_DSN: process.env.SENTRY_DSN || 'sentry_dsn',
     SENTRY_DISABLED: process.env.SENTRY_DISABLED || false,
   },
-
-  // adding env variables to the Nuxt runtime
-  publicRuntimeConfig: {
-    APIURL,
+  privateRuntimeConfig: {
     APITOKEN: process.env.APITOKEN || 'token',
-    GA_ID: process.env.GA_ID || 'gaid',
-    SENTRY_DSN: process.env.SENTRY_DSN || 'sentry_dsn',
-    SENTRY_DISABLED: process.env.SENTRY_DISABLED || false,
+  },
+
+  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
+  axios: {
+    retry: { retries: 3 },
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -154,13 +155,6 @@ export default {
       ogHost: 'https://moby-dipsum.com/',
     },
   },
-
-  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {
-    baseURL: APIURL, // Used as fallback if no runtime config is provided
-    retry: { retries: 3 },
-  },
-
   /*
    ** Build configuration
    */

@@ -1,80 +1,66 @@
 <template>
-  <transition name="page">
-    <section class="moby-dick-quotes-main">
-      <div class="container">
-        <ul v-if="loadState && allParagraphs" class="card-content">
-          <Quote
-            v-for="(content, index) in allParagraphs"
-            :key="index"
-            :content="content"
-            :index="index"
-            book-type="alice"
-          />
-        </ul>
-      </div>
-    </section>
-  </transition>
+  <section class="moby-dick-quotes-main alice">
+    <div class="container">
+      <ul v-if="loadState" class="card-content">
+        <Quote
+          v-for="(content, index) in snippetsArray"
+          :key="index"
+          :content="content"
+          :index="index"
+          book-type="alice"
+        />
+      </ul>
+    </div>
+  </section>
 </template>
 
 <script>
-import axios from 'axios';
 import Quote from '~/components/quotes/Quote';
 
 export default {
   components: {
     Quote,
   },
-  async asyncData(env) {
-
-    // build graphql query
-    const query = `query {
-      book(name: "alice") {
-        paragraphs(count: 0) {
-          _id
-          identifier
-          content
-        },
-      },
-    }`;
-    // run api query
-    const response = await axios
-      .post(`${env.$config.APIURL}/graphql`, query, {
-        type: 'cors',
-        headers: {
-          'Content-Type': 'application/graphql',
-          'Access-Control-Origin': '*',
-          'x-access-token': env.$config.APITOKEN,
-        },
-      }).catch(function (err) {
-        console.warn(err); // eslint-disable-line
-      });
-
-    const data = response.data.data || response.data;
-
-    const allParagraphs = data.book.paragraphs.map((quote) => {
-      return {
-        id: quote._id,
-        identifier: quote.identifier,
-        text: quote.content.trim(),
-        type: 'paragraphs',
-      };
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (from.path) {
+        vm.prevRoute = from.path;
+      }
     });
-
-    return { allParagraphs }
-
   },
+  transition: 'slide-right',
   data() {
     return {
-      loadState: false,
-    }
+      faviconPath: require('@/assets/icons/alice/favicon.png'),
+    };
   },
-  watch: {
-    allParagraphs(val) {
-      this.loadState = true;
+  computed: {
+    loadState() {
+      // data back?
+      return this.$store.state.loadState;
+    },
+    snippetsArray() {
+      // requested quotes from api
+      return this.$store.state.snippetsArray;
     },
   },
-  mounted() {
-    this.loadState = true;
+  created() {
+    this.$store.dispatch('changeBookTypeAction', 'alice');
   },
-}
+  mounted() {
+    // get first items
+    this.$store.dispatch('getMultipleRandomAction', 'alice');
+    this.updateFavicon();
+  },
+  methods: {
+    updateFavicon() {
+      // swithes between icons (moby dick and alice)
+      const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = this.faviconPath;
+      document.getElementsByTagName('head')[0].appendChild(link);
+    },
+  },
+};
 </script>

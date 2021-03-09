@@ -15,11 +15,10 @@
 
 Todo:
 
-- Update to Nuxt 3 and updated static mode
-- Add a quote index page
-- Add numbers to quotes (matching index page)
+- Add quote index/archive pages (in progress)
+- Pagination for archive pages (in progress)
 - Use @nuxt/svg module for SVG icons
 - Add localised head info for seo
+- Add a 'get one random snippet' page
 - Split moby/alice into two separate frontends - configure with local config file
-- Pagination for archive pages
 - Migrate analytics to Plausible?

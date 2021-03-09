@@ -123,7 +123,8 @@ export default {
       this.$store.dispatch('getMultipleRandomAction');
     },
     $route(newRoute, oldRoute) {
-      if (newRoute.params.id) {
+      console.log(newRoute.name);
+      if (newRoute.params.id || newRoute.name.includes('archive')) {
         this.allowMenu = false;
       }
       else {
@@ -164,8 +165,8 @@ export default {
     }
   },
   mounted() {
-    // don't show header controls on single snippet pages
-    if (this.$route.params.id) {
+    // don't show header controls on single snippet pages or archive pages
+    if (this.$route.params.id || this.$route.name.includes('archive')) {
       this.allowMenu = false;
     }
     else {

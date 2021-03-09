@@ -11,7 +11,8 @@
   "author": "Chris Snowden <cdsnowden@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "SET NODE_ENV=development & nuxt -o --port 5678",
+    "dev": "cross-env NODE_ENV=development nuxt -o --port 5678",
+    "dev:local": "cross-env NODE_ENV=development API_ENV=localhost nuxt -o --port 5678",
     "build": "nuxt build",
     "build:a": "nuxt build -a",
     "start": "nuxt start -o --port 5678",
@@ -66,7 +67,7 @@
     "@nuxtjs/svg": "^0.1.12",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.1.0",
-    "cross-env": "^5.2.0",
+    "cross-env": "^5.2.1",
     "eslint": "^7.21.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^4.0.2",
