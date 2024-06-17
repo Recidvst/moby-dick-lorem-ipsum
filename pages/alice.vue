@@ -10,6 +10,7 @@
           book-type="alice"
         />
       </ul>
+      <h2 v-if="loadState && snippetsArray.length < 1" class="title is-size-5 has-text-white mt-5">No content found, something's up...</h2>
     </div>
   </section>
 </template>
@@ -32,6 +33,7 @@ export default {
   data() {
     return {
       faviconPath: require('@/assets/icons/alice/favicon.png'),
+      prevRoute: '',
     };
   },
   computed: {

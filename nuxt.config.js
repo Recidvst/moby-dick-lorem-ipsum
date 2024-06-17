@@ -1,21 +1,5 @@
-let APIURL = process.env.APIURL;
-if (APIURL && APIURL.slice(-1) === '/') {
-  APIURL = APIURL.substring(1);
-}
-if (process.env.API_ENV === 'localhost') {
-  APIURL = 'localhost:3001';
-}
-
 export default {
   target: 'static',
-
-  generate: {
-    fallback: true,
-    // exclude: [
-    //   // regex or page name here
-    // ],
-  },
-
   /*
    ** Global page headers
    */
@@ -50,21 +34,12 @@ export default {
 
   // adding env variables to the Nuxt runtime
   publicRuntimeConfig: {
-    APIURL,
-    axios: {
-      baseURL: APIURL,
-    },
     GA_ID: process.env.GA_ID || 'gaid',
     SENTRY_DSN: process.env.SENTRY_DSN || 'sentry_dsn',
     SENTRY_DISABLED: process.env.SENTRY_DISABLED || false,
   },
   privateRuntimeConfig: {
     APITOKEN: process.env.APITOKEN || 'token',
-  },
-
-  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
-  axios: {
-    retry: { retries: 3 },
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -80,7 +55,6 @@ export default {
    ** Nuxt.js modules
    */
   modules: [
-    '@nuxtjs/axios',
     '@nuxt/content',
     '@nuxtjs/dotenv',
     '@nuxtjs/google-analytics',
@@ -92,12 +66,6 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/eslint-module',
-    [
-      '@nuxtjs/stylelint-module',
-      {
-        fix: true,
-      }
-    ],
     '@nuxtjs/fontawesome',
     '@nuxtjs/style-resources',
     '@nuxtjs/svg'
@@ -184,78 +152,34 @@ export default {
     },
   },
 
-  // generate: {
-  //   fallback: true,
-  //   routes () {
-  //     // build graphql query
-  //     const query = `query {
-  //       bookalice: book(name: "alice") {
-  //         titles(random: false) {
-  //           _id
-  //           identifier
-  //           content
-  //         },
-  //         paragraphs(random: false) {
-  //           _id
-  //           identifier
-  //           content
-  //         },
-  //       },
-  //       bookmoby: book(name: "moby") {
-  //         titles(random: false) {
-  //           _id
-  //           identifier
-  //           content
-  //         },
-  //         paragraphs(random: false) {
-  //           _id
-  //           identifier
-  //           content
-  //         },
-  //       },
-  //     }`;
-  //     let allContent = axios.post(`${APIURL}/graphql`, query, {
-  //       type: "cors",
-  //       headers: {
-  //         "Content-Type": "application/graphql",
-  //         "Access-Control-Origin": "*",
-  //         "x-access-token": APITOKEN
-  //       }
-  //     })
-  //     .then(function(response) {
-  //       if (response.data && response.data.data) {
-  //         return response.data.data;
-  //       }
-  //     	return response;
-  //     })
-  //     .then(data => {
-  //       const aliceContent = data.bookalice;
-  //       const mobyContent = data.bookalice;
-  //       // map the returned data to URLs for Nuxt
-  //       if (aliceContent && mobyContent) {
-  //         const aliceTitles = aliceContent.titles.map((title) => {
-  //           return '/titles/alice/' + title._id;
-  //         });
-  //         const aliceParagraphs = aliceContent.paragraphs.map((paragraph) => {
-  //           return '/paragraphs/alice/' + paragraph._id;
-  //         });
-  //         const mobyTitles = mobyContent.titles.map((title) => {
-  //           return '/titles/moby-dick/' + title._id;
-  //         });
-  //         const mobyParagraphs = mobyContent.paragraphs.map((paragraph) => {
-  //           return '/paragraphs/moby-dick/' + paragraph._id;
-  //         });
-  //         // return combined array of all content
-  //         return [...aliceTitles, ...aliceParagraphs, ...mobyTitles, ...mobyParagraphs];
-  //       }
-  //       return [];
-  //     });
-  //     // return promise into routes
-  //     return Promise.all([allContent]).then(values => {
-  //       return values.join().split(',');
-  //     });
-  //   }
-  // },
+  generate: {
+    fallback: true,
+    routes () {
+      const { $content } = require('@nuxt/content');
+      const aliceTitles = $content(
+        'combined-alice-in-wonderland-titles').fetch();
+      const aliceParagraphs = $content('combined-alice-in-wonderland-paragraphs').fetch();
+      const mobyTitles = $content('moby-dick-or-the-whale-paragraphs').fetch();
+      const mobyParagraphs = $content('moby-dick-or-the-whale-paragraphs').fetch();
+
+      return Promise.all([aliceTitles, aliceParagraphs, mobyTitles, mobyParagraphs]).then(
+        ([aliceTitlesData, aliceParagraphsData, mobyTitlesData, mobyParagraphsData]) => {
+          // Map each item to a route
+          const aliceTitleRoutes = aliceTitlesData.map(title => `/titles/alice/${title.id}`);
+          const aliceParagraphRoutes = aliceParagraphsData.map(para => `/paragraphs/alice/${para.id}`);
+          const mobyTitleRoutes = mobyTitlesData.map(title => `/titles/moby-dick/${title.id}`);
+          const mobyParagraphRoutes = mobyParagraphsData.map(para => `/paragraphs/moby-dick/${para.id}`);
+
+          return [
+            ...aliceTitleRoutes,
+            ...aliceParagraphRoutes,
+            ...mobyTitleRoutes,
+            ...mobyParagraphRoutes
+          ];
+        }
+      );
+    },
+  },
 
   sitemap: {
     hostname: 'https://moby-dipsum.com/',

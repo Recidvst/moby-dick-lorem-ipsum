@@ -9,10 +9,7 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Quote from '~/components/quotes/Quote';
-const APIURL = process.env.APIURL;
-const APITOKEN = process.env.APITOKEN;
 
 export default {
   components: {
@@ -26,72 +23,39 @@ export default {
     });
   },
   transition: 'slide-left',
+  async asyncData({ params, $content, redirect }) {
+    const paragraphs = await $content('data', { deep: true })
+      .where({ slug: { $contains: 'combined-alice-in-wonderland-paragraphs' } })
+      .fetch();
+
+    const paragraph = paragraphs.find(t => Number(t.id) === Number(params.id));
+    if (!paragraph) {
+      return redirect('/404');
+    }
+    const trimmedContent = paragraph.content.trim();
+
+    return {
+      paragraph,
+      id: paragraph.id.toString(),
+      content: {
+        id: paragraph.id,
+        identifier: paragraph.id,
+        text: trimmedContent,
+        type: 'paragraphs',
+      },
+      loadState: true,
+    }
+  },
   data() {
     return {
       id: this.$route.params.id,
       content: {},
       loadState: false,
+      prevRoute: '',
     };
   },
   mounted() {
     this.$store.dispatch('changeBookTypeAction', 'alice');
-    this.getParagraph();
-  },
-  methods: {
-    // fire action to retrieve the requested paragraph
-    async getParagraph(event) {
-      // build graphql query
-      const query = `query {
-        book(name: "alice") {
-          paragraphs(_id:"${this.$route.params.id}") {
-            _id
-            identifier
-            content
-          },
-        },
-      }`;
-      // run api query
-      await axios
-        .post(`${APIURL}/graphql`, query, {
-          type: 'cors',
-          headers: {
-            'Content-Type': 'application/graphql',
-            'Access-Control-Origin': '*',
-            'x-access-token': APITOKEN,
-          },
-        })
-        .then(function (response) {
-          if (response.data && response.data.data) {
-            return response.data.data;
-          }
-          return response.data;
-        })
-        .then((data) => {
-          const dataArr = data.book.paragraphs;
-          if (dataArr && dataArr.length > 0) {
-            const dataObj = dataArr[0];
-            const trimmedContent = dataObj.content.trim();
-            this.content = {
-              id: dataObj._id,
-              identifier: dataObj.identifier,
-              text: trimmedContent,
-              type: 'paragraphs',
-            };
-            this.loadState = true;
-          }
-          else {
-            this.content = {
-              id: -1,
-              text: "Whoops, something's gone wrong ... that snippet wasn't found :(",
-              type: 'paragraphs',
-            };
-            this.loadState = true;
-          }
-        })
-        .catch(function (err) {
-          console.warn(err); // eslint-disable-line
-        });
-    },
   },
 };
 </script>

@@ -3,7 +3,6 @@
     <section class="moby-dick-quotes-main">
       <div class="container">
         <h1>This is a list of all available paragraph snippets for Alice in Wonderland</h1>
-        <h2>Click the 'load more' button to load the next ten or hit 'back' to go back to viewing random snippets</h2>
         <button>Back</button>
         <ul v-if="loadState && allParagraphs" class="card-content">
           <Quote
@@ -14,79 +13,43 @@
             book-type="alice"
           />
         </ul>
-        <button @click="fetchNextPage">Load more</button>
+        <h2 v-if="loadState && allParagraphs.length < 1" class="title is-size-5 has-text-white mt-5">No content found, something's up...</h2>
       </div>
     </section>
   </transition>
 </template>
 
 <script>
-import axios from 'axios';
 import Quote from '~/components/quotes/Quote';
 
 export default {
   components: {
     Quote,
   },
-  async asyncData( { $config: { APIURL } } ) {
+  async asyncData({ $content }) {
+    const paragraphs = await $content('data', { deep: true })
+      .where({ slug: { $contains: 'combined-alice-in-wonderland-paragraphs' } })
+      .fetch();
 
-    // build graphql query
-    const query = `query {
-      book(name: "alice") {
-        totalParagraphCount,
-        paragraphs(count: 10, skip: 0) {
-          _id
-          identifier
-          content
-        },
-      },
-    }`;
-    // run api query
-    const response = await axios
-      .post(`${APIURL}/graphql`, query, {
-        type: 'cors',
-        headers: {
-          'Content-Type': 'application/graphql',
-          'Access-Control-Origin': '*',
-          'x-access-token': process.env.APITOKEN,
-        },
-      }).catch(function (err) {
-        console.warn(err); // eslint-disable-line
-      });
-
-    const data = response.data.data || response.data;
-
-    const allParagraphs = data.book.paragraphs.map((quote) => {
+    const allParagraphs = paragraphs.map((quote) => {
       return {
-        id: quote._id,
-        identifier: quote.identifier,
+        id: quote.id,
+        identifier: quote.id,
         text: quote.content.trim(),
         type: 'paragraphs',
       };
     });
 
-    return { allParagraphs }
+    return {
+      allParagraphs,
+      loadState: true,
+    }
   },
   data() {
     return {
+      allParagraphs: [],
       loadState: false,
-    }
-  },
-  watch: {
-    allParagraphs(val) {
-      this.loadState = true;
-    },
-  },
-  mounted() {
-    this.loadState = true;
-  },
-  methods: {
-    fetchNextPage() {
-      console.log('fetchNextPage');
-      // move data fetch logic to here - call once on load and then again on each pagination request, using method
-      // export the function from a helper function
-      // scroll to bottom when loaded
-    },
+    };
   },
 }
 </script>

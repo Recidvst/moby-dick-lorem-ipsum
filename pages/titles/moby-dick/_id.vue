@@ -9,10 +9,7 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Quote from '~/components/quotes/Quote';
-const APIURL = process.env.APIURL;
-const APITOKEN = process.env.APITOKEN;
 
 export default {
   components: {
@@ -26,72 +23,40 @@ export default {
     });
   },
   transition: 'slide-left',
+  async asyncData({ params, $content, redirect }) {
+    const titles = await $content('data', { deep: true })
+      .where({ slug: { $contains: 'moby-dick-or-the-whale-titles' } })
+      .fetch();
+
+    const title = titles.find(t => Number(t.id) === Number(params.id));
+    if (!title) {
+      return redirect('/404');
+    }
+
+    const trimmedContent = title.content.trim();
+
+    return {
+      title,
+      id: title.id.toString(),
+      content: {
+        id: title.id,
+        identifier: title.id,
+        text: trimmedContent,
+        type: 'titles',
+      },
+      loadState: true,
+    }
+  },
   data() {
     return {
       id: this.$route.params.id,
       content: {},
       loadState: false,
+      prevRoute: '',
     };
   },
   mounted() {
     this.$store.dispatch('changeBookTypeAction', 'moby-dick');
-    this.getTitle();
-  },
-  methods: {
-    // fire action to retrieve the requested title
-    async getTitle(event) {
-      // build graphql query
-      const query = `query {
-        book(name: "moby-dick") {
-          titles(_id:"${this.$route.params.id}") {
-            _id
-            identifier
-            content
-          },
-        },
-      }`;
-      // run api query
-      await axios
-        .post(`${APIURL}/graphql`, query, {
-          type: 'cors',
-          headers: {
-            'Content-Type': 'application/graphql',
-            'Access-Control-Origin': '*',
-            'x-access-token': APITOKEN,
-          },
-        })
-        .then(function (response) {
-          if (response.data && response.data.data) {
-            return response.data.data;
-          }
-          return response.data;
-        })
-        .then((data) => {
-          const dataArr = data.book.titles;
-          if (dataArr && dataArr.length > 0) {
-            const dataObj = dataArr[0];
-            const trimmedContent = dataObj.content.trim();
-            this.content = {
-              id: dataObj._id,
-              identifier: dataObj.identifier,
-              text: trimmedContent,
-              type: 'titles',
-            };
-            this.loadState = true;
-          }
-          else {
-            this.content = {
-              id: -1,
-              text: "Whoops, something's gone wrong ... that snippet wasn't found :(",
-              type: 'titles',
-            };
-            this.loadState = true;
-          }
-        })
-        .catch(function (err) {
-          console.warn(err); // eslint-disable-line
-        });
-    },
   },
 };
 </script>

@@ -1,8 +1,4 @@
-import axios from 'axios';
-import { cropString } from '../assets/js/utils';
-
-const APIURL = process.env.APIURL;
-const APITOKEN = process.env.APITOKEN;
+import { cropString } from '~/assets/js/utils';
 
 export const state = () => ({
   loadState: false,
@@ -10,7 +6,6 @@ export const state = () => ({
   snippetsAmount: 5,
   contentType: 'paragraphs',
   bookType: '',
-  token: APITOKEN,
   stateRandomNumber: null,
 });
 
@@ -42,61 +37,38 @@ export const mutations = {
 
 export const actions = {
   // fetch multiple paragraphs/titles
-  getMultipleRandomAction({ commit, state }, type, count) {
+  async getMultipleRandomAction({ commit, state }, bookType = 'moby-dick', count) {
     commit('updateLoadState', false);
     const getCount = count || state.snippetsAmount; // amount requested
-    let bookType = 'moby-dick';
-    if (type !== undefined) {
-      bookType = type;
+
+    let contentLocationPrefix = 'moby-dick-or-the-whale';
+    let contentLocationSuffix = '-paragraphs';
+
+    if (state.contentType === 'titles') {
+      contentLocationSuffix = '-titles';
     }
-    else if (state.bookType !== '') {
-      bookType = state.bookType; // fallback
+    if (bookType === 'alice') {
+      contentLocationPrefix = 'combined-alice-in-wonderland';
     }
-    // build graphql query
-    const query = `query {
-      book(name: "${bookType}") {
-        ${state.contentType}(count: ${getCount}, random: true) {
-          _id
-          identifier
-          content
-        },
-      },
-		}`;
-    // run api query
-    axios
-      .post(`${APIURL}/graphql`, query, {
-        type: 'cors',
-        headers: {
-          'Content-Type': 'application/graphql',
-          'Access-Control-Origin': '*',
-          'x-access-token': APITOKEN,
-        },
-      })
-      .then(function (response) {
-        if (response.data && response.data.data) {
-          return response.data.data;
-        }
-        return response;
-      })
-      .then((data) => {
-        const dataArr = data.book[state.contentType];
-        if (dataArr) {
-          const newItems = [];
-          for (const item in dataArr) {
-            const trimmedPara = cropString(dataArr[item].content, 1500).trim();
-            newItems.push({
-              id: dataArr[item]._id,
-              text: trimmedPara.trim(),
-              type: state.contentType,
-            });
-          }
-          commit('updateLoadState', true);
-          commit('updateParagraphs', [newItems]); // trigger the mutation once data fetched
-        }
-      })
-      .catch(function (err) {
-        console.warn(err); // eslint-disable-line
+
+    const content = await this.$content('data', { deep: true })
+      .where({ slug: { $contains: `${contentLocationPrefix}${contentLocationSuffix}` } })
+      .fetch();
+
+    const randomContent = content.sort(() => 0.5 - Math.random()).slice(0, getCount);
+
+    const newItems = [];
+    for (const item in randomContent) {
+      const trimmedPara = cropString(randomContent[item].content, 1500).trim();
+      newItems.push({
+        id: randomContent[item].id,
+        identifier: randomContent[item].id,
+        text: trimmedPara.trim(),
+        type: state.contentType,
       });
+    }
+    commit('updateLoadState', true);
+    commit('updateParagraphs', [newItems]); // trigger the mutation once data fetched
   },
   changeContentTypeAction({ commit }, type) {
     commit('changeContentType', type);

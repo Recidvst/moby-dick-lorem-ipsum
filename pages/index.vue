@@ -11,6 +11,7 @@
             book-type="moby-dick"
           />
         </ul>
+        <h2 v-if="loadState && snippetsArray.length < 1" class="title is-size-5 has-text-white mt-5">No content found, something's up...</h2>
       </div>
     </section>
   </transition>
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       faviconPath: require('@/assets/icons/mobydick/favicon.png'),
+      prevRoute: '',
     };
   },
   computed: {

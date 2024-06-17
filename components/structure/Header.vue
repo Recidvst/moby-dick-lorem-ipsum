@@ -18,7 +18,7 @@
           <span v-if="!menuToggled">Open Controls</span>
         </a>
       </div>
-      <div v-if="menuToggled && allowMenu" class="header-right controls">
+      <div v-if="menuToggled && allowMenu && !isArchive" class="header-right controls">
         <ul class="type-filter">
           <label for="checkbox-fetch-paras">
             <input
@@ -104,6 +104,9 @@ export default {
     prettyPrintChoice() {
       return this.filters.choice.charAt(0).toUpperCase() + this.filters.choice.slice(1);
     },
+    isArchive() {
+      return this.$route.path.includes('archive');
+    },
   },
   watch: {
     // watch for filter changes and update localstorage
@@ -123,7 +126,6 @@ export default {
       this.$store.dispatch('getMultipleRandomAction');
     },
     $route(newRoute, oldRoute) {
-      console.log(newRoute.name);
       if (newRoute.params.id || newRoute.name.includes('archive')) {
         this.allowMenu = false;
       }
@@ -132,6 +134,8 @@ export default {
       }
       this.setTitleByRoute(this.$route);
       this.$fetch();
+      // trigger
+      this.headerHeight();
     },
   },
   beforeMount() {
@@ -234,9 +238,9 @@ export default {
           headerHeight = document.querySelector('.moby-dick-hero .header-left').offsetHeight + 30;
         }
         if (headerHeight && headerHeight > 0) {
-          body.style.paddingTop = `${headerHeight - 30}px`;
+          body.style.paddingTop = `${headerHeight}px`;
         }
-      }, 1);
+      }, 500);
     },
     toggleHeader() {
       const headerControls = document.querySelector('.moby-dick-hero .hero-body .controls');
@@ -255,7 +259,7 @@ export default {
         this.title = (route.name === 'index' || route.name === 'moby-dick') ? 'Moby Dipsum' : 'Alice in Dipsum-land';
       }
     },
-    getContent(e) {
+    getContent() {
       this.$emit('getContent');
     },
   },

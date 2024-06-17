@@ -10,6 +10,7 @@
           book-type="moby-dick"
         />
       </ul>
+      <h2 v-if="loadState && snippetsArray.length < 1" class="title is-size-5 has-text-white mt-5">No content found, something's up...</h2>
     </div>
   </section>
 </template>
@@ -32,6 +33,7 @@ export default {
   data() {
     return {
       faviconPath: require('@/assets/icons/mobydick/favicon.png'),
+      prevRoute: '',
     };
   },
   computed: {
@@ -54,7 +56,7 @@ export default {
   },
   methods: {
     updateFavicon() {
-      // swithes between icons (moby dick and alice)
+      // switches between icons (moby dick and alice)
       const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
       link.type = 'image/x-icon';
       link.rel = 'shortcut icon';

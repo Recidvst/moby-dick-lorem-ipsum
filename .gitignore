@@ -31,3 +31,7 @@ dist
 .env.production.local
 config.json
 config.js
+
+.idea
+.vs
+.vscode
