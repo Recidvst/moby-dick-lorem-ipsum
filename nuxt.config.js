@@ -156,11 +156,18 @@ export default {
     fallback: true,
     routes () {
       const { $content } = require('@nuxt/content');
-      const aliceTitles = $content(
-        'combined-alice-in-wonderland-titles').fetch();
-      const aliceParagraphs = $content('combined-alice-in-wonderland-paragraphs').fetch();
-      const mobyTitles = $content('moby-dick-or-the-whale-paragraphs').fetch();
-      const mobyParagraphs = $content('moby-dick-or-the-whale-paragraphs').fetch();
+      const aliceTitles = $content('data', { deep: true })
+        .where({ slug: { $contains: 'combined-alice-in-wonderland-titles' } })
+        .fetch();
+      const aliceParagraphs = $content('data', { deep: true })
+        .where({ slug: { $contains: 'combined-alice-in-wonderland-paragraphs' } })
+        .fetch();
+      const mobyTitles = $content('data', { deep: true })
+        .where({ slug: { $contains: 'moby-dick-or-the-whale-titles' } })
+        .fetch();
+      const mobyParagraphs = $content('data', { deep: true })
+        .where({ slug: { $contains: 'moby-dick-or-the-whale-paragraphs' } })
+        .fetch();
 
       return Promise.all([aliceTitles, aliceParagraphs, mobyTitles, mobyParagraphs]).then(
         ([aliceTitlesData, aliceParagraphsData, mobyTitlesData, mobyParagraphsData]) => {
