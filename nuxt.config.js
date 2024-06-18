@@ -154,38 +154,39 @@ export default {
 
   generate: {
     fallback: true,
-    routes () {
-      const { $content } = require('@nuxt/content');
-      const aliceTitles = $content('data', { deep: true })
-        .where({ slug: { $contains: 'combined-alice-in-wonderland-titles' } })
-        .fetch();
-      const aliceParagraphs = $content('data', { deep: true })
-        .where({ slug: { $contains: 'combined-alice-in-wonderland-paragraphs' } })
-        .fetch();
-      const mobyTitles = $content('data', { deep: true })
-        .where({ slug: { $contains: 'moby-dick-or-the-whale-titles' } })
-        .fetch();
-      const mobyParagraphs = $content('data', { deep: true })
-        .where({ slug: { $contains: 'moby-dick-or-the-whale-paragraphs' } })
-        .fetch();
-
-      return Promise.all([aliceTitles, aliceParagraphs, mobyTitles, mobyParagraphs]).then(
-        ([aliceTitlesData, aliceParagraphsData, mobyTitlesData, mobyParagraphsData]) => {
-          // Map each item to a route
-          const aliceTitleRoutes = aliceTitlesData.map(title => `/titles/alice/${title.id}`);
-          const aliceParagraphRoutes = aliceParagraphsData.map(para => `/paragraphs/alice/${para.id}`);
-          const mobyTitleRoutes = mobyTitlesData.map(title => `/titles/moby-dick/${title.id}`);
-          const mobyParagraphRoutes = mobyParagraphsData.map(para => `/paragraphs/moby-dick/${para.id}`);
-
-          return [
-            ...aliceTitleRoutes,
-            ...aliceParagraphRoutes,
-            ...mobyTitleRoutes,
-            ...mobyParagraphRoutes
-          ];
-        }
-      );
-    },
+    // ssr: false,
+    // routes () {
+    //   const { $content } = require('@nuxt/content');
+    //   const aliceTitles = $content('data', { deep: true })
+    //     .where({ slug: { $contains: 'combined-alice-in-wonderland-titles' } })
+    //     .fetch();
+    //   const aliceParagraphs = $content('data', { deep: true })
+    //     .where({ slug: { $contains: 'combined-alice-in-wonderland-paragraphs' } })
+    //     .fetch();
+    //   const mobyTitles = $content('data', { deep: true })
+    //     .where({ slug: { $contains: 'moby-dick-or-the-whale-titles' } })
+    //     .fetch();
+    //   const mobyParagraphs = $content('data', { deep: true })
+    //     .where({ slug: { $contains: 'moby-dick-or-the-whale-paragraphs' } })
+    //     .fetch();
+    //
+    //   return Promise.all([aliceTitles, aliceParagraphs, mobyTitles, mobyParagraphs]).then(
+    //     ([aliceTitlesData, aliceParagraphsData, mobyTitlesData, mobyParagraphsData]) => {
+    //       // Map each item to a route
+    //       const aliceTitleRoutes = aliceTitlesData.map(title => `/titles/alice/${title.id}`);
+    //       const aliceParagraphRoutes = aliceParagraphsData.map(para => `/paragraphs/alice/${para.id}`);
+    //       const mobyTitleRoutes = mobyTitlesData.map(title => `/titles/moby-dick/${title.id}`);
+    //       const mobyParagraphRoutes = mobyParagraphsData.map(para => `/paragraphs/moby-dick/${para.id}`);
+    //
+    //       return [
+    //         ...aliceTitleRoutes,
+    //         ...aliceParagraphRoutes,
+    //         ...mobyTitleRoutes,
+    //         ...mobyParagraphRoutes
+    //       ];
+    //     }
+    //   );
+    // },
   },
 
   sitemap: {
