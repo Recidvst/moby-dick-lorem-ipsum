@@ -1,6 +1,6 @@
 <template>
   <li class="box columns is-12 is-flex is-vcentered">
-    <blockquote class="column is-11 quote" :data-id="content.id" :data-type="content.type" data-booktype="bookType">
+    <blockquote class="column is-11 quote" :data-id="content.id" :data-type="content.type" :data-booktype="bookType">
       <strong v-if="isArchive && content.identifier" @click.prevent="goToSnippet($event)">({{ content.identifier }}) </strong>{{ content.text }}
     </blockquote>
     <div class="icon-box" :data-clipboard="index">
