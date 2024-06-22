@@ -74,26 +74,6 @@ export function isObject(o) {
   return !!o && o.constructor === Object && Object.keys(o).length !== 0 && typeof o !== 'undefined';
 }
 
-// is email?
-export function validateEmail(email) {
-  const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  return re.test(email);
-}
-
-// AUTH
-// Set JWT token in localStorage
-export function setJWTstorage(key, value) {
-  localStorage.setItem(key, value);
-}
-// Get JWT token from localStorage
-export function getJWTstorage(key) {
-  return localStorage.getItem(key);
-}
-// Delete JTW token from localStorage
-export function deleteJWTstorage(key) {
-  localStorage.removeItem(key);
-}
-
 // copy to clipboard
 export function copyToClipboard(str) {
   const el = document.createElement('textarea');
