@@ -34,12 +34,8 @@ export default {
 
   // adding env variables to the Nuxt runtime
   publicRuntimeConfig: {
-    GA_ID: process.env.GA_ID || 'gaid',
-    SENTRY_DSN: process.env.SENTRY_DSN || 'sentry_dsn',
-    SENTRY_DISABLED: process.env.SENTRY_DISABLED || false,
   },
   privateRuntimeConfig: {
-    APITOKEN: process.env.APITOKEN || 'token',
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -57,10 +53,9 @@ export default {
   modules: [
     '@nuxt/content',
     '@nuxtjs/dotenv',
-    '@nuxtjs/google-analytics',
     '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
-    '@nuxtjs/sentry'
+    '@nuxtjs/applicationinsights',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -102,12 +97,8 @@ export default {
     continuous: true,
   },
 
-  sentry: {
-    dsn: process.env.SENTRY_DSN,
-  },
-
-  googleAnalytics: {
-    id: process.env.GA_ID,
+  appInsights: {
+    instrumentationKey: process.env.APP_INSIGHTS_CS,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa

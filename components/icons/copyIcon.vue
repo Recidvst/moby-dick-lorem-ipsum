@@ -42,7 +42,19 @@ export default {
         if (textElement) {
           const textToCopy = textElement.textContent;
           const strippedTextToCopy = textToCopy.replace(/\s\s+/g, ' ').trim();
+          const snippetID = textElement.getAttribute('data-id');
+          const snippetType = textElement.getAttribute('data-type');
+          const bookType = textElement.getAttribute('data-booktype');
           copyToClipboard(strippedTextToCopy);
+          this.$appInsights.trackEvent({
+            name: 'copyToClipboard',
+            properties: {
+              textToCopy: strippedTextToCopy,
+              snippetID,
+              bookType,
+              contentType: snippetType,
+            }
+          });
           target.classList.add('clicked');
           setTimeout(() => {
             target.classList.remove('clicked');
