@@ -55,7 +55,7 @@ export default {
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
     '@nuxtjs/sitemap',
-    '@nuxtjs/applicationinsights',
+    '@nuxtjs/applicationinsights'
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
@@ -98,7 +98,11 @@ export default {
   },
 
   appInsights: {
-    instrumentationKey: process.env.APP_INSIGHTS_CS,
+    instrumentationKey: process.env.APP_INSIGHTS_KEY,
+    config: {
+      enableLiveMetrics: true,
+      enableDebug: true,
+    },
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -139,6 +143,19 @@ export default {
     postcss: {
       plugins: {
         'postcss-custom-properties': false,
+      },
+    },
+    html: {
+      minify: {
+        collapseBooleanAttributes: true,
+        decodeEntities: true,
+        minifyCSS: true,
+        minifyJS: true,
+        processConditionalComments: true,
+        removeEmptyAttributes: true,
+        removeRedundantAttributes: true,
+        trimCustomFragments: true,
+        useShortDoctype: true,
       },
     },
   },
