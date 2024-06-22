@@ -53,7 +53,7 @@ export default {
               snippetID,
               bookType,
               contentType: snippetType,
-            }
+            },
           });
           target.classList.add('clicked');
           setTimeout(() => {
